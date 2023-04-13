@@ -1,0 +1,174 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+{% endblock css %}
+{% block content %}
+    {% if tnb < 10 %}
+        <div class="container">
+            <div class="row">
+                <div class="col md-12 text-center">
+                    <h1 class="mt-5 mb-5 text-white">{% trans "Not Enough User For Ranking" %}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h1 class="mt-5 mb-5">
+                            <b>{% trans "Total Number of Bots" %}: <span class="crypt-up">{{ tnb }}</span></b>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4 mt-4 justify-content-center mx-auto" style="width: 260px;">
+                <div class="col-md-6">
+                    <a href="{% url 'allbots-page' 'default'|slugify %}">
+                        <button style="cursor: pointer;" class="crypt-button-red-full">{% trans "View All" %}</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col md-12 text-center">
+                    <h1 class="mt-5 mb-5 text-white">{% trans "Top 10 Trading Bots By Profit" %}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="text-align: right">
+                        <label for="sort-by" style="color: white; ">{% trans "Unit" %}</label>
+                        <select id="sort-by"
+                                style="color: #ffffff; background-color: #0e162d; background-clip: padding-box; border: 1px solid #2f3a56; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+                            <option value="usd">{% trans "USD ($)" %}</option>
+                            <option value="percent">{% trans "Percentage (%)" %}</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped crypt-table-market-cap" id="bot-table">
+                            <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col" class="text-left pl-2">{% trans "Name" %}</th>
+                                <th scope="col">{% trans "Exchange" %}</th>
+                                <th scope="col">{% trans "Pair" %}</th>
+                                <th scope="col">{% trans "Candle Size" %}</th>
+                                <th scope="col">{% trans "Simultaneous Trades" %}</th>
+                                <th scope="col">{% trans "Strategy" %}</th>
+                                <th scope="col">{% trans "Creator" %}</th>
+                                <th scope="col">{% trans "Total Profit" %}</th>
+                                <th scope="col">{% trans "Paper" %}</th>
+                                <th scope="col">{% trans "Live" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <!-- <h1 class="mt-5 mb-3"><b>Total Cummulative Profit: <span class="crypt-up">$884,056,234,480</span></b></h1> -->
+                        <h1 class="mt-5 mb-3"><b>{% trans "Total Number of Bots" %}: <span
+                                class="crypt-up">{{ tnb }}</span></b></h1>
+                        <p class="mb-5"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4 mt-4" style="margin-left: 43%; width: 260px;">
+                <div class="col-md-6">
+                    <a href="{% url 'allbots-page' 'default'|slugify %}">
+                        <button style="cursor: pointer;" class="crypt-button-red-full">{% trans "View All" %}</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% csrf_token %}
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const csrftoken = getCookie('csrftoken');
+            const table = $('#bot-table').DataTable({
+                "paging": false,
+                "info": false,
+                "searching": false,
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": '{% url "ranking-page" %}',
+                    "headers": {'X-CSRFToken': csrftoken},
+                    "type": "POST",
+                    "data": function (d) {
+                        return $.extend({}, d, {
+                            "csrfmiddlewaretoken": csrftoken,
+                            "unit": $('#sort-by').val()
+                        });
+                    }
+                },
+                "columns": [
+                    {"data": "rank"},
+                    {"data": "name"},
+                    {"data": "exchange"},
+                    {"data": "pair"},
+                    {"data": "candle_size"},
+                    {"data": "simultaneousTrades"},
+                    {"data": "strategy"},
+                    {"data": "creator"},
+                    {
+                        "data": "total_prof",
+                        "className": "table-td-profit",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        }
+                    },
+                    {
+                        "data": "paper_prof",
+                        "className": "table-td-profit",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        }
+                    },
+                    {
+                        "data": "live_prof",
+                        "className": "table-td-profit",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        }
+                    }
+                ]
+            });
+
+            $('#sort-by').on('change', function (e) {
+                table.columns.adjust().draw();
+            })
+        })
+    </script>
+
+{% endblock scripts %}

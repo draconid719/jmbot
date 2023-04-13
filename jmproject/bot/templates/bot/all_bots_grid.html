@@ -1,0 +1,140 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        {% include "bot/particle/all_bot_filter_header.html" %}
+
+        {% if bots|length < 1 %}
+            <h1 class="mt-5 mb-5 text-white"
+                style="top: 50%; left: 50%; margin-top: 100px; margin-left: 37%; padding-top: 200px">{% trans "There is no bot" %}...</h1>
+        {% else %}
+
+            <div class="row sm-gutters h-100" id="botsl" style="height: 1200px; clear: both">
+                {% for data in bots %}
+                    <div style="word-break: break-all;" class="col col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                        <div class="crypt-fulldiv-linechart mt-4" style="height: 400px;">
+                            <h4 class="coinname mx-2">{{ data.name }}</h4>
+                            <p><span><b>{% trans "Creator" %}:</b> {{ data.author }}</span></p>
+{#                            <p><span><b>{% trans "ID" %}:</b> {{ data.pk }}</span></p>#}
+                            <div
+                                    class="crypt-individual-marketcap"
+                                    data-charts="[65,59,81,81,56,55,40,80,90]"
+                                    data-bg="fdddb7"
+                                    data-border="f8a036">
+                                <canvas></canvas>
+                            </div>
+                            <div class="coin-meta-data text-center">
+                                <h4>{{ data.total_profit.usd_profit }} USD ({{ data.total_profit.percent_profit }}%)</h4>
+                                <p><b>{% trans "Profit" %}</b></p>
+                                <div style="width: 150px;">
+                                    <a href="{% url 'detailbot-page' data.id %}">
+                                        <button style="cursor: pointer;" class="crypt-button-green-full">
+                                            {% trans "View Bot" %}
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            {% if bots.has_other_pages %}
+                <nav aria-label="..." style="display: flex; justify-content: center; margin-top: 20px;">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" tabindex="-1"
+                               style="color: black;">{% trans "First" %}</a>
+                        </li>
+                        {% if bots.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ bots.previous_page_number }}" tabindex="-1"
+                                   style="color: black;">{% trans "Previous" %}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1"
+                                   style="color: black;">{% trans "Previous" %}</a>
+                            </li>
+                        {% endif %}
+
+                        {% if bots.number|add:'-1' > 1 %}
+                            <li class="page-link">
+                                <a style="color: black;" href="?page={{ bots.number|add:'-1' }}">&hellip;</a>
+                            </li>
+                        {% endif %}
+
+                        {% for i in bots.paginator.page_range %}
+                            {% if bots.number == i %}
+                                <li class="page-item active" style="background-color: gray;">
+                                    <a class="page-link" href="#">{{ i }} <span
+                                            class="sr-only">({% trans "current" %})</span></a>
+                                </li>
+                            {% elif i > bots.number|add:'-2' and i < bots.number|add:'2' %}
+                                <li class="page-item"><a style="color: black;" class="page-link"
+                                                         href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if bots.paginator.num_pages > bots.number|add:'1' %}
+                            <li class="page-link">
+                                <a style="color: black;" href="?page={{ bots.number|add:'1' }}">&hellip;</a>
+                            </li>
+                        {% endif %}
+
+                        {% if bots.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ bots.next_page_number }}"
+                                   style="color: black;">{% trans "Next" %}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" style="color: black;">Next</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ bots.paginator.num_pages }}"
+                               style="color: black;">{% trans "Last" %}</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+
+        {% endif %}
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        document.getElementById('sortby').onchange = function () {
+            window.location.href = this.children[this.selectedIndex].getAttribute('href');
+        }
+        var select = document.getElementById('select').value
+        if (select === '-profit') {
+            document.getElementById('htl').setAttribute('selected', '')
+        } else if (select === 'profit') {
+            document.getElementById('lth').setAttribute('selected', '')
+        } else if (select === 'author') {
+            document.getElementById('cr').setAttribute('selected', '')
+        } else {
+            document.getElementById('nm').setAttribute('selected', '')
+        }
+
+        // function submit(){
+        //   $.ajax({
+        //           type:'POST',
+        //           url:'/search/',
+        //           data:{
+        //               query:$("#myInput").val(),
+        //               csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        //           },
+        //           success:function(){
+        //           }
+        //       })
+        // }
+    </script>
+{% endblock scripts %}

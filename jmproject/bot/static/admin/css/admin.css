@@ -1,0 +1,14 @@
+h1 {
+    font-size: 2em;
+}
+caption {
+    caption-side: top;
+}
+#toolbar #searchbar {
+    height: 100%;
+    padding: 5px;
+}
+
+.submit-row a.deletelink {
+    height: 100%;
+}

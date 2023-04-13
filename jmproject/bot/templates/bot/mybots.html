@@ -1,0 +1,242 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <label for="sortby" style="color: white; margin-right: 4px;">{% trans "Sort By" %}: </label>
+        <select id="sortby"
+                style="margin-top: 20px; color: #ffffff; background-color: #0e162d; background-clip: padding-box; border: 1px solid #2f3a56; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+            <option id="htl"
+                    href="{% url 'mybots-page' '-profit'|slugify %}">{% trans "Profit" %}: {% trans "High to Low" %}</option>
+            <option id="lth"
+                    href="{% url 'mybots-page' 'profit'|slugify %}">{% trans "Profit" %}: {% trans "Low to High" %}</option>
+            <option id="nm" href="{% url 'mybots-page' 'name'|slugify %}">{% trans "Name" %}</option>
+        </select>
+        <input type="hidden" name="selected" id="select" value="{{ selected }}">
+
+        <div class="row justify-content-center" style="float: right;">
+            <form class="col-12 col-sm-6" style="margin-top: 30px;">
+                <label style="color: white;">{% trans "Filter" %}: </label>
+                <input onclick="searches('all')" type="radio" id="all" name="filter" value="all">
+                <label for="all" style="color: white;">{% trans "All" %}</label>
+                <input onclick="searches('Active')" type="radio" id="active" name="filter" value="active">
+                <label for="active" style="color: white;">{% trans "Active" %}</label>
+                <input onclick="searches('Inactive')" type="radio" id="inactive" name="filter" value="inactive">
+                <label for="inactive" style="color: white;">{% trans "Inactive" %}</label>
+            </form>
+            <input type="hidden" name="fil" id="filter" value="{{ filter }}">
+
+            <form id="form" class="crypt-dash-search col-12 col-sm-6" style="margin-top: 20px;width: 258px;">
+                {% if term == '' %}
+                    <input type="search" placeholder="{% trans "Search" %}..." name="search" class="crypt-big-search"
+                           id="myInput">
+                {% else %}
+                    <input type="search" value="{{ term }}" name="search" class="crypt-big-search" id="myInput">
+                {% endif %}
+                <button type="submit">
+                    <i class="pe-7s-search"></i>
+                </button>
+            </form>
+        </div>
+        {% if bots|length < 1 %}
+            <h1 class="mt-5 mb-5 text-white"
+                style="top: 50%; left: 50%; margin-top: 100px; margin-left: 37%; padding-top: 200px">{% trans "There is no bot" %}...</h1>
+        {% else %}
+            <div class="row sm-gutters h-100" style="height: 1200px; margin-top: 40px; clear: both">
+                {% for data in bots %}
+                    <div class="col-md-4 col-lg-3 col-xl-3" style="word-break: break-all;">
+                        <div class="crypt-fulldiv-linechart mt-4" style="height: 400px;">
+                            <p> {% if user == data.author %} </p>
+                                <div>
+                                    <a href="{% url 'edit-bot-page' data.id %}">
+                                        <div style="float: left; margin-left: 20px ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                 width="20" height="20"
+                                                 viewBox="0 0 172 172"
+                                                 style=" fill:#000000;">
+                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                                   stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                                   stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                   font-weight="none" font-size="none" text-anchor="none"
+                                                   style="mix-blend-mode: normal">
+                                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                    <g fill="#ffffff">
+                                                        <path d="M113.8425,0.43c-0.77937,0.1075 -1.505,0.49719 -2.0425,1.075l-25.585,25.585c-0.55094,0.33594 -0.99437,0.81969 -1.29,1.3975l-18.3825,18.3825c-0.48375,0.29563 -0.88687,0.69875 -1.1825,1.1825c-0.08062,0.1075 -0.14781,0.215 -0.215,0.3225c-0.04031,0.06719 -0.08062,0.14781 -0.1075,0.215c0,0.04031 0,0.06719 0,0.1075l-21.6075,48.0525l-17.415,17.415c-0.67187,0.645 -1.04812,1.54531 -1.04812,2.4725c0,0.92719 0.37625,1.8275 1.04812,2.4725l1.935,1.935l-26.9825,27.09c-0.84656,0.81969 -1.22281,2.01563 -0.98094,3.17125c0.24188,1.15563 1.06156,2.10969 2.16344,2.52625l38.915,14.9425c1.26313,0.48375 2.6875,0.18813 3.655,-0.7525l15.05,-15.1575l2.15,2.15c1.34375,1.33031 3.49375,1.33031 4.8375,0l17.5225,-17.5225l48.0525,-21.5c0.34938,-0.12094 0.67188,-0.30906 0.9675,-0.5375c0.25531,-0.215 0.47031,-0.47031 0.645,-0.7525l18.705,-18.705c0.14781,-0.09406 0.29563,-0.20156 0.43,-0.3225l0.1075,-0.1075c0.25531,-0.215 0.47031,-0.47031 0.645,-0.7525l16.6625,-16.555c1.37063,-1.33031 1.38406,-3.52062 0.05375,-4.89125c-1.33031,-1.37062 -3.52062,-1.38406 -4.89125,-0.05375l-14.835,14.835l-57.9425,-58.05l23.7575,-23.7575c1.075,-1.02125 1.38406,-2.62031 0.7525,-3.96406c-0.645,-1.35719 -2.06937,-2.13656 -3.5475,-1.94844zM87.935,35.045l58.05,57.9425l-14.9425,14.9425l-57.9425,-58.05zM69.23,55.9l55.7925,55.7925l-44.075,19.78c-0.38969,0.14781 -0.7525,0.36281 -1.075,0.645l-15.5875,15.5875l-1.935,-1.935c-0.04031,-0.04031 -0.06719,-0.06719 -0.1075,-0.1075l-13.4375,-13.4375l-13.6525,-13.76c-0.1075,-0.08062 -0.215,-0.14781 -0.3225,-0.215l-1.505,-1.6125l15.48,-15.48c0.3225,-0.30906 0.57781,-0.67187 0.7525,-1.075zM32.895,125.99l22.145,22.145l-13.545,13.4375l-31.82,-12.255z"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </a>
+
+                                    <a href="{% url 'delete-bot-page' data.id %}">
+                                        <div style="float: right; margin-right: 20px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                 width="20" height="20"
+                                                 viewBox="0 0 172 172"
+                                                 style=" fill:#000000;">
+                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                                   stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                                   stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                   font-weight="none" font-size="none" text-anchor="none"
+                                                   style="mix-blend-mode: normal">
+                                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                                    <g fill="#ffffff">
+                                                        <path d="M26.5525,21.6075l-4.945,4.945l59.4475,59.4475l-59.4475,59.4475l4.945,4.945l59.4475,-59.4475l59.4475,59.4475l4.945,-4.945l-59.4475,-59.4475l59.4475,-59.4475l-4.945,-4.945l-59.4475,59.4475z"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <h4 class="coinname">{{ data.name }}</h4>
+                            {% if user == data.author %}
+                                <p><span><b>{% trans "Current mode" %}: </b> {{ data.thread.mode }}</span></p>
+                                <p><span><b>{% trans "Total Profit" %}: </b>{{ data.total_profit.usd_profit }} USD({{ data.total_profit.percent_profit }}%)</span></p>
+                                <p><span><b>{% trans "Paper" %}: </b>{{ data.paper_profit.usd_profit }} USD({{ data.paper_profit.percent_profit }}%)</span></p>
+                                <p><span><b>{% trans "Live" %}: </b>{{ data.live_profit.usd_profit }} USD({{ data.live_profit.percent_profit }}%)</span></p>
+                            {% endif %}
+                            <div
+                                    class="crypt-individual-marketcap"
+                                    data-charts="[65,59,81,81,56,55,40,80,90]"
+                                    data-bg="fdddb7"
+                                    data-border="f8a036">
+                                <canvas></canvas>
+                            </div>
+                            <div class="coin-meta-data text-center">
+                                <!-- <h5 class="crypt-down">-9.05% <img src="{% static 'bot/images/download-arrow.svg' %}" width="15" class="crypt-market-cap-logo" alt="logo"></h5> -->
+                                <div style="width: 150px;">
+                                    <a href="{% url 'detailbot-page' data.id %}">
+                                        <button style="cursor: pointer;" class="crypt-button-green-full">
+                                            {% trans "View Bot" %}
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            {% if bots.has_other_pages %}
+                <nav aria-label="..." style="display: flex; justify-content: center; margin-top: 20px;">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="page=1" tabindex="-1"
+                               style="color: black;">{% trans "First" %}</a>
+                        </li>
+                        {% if bots.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="page={{ bots.previous_page_number }}" tabindex="-1"
+                                   style="color: black;">{% trans "Previous" %}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1"
+                                   style="color: black;">{% trans "Previous" %}</a>
+                            </li>
+                        {% endif %}
+
+                        {% if bots.number|add:'-1' > 1 %}
+                            <li class="page-link">
+                                <a style="color: black;" href="page={{ bots.number|add:'-1' }}">&hellip;</a>
+                            </li>
+                        {% endif %}
+
+                        {% for i in bots.paginator.page_range %}
+                            {% if bots.number == i %}
+                                <li class="page-item active" style="background-color: gray;">
+                                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                                </li>
+                            {% elif i > bots.number|add:'-2' and i < bots.number|add:'2' %}
+                                <li class="page-item">
+                                    <a style="color: black;" class="page-link" href="page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if bots.paginator.num_pages > bots.number|add:'1' %}
+                            <li class="page-link"><a style="color: black;" href="page={{ bots.number|add:'1' }}">&hellip;</a>
+                            </li>
+                        {% endif %}
+
+                        {% if bots.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="page={{ bots.next_page_number }}"
+                                   style="color: black;">{% trans "Next" %}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" style="color: black;">{% trans "Next" %}</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="page={{ bots.paginator.num_pages }}"
+                               style="color: black;">{% trans "Last" %}</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+
+        {% endif %}
+
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.pagination a').on('click', function (e) {
+                e.preventDefault();
+                const href = $(this).attr('href')
+                console.log(href)
+                const queryString = window.location.search;
+                console.log(queryString)
+                if (!queryString) {
+                    window.location.href = window.location.href + '?' + href;
+                } else {
+                    const urlParams = new URLSearchParams(queryString);
+                    const searchParam = urlParams.get('search');
+                    if (searchParam) {
+                        window.location.href = '?search=' + searchParam + '&' + href;
+                    } else {
+                        window.location.href = '?' + href;
+                    }
+                }
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        document.getElementById('sortby').onchange = function () {
+            window.location.href = this.children[this.selectedIndex].getAttribute('href');
+        }
+        var select = document.getElementById('select').value
+        if (select === '-profit') {
+            document.getElementById('htl').setAttribute('selected', '')
+        } else if (select === 'profit') {
+            document.getElementById('lth').setAttribute('selected', '')
+        } else {
+            document.getElementById('nm').setAttribute('selected', '')
+        }
+
+        var filter = document.getElementById('filter').value
+        if (filter === 'Inactive') {
+            document.getElementById('inactive').setAttribute('checked', '')
+        } else if (filter === 'Active') {
+            document.getElementById('active').setAttribute('checked', '')
+        } else {
+            document.getElementById('all').setAttribute('checked', '')
+        }
+
+        function searches(query) {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            urlParams.set('filter', query);
+
+            window.location.search = urlParams;
+        };
+    </script>
+
+{% endblock scripts %}

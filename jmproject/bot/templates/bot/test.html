@@ -1,0 +1,74 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bot/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/jquery-confirm/jquery-confirm.min.css' %}">
+{% endblock css %}
+{% block content %}
+                                <div id="crypt-candle-chart" data-exchange="POLONIEX"></div>
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'bot/js/socket.io.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bot/js/charting_library.standalone.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bot/js/bundle.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bot/js/streaming.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bot/js/datafeed.js' %}"></script>
+    <script src="{% static 'bot/jquery-confirm/jquery-confirm.min.js' %}"></script>
+    <script src="{% static 'bot/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+            if (document.getElementById('crypt-candle-chart')) {
+                {#new TradingView.widget(#}
+                {#    {#}
+                {#        "autosize": true,#}
+                {#        "symbol": `POLONIEX:BTCUSDT`,#}
+                {#        "interval": "D",#}
+                {#        "timezone": "Etc/UTC",#}
+                {#        "theme": "Dark",#}
+                {#        "style": "1",#}
+                {#        "locale": "en",#}
+                {#        "toolbar_bg": "rgba(0, 0, 0, 1)",#}
+                {#        "enable_publishing": false,#}
+                {#        "allow_symbol_change": true,#}
+                {#        "hide_side_toolbar": false,#}
+                {#        "container_id": "crypt-candle-chart"#}
+                {#    }#}
+                {#);#}
+
+                var widget = window.tvWidget = new TradingView.widget({
+					// debug: true, // uncomment this line to see Library errors and warnings in the console
+					fullscreen: true,
+					symbol: 'Poloniex:BTC/USDT',
+					interval: '1D',
+					container: "crypt-candle-chart",
+
+					//	BEWARE: no trailing slash is expected in feed URL
+					datafeed: Datafeed,
+					library_path: "static/bot/charting_library/",
+					locale: getParameterByName('lang') || "en",
+				});
+            }
+        })
+
+        lo = new WebSocket("ws://localhost:8000/ws/price/currentPrice");
+        lo.onmessage = (data) => console.log(data);
+        lo.onopen = () => {
+            console.log("sending city");
+            lo.send(JSON.stringify({"message": 'connected'}));
+        }
+        lo.onclose = function(e) {
+            console.error(e);
+            console.error('Chat socket closed unexpectedly');
+        };
+    </script>
+{% endblock scripts %}
+
+
+
+

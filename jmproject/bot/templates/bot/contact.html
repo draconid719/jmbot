@@ -1,0 +1,218 @@
+{% load i18n %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>WideBot - Cryptocurrency Trading Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'bot/imagesb/favicon2.ico' %}">
+
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="{% static 'bot/cssb/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/skins/blue.css' %}">
+
+    <!-- Template JS Files -->
+    <script src="{% static 'bot/jsb/modernizr.js' %}"></script>
+
+</head>
+
+<body>
+<!-- Wrapper Starts -->
+<div class="wrapper">
+    <!-- Header Starts -->
+    <header class="header language-select-wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Starts -->
+                <div class="main-logo col-xs-12 col-md-3 col-md-2 col-lg-2 hidden-xs">
+                    <a href="{% url 'intro-page' %} ">
+                        <img class="img-responsive" src="{% static 'bot/imagesb/logo2.PNG' %}" alt="logo">
+                    </a>
+                </div>
+                <!-- Logo Ends -->
+                <!-- Statistics Starts -->
+                <div class="col-md-7 col-lg-7" style="margin-top: 26px; width: 460px; margin-left: 220px;">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'intro-page' %}">{% trans "Home" %}</a></li>
+                        <li class="active"><a href="{% url 'contactus-page' %}">{% trans "Contact" %}</a></li>
+                        {% get_current_language as LANGUAGE_CODE %}
+                        <li><a href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}" target="_blank">{% trans "Wiki" %}</a></li>
+                        <!-- Cart Icon Starts -->
+                        <!-- Cart Icon Starts -->
+                        <!-- Search Icon Starts -->
+                        <!-- Search Icon Ends -->
+                    </ul>
+                </div>
+                <!-- Statistics Ends -->
+                <!-- User Sign In/Sign Up Starts -->
+                <div class="col-md-3 col-lg-3">
+                    <ul class="unstyled user">
+                        <li class="sign-in"><a href="{% url 'login' %}" class="btn btn-primary"><i
+                                class="fa fa-user"></i>{% trans "sign in" %}</a></li>
+                        {% if not user.is_authenticated %}
+                            <li class="sign-up"><a href="{% url 'register-page' %}" class="btn btn-primary"><i
+                                    class="fa fa-user-plus"></i>{% trans "register" %}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- User Sign In/Sign Up Ends -->
+            </div>
+        </div>
+        <!-- Navigation Menu Starts -->
+{#        <form action="{% url 'set_language' %}" method="post" class="language-select" id="language-select-form">#}
+{#            {% csrf_token %}#}
+{#            <input name="next" type="hidden" value="{{ redirect_to }}">#}
+{#            <select name="language" class="form-control" id="language-select">#}
+{#                {% get_current_language as LANGUAGE_CODE %}#}
+{#                {% get_available_languages as LANGUAGES %}#}
+{#                {% get_language_info_list for LANGUAGES as languages %}#}
+{#                {% for language in languages %}#}
+{#                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
+{#                            selected{% endif %}>#}
+{#                        {{ language.name_local }} ({{ language.code }})#}
+{#                    </option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </form>#}
+        <!-- Navigation Menu Ends -->
+    </header>
+    <!-- Header Ends -->
+    <!-- Slider Starts -->
+    <section class="banner-area">
+        <div class="banner-overlay">
+            <div class="banner-text text-center">
+                <div class="container">
+                    <!-- Section Title Starts -->
+                    <div class="row text-center">
+                        <div class="col-xs-12">
+                            <!-- Title Starts -->
+                            <h2 class="title-head">{% blocktrans %}Get in <span>touch</span>{% endblocktrans %}</h2>
+                            <!-- Title Ends -->
+                            <hr>
+                            <!-- Breadcrumb Starts -->
+                            <ul class="breadcrumb">
+                                <li><a href="{% url 'intro-page' %}">{% trans "Home" %}</a></li>
+                                <li>{% trans "contact" %}</li>
+                            </ul>
+                            <!-- Breadcrumb Ends -->
+                        </div>
+                    </div>
+                    <!-- Section Title Ends -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area Ends -->
+    <!-- Contact Section Starts -->
+    <section class="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-md-8 col-md-offset-2 contact-form">
+                    <h3 class="col-xs-12">{% trans "feel free to drop us a message" %}</h3>
+                    <!-- Contact Form Starts -->
+                    <form method="POST">
+                        <!-- Input Field Starts -->
+                        {% csrf_token %}
+                        <div class="form-group col-md-6">
+                            <input class="form-control" name="firstname" id="firstname"
+                                   placeholder="{% trans "FIRST NAME" %}" type="text" required>
+                        </div>
+                        <!-- Input Field Ends -->
+                        <!-- Input Field Starts -->
+                        <div class="form-group col-md-6">
+                            <input class="form-control" name="lastname" id="lastname"
+                                   placeholder="{% trans "LAST NAME" %}" type="text" required>
+                        </div>
+                        <!-- Input Field Ends -->
+                        <!-- Input Field Starts -->
+                        <div class="form-group col-md-6">
+                            <input class="form-control" name="email" id="email" placeholder="{% trans "EMAIL" %}"
+                                   type="email" required>
+                        </div>
+                        <!-- Input Field Ends -->
+                        <!-- Input Field Starts -->
+                        <div class="form-group col-md-6">
+                            <input class="form-control" name="text" id="subject" placeholder="{% trans "SUBJECT" %}"
+                                   type="text" required>
+                        </div>
+                        <!-- Input Field Ends -->
+                        <!-- Input Field Starts -->
+                        <div class="form-group col-xs-12">
+                            <textarea class="form-control" id="message" name="message"
+                                      placeholder="{% trans "MESSAGE" %}" required></textarea>
+                        </div>
+                        <!-- Input Field Ends -->
+                        <!-- Submit Form Button Starts -->
+                        <div class="form-group col-xs-12 col-sm-4 col-sm-offset-4">
+                            <button class="btn btn-primary btn-contact"
+                                    type="submit">{% trans "send message" %}</button>
+                        </div>
+                        <!-- Submit Form Button Ends -->
+                        <!-- Form Submit Message Starts -->
+                        <div class="col-xs-12 text-center output_message_holder d-none">
+                            <p class="output_message"></p>
+                        </div>
+                        <!-- Form Submit Message Ends -->
+                    </form>
+                    <!-- Contact Form Ends -->
+                </div>
+                <!-- Contact Widget Starts -->
+                <!-- Contact Widget Ends -->
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section Ends -->
+    <!-- Footer Starts -->
+    <footer class="footer">
+        <!-- Footer Top Area Starts -->
+        <!-- Footer Top Area Ends -->
+        <!-- Footer Bottom Area Starts -->
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- Copyright Text Starts -->
+                        <p class="text-center">Copyright © 2021 WideBot </p>
+                        <!-- Copyright Text Ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom Area Ends -->
+    </footer>
+    <!-- Footer Ends -->
+    <!-- Back To Top Starts  -->
+    <a href="#" id="back-to-top" class="back-to-top fa fa-arrow-up" style="margin-bottom: 50px"></a>
+    <!-- Back To Top Ends  -->
+
+    <!-- Template JS Files -->
+    <script src="{% static 'bot/jsb/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/select2.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/custom.js' %}"></script>
+    <script type="text/javascript">function add_chatinline() {
+        var hccid = 76480511;
+        var nt = document.createElement("script");
+        nt.async = true;
+        nt.src = "https://mylivechat.com/chatinline.aspx?hccid=" + hccid;
+        var ct = document.getElementsByTagName("script")[0];
+        ct.parentNode.insertBefore(nt, ct);
+    }
+
+    add_chatinline();
+    </script>
+
+</div>
+<!-- Wrapper Ends -->
+</body>
+
+</html>

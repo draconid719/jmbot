@@ -1,0 +1,195 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+	<div class="crypt-side-menu crypt-left-sided crypt-floatable-menu bg-white">
+    <hr>
+    <p>{% trans "Create Bot" %}</p>
+    
+      <ul>
+        <li><a href="#coin">
+          
+          <input type="radio" name="payment-amount" id="binance" class="payment-amount">
+          <label for="binance">{% trans "Binance" %} </label>
+          <div class="check"></div>
+          
+        </a></li>
+        <li><a href="#coin">
+          
+          <input type="radio" name="payment-amount" id="poloniex" class="payment-amount">
+          <label for="poloniex">{% trans "Poloniex" %} </label>
+          <div class="check"></div>
+        </a></li>
+
+        <li><a href="#coin">
+          
+          <input type="radio" name="payment-amount" id="huobi" class="payment-amount">
+          <label for="huobi">{% trans "Huobi" %} </label>
+          <div class="check"></div>
+          
+        </a></li>
+
+      </ul>
+    
+    <hr>
+    <p>{% trans "Account" %}</p>
+    <ul>
+      <li><a href=""><i class="pe-7s-wallet"></i>{% trans "Profile" %}</a></li>
+      <li><a href=""><i class="pe-7s-cash"></i>{% trans "Exchange API" %}</a></li>
+    </ul>
+  </div>  
+  <div class="container-full-width">
+    <div class="row sm-gutters">
+      <div class="col-xl-2 d-none d-xl-block">  
+      </div>
+      <div class="col-md-3 col-lg-4 col-xl-4" id="coin">
+        <div class="crypt-deepblue-segment p-2 mt-3">
+          <form class="crypt-dash-search">
+            <input type="search" placeholder="{% trans "Search" %}..." name="s" class="crypt-big-search">
+            <button type="submit">
+                <i class="pe-7s-search"></i>
+            </button>
+          </form>
+          <ul class="crypt-big-list crypt-coin-select">
+            <li>
+              <a href="#bitcoin">
+                <img src="images/coins/btc.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin">{% trans "Bitcoin" %} <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#ethrium">
+                <img src="images/coins/eth.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin">{% trans "Ethereum" %} <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#litecoin">
+                <img src="images/coins/ltc.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin">{% trans "Litecoin" %} <p class="fright crypt-down"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#xrp">
+                <img src="images/coins/xrp.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin"> XRP <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#monero">
+                <img src="images/coins/monero.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin"> Monero <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#zilliqua">
+                <img src="images/coins/zil.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin"> Zilliqua <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+            <li>
+              <a href="#dash">
+                <img src="images/coins/dash.png" width="25" class="crypt-market-cap-logo pr-2" alt="coin"> Dash <p class="fright"><b>$456568</b></p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9 col-lg-8 col-xl-6">
+        <div class="crypt-dash-withdraw mt-3 d-block" id="bitcoin">
+          <div class="crypt-withdraw-heading">
+            <div class="row">
+              <div class="col-md-3">
+                <p><b>1 BTC</b></p>
+                <p class="crypt-up"><b>$3,483.59 USD (0.28%) </b></p>
+              </div>
+              <div class="col-md-5">
+                <i class="pe-7s-lock icon-big"></i> 
+                <p><b>Locked: $ 0.00</b></p>
+              </div>
+              <div class="col-md-4">
+                <p><b>{% trans "Total" %}:</b></p>
+                <p class="crypt-up"><b> $ 23454.00</b></p>
+              </div>
+            </div>
+          </div>
+          <div class="crypt-withdraw-body bg-white">
+            <div class="row">
+              
+            <div class="col-md-9">
+                  <h4 class="crypt-down">{% trans "Bot parameters" %}</h4>
+                    <p><i class="pe-7s-info"></i>{% trans "Change will be applied only on next bot operation" %}</p>
+                    <form>
+                      <div class="input-group mb-3">
+                        <input type="text" placeholder="{% trans "Amount" %}" class="form-control" name="amount">
+                        <div class="input-group-append">
+                          <span class="input-group-text">USD</span>
+                        </div>
+                    </div>
+                      <div class="input-group mb-3">
+                        <input type="text" placeholder="{% trans "Bank Account Number" %}" class="form-control" name="bank-account">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown">{% trans "Other Address" %}</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">234235234</a>
+                            <a class="dropdown-item" href="#">2343453453</a>
+                            <a class="dropdown-item" href="#">234234234234</a>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="{% trans "Name" %}" name="name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="{% trans "Swift Code" %}" name="swift">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                          <select class="form-control">
+                            <option>{% trans "Country" %}</option>
+                            <option>{% trans "United States" %}</option>
+                            <option>{% trans "India" %}</option>
+                            <option>{% trans "Japan" %}</option>
+                            <option>{% trans "Korea" %}</option>
+                            <option>{% trans "China" %}</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="recipient-btc">
+                            <label class="form-check-label" for="recipient-btc">
+                                {% trans "Add To recipient" %}
+                            </label>
+                        </div>
+                    </div>
+                    <a href="" class="crypt-button-red-full">{% trans "Initiate Withdraw" %}</a>
+                    </form>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <footer>
+    
+  </footer>
+
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'bot/js/jquery.js' %}"></script>
+    <script src="{% static 'bot/amc/core.js' %}"></script>
+    <script src="{% static 'bot/amc/charts.js' %}"></script>
+    <script src="{% static 'bot/amc/animated.js' %}"></script>
+    <script src="{% static 'bot/js/Chart.min.js' %}"></script>
+    <script src="{% static 'bot/js/popper.min.js' %}"></script>
+    <script src="{% static 'bot/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'bot/bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'bot/js/chart.js' %}"></script>
+    <script src="{% static 'bot/js/main.js' %}"></script>
+{% endblock scripts %}
+
+
+
+
+	

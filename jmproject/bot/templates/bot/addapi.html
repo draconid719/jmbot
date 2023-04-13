@@ -1,0 +1,11 @@
+{% extends "bot/base.html" %}
+
+{% block content %}
+  <div class="col-lg-6" style=" margin-left: 26%; margin-top: 25%">
+    <div class="block">
+      <div class="block-body">
+            <a href="{% url 'profile-page' %}" ><h4>You don’t have API key and Secret on {{exchange}}. First sign up in this exchange to get an API key and Secret, then add it in your profile page.</h4></a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

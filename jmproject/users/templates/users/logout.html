@@ -1,0 +1,11 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="col-lg-6" style="margin-top: 100px; margin-left: 20px;">
+	<div class="col-md-12 pl-2 ml-1" style="color: white">
+        <h3>{% trans "Logged out" %} </h3><a href="{% url 'login' %}" class="signup"><h5 style="color: #f7614e;">{% trans "Sign In" %}</h5></a>
+    </div>
+  </div>
+  
+{% endblock content %}

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8"/>
+    <title>WideBot - Cryptocurrency Trading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'bot/imagesb/favicon2.ico' %}">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700" rel="stylesheet">
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="{% static 'bot/cssb/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/skins/blue.css' %}">
+
+    <!-- Template JS Files -->
+    <script src="{% static 'bot/jsb/modernizr.js' %}"></script>
+
+</head>
+
+<body>
+<!-- Wrapper Starts -->
+<div class="wrapper">
+    <!-- Header Starts -->
+    <header class="header language-select-wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Starts -->
+                <div class="main-logo col-xs-12 col-md-3 col-md-2 col-lg-2 hidden-xs" style="">
+                    <a href="{% url 'intro-page' %} ">
+                        <img class="img-responsive" src="{% static 'bot/imagesb/logo2.PNG' %}" alt="logo">
+                    </a>
+                </div>
+                <!-- Logo Ends -->
+                <!-- Statistics Starts -->
+                <div class="col-md-7 col-lg-7 align-self-center" style="width: 460px; margin-left: 220px;">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{% url 'intro-page' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'contactus-page' %}">{% trans "Contact" %}</a></li>
+                        <li><a href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}" target="_blank">{% trans "Wiki" %}</a></li>
+                    </ul>
+                </div>
+                <!-- Statistics Ends -->
+                <!-- User Sign In/Sign Up Starts -->
+                <div class="col-md-3 col-lg-3 align-self-center">
+                    <ul class="unstyled user pt-0">
+                        <li class="sign-in"><a href="{% url 'login' %}" class="btn btn-primary"><i
+                                class="fa fa-user"></i>{% trans "sign in" %}</a></li>
+                        {% if not user.is_authenticated %}
+                            <li class="sign-up"><a href="{% url 'register-page' %}" class="btn btn-primary"><i
+                                    class="fa fa-user-plus"></i>{% trans "register" %}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- User Sign In/Sign Up Ends -->
+            </div>
+        </div>
+        <!-- Navigation Menu Starts -->
+{#        <form action="{% url 'set_language' %}" method="post" class="language-select" id="language-select-form">#}
+{#            {% csrf_token %}#}
+{#            <input name="next" type="hidden" value="{{ redirect_to }}">#}
+{#            <select name="language" class="form-control" id="language-select">#}
+{#                {% get_current_language as LANGUAGE_CODE %}#}
+{#                {% get_available_languages as LANGUAGES %}#}
+{#                {% get_language_info_list for LANGUAGES as languages %}#}
+{#                {% for language in languages %}#}
+{#                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
+{#                            selected{% endif %}>#}
+{#                        {{ language.name_local }} ({{ language.code }})#}
+{#                    </option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </form>#}
+        <!-- Navigation Menu Ends -->
+    </header>
+    <!-- Header Ends -->
+    <!-- Slider Starts -->
+    <div id="main-slide" class="carousel slide carousel-fade">
+        <!-- Indicators Starts -->
+        <ol class="carousel-indicators visible-lg visible-md">
+            <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slide" data-slide-to="1"></li>
+            <li data-target="#main-slide" data-slide-to="2"></li>
+        </ol>
+        <!-- Indicators Ends -->
+        <!-- Carousel Inner Starts -->
+        <div class="carousel-inner">
+            <!-- Carousel Item Starts -->
+            <div class="item active bg-parallax item-0">
+                <div class="slider-content">
+                    <div class="container">
+                        <div class="slider-text text-center">
+                            <h3 class="slide-title">{% blocktrans %}<span>Secure</span> and <span>Easy Way</span><br/>
+                                To Trade
+                                Cryptocurrency{% endblocktrans %}</h3>
+                            <p>{% blocktrans %}No technical skills required! Widebot provide access to strategies created by experts{% endblocktrans %}</p>
+                            <p>
+                                <a href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}" target="_blank"
+                                   class="slider btn btn-primary">{% trans "Learn more" %}</a>
+                            </p>
+                            <img src="{% static 'bot/images/slider/intro-2.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Item Ends -->
+            <!-- Carousel Item Starts -->
+{#            <div class="item bg-parallax item-1">#}
+{#                <div class="slider-content">#}
+{#                    <div class="container">#}
+{#                        <div class="slider-text text-center">#}
+{#                            <h3 class="slide-title">#}
+{#                                {% blocktrans %}Define your <span>own trading</span> strategy{% endblocktrans %}#}
+{#                                {% blocktrans %}<span>Test</span> your strategies in <span>real time</span>{% endblocktrans %}#}
+{#                            </h3>#}
+{#                            <p>{% blocktrans %}Test your strategies using backtest and paper mode, before going to live{% endblocktrans %}</p>#}
+{#                            <p>#}
+{#                                <a href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}" target="_blank"#}
+{#                                   class="slider btn btn-primary">{% trans "Learn more" %}</a>#}
+{#                            </p>#}
+{#                            <img src="{% static 'bot/images/slider/intro-4.png' %}" alt="">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <!-- Carousel Item Ends -->#}
+{#            <!-- Carousel Item Starts -->#}
+{#            <div class="item bg-parallax item-2">#}
+{#                <div class="slider-content">#}
+{#                    <div class="col-md-12">#}
+{#                        <div class="container">#}
+{#                            <div class="slider-text text-center">#}
+{#                                <h3 class="slide-title">{% blocktrans %}<span>Trade</span> Across <br/>More Than#}
+{#                                    <span> 10 Exchanges</span>{% endblocktrans %}</h3>#}
+{#                                <p>{% blocktrans %}You can trade through the popular exchanges such as Binance, Poloniex and so on.{% endblocktrans %}</p>#}
+{#                                <p>#}
+{#                                    <a href="#supported-exchanges" class="slider btn btn-primary">{% trans "Learn more" %}</a>#}
+{#                                </p>#}
+{#                                <img src="{% static 'bot/images/slider/intro-exchange.png' %}" alt="">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+        <!-- Carousel Inner Ends -->
+        <!-- Carousel Controlers Starts -->
+{#        <a class="left carousel-control" href="#main-slide" data-slide="prev">#}
+{#            <span><i class="fa fa-angle-left"></i></span>#}
+{#        </a>#}
+{#        <a class="right carousel-control" href="#main-slide" data-slide="next">#}
+{#            <span><i class="fa fa-angle-right"></i></span>#}
+{#        </a>#}
+        <!-- Carousel Controlers Ends -->
+    </div>
+    <!-- Slider Ends -->
+    <!-- Features Section Starts -->
+    <section class="features">
+        <div class="container">
+            <div class="row features-row">
+                <h2 class="title-head text-center text-white fw-bold">Safe <span>Start</span>ing</h2>
+                <p class="text-center mb-5">Minimize the risk of trading, create high profit by yourself</p>
+                <!-- Feature Box Starts -->
+                <div class="feature-box col-md-4 col-sm-12 position-relative">
+                    <span class="feature-icon">
+                        <img src="{% static 'bot/imagesb/icons/blue/strategy.png' %}" alt="download bitcoin">
+                    </span>
+                    <div class="feature-box-content">
+                        <h3>{% trans "Choose a Strategy" %}</h3>
+                        <p>{% blocktrans %}Pick the strategy that fits you the most, we have a large range of strategies
+                            that are easily
+                            modulable to reach the outcome you aim for.{% endblocktrans %}</p>
+                    </div>
+                    <div class="text-center w-100 feature-btn">
+                        <a target="_blank"
+                           href="https://wide-bot.gitbook.io/widebot/v/{{ LANGUAGE_CODE }}/strategies-indicators/strategies"
+                           class="btn btn-primary btn-sm">{% trans "Read more" %}</a>
+                    </div>
+                </div>
+                <!-- Feature Box Ends -->
+                <!-- Feature Box Starts -->
+                <div class="feature-box two col-md-4 col-sm-12 position-relative">
+                    <span class="feature-icon">
+                        <img src="{% static 'bot/imagesb/icons/blue/backtest.png' %}" alt="add bitcoins">
+                    </span>
+                    <div class="feature-box-content">
+                        <h3>{% trans "Backtest your strategy" %} </h3>
+                        <p>{% blocktrans %}Our platform offers a backtesting unit that allows you to test your settings
+                            and
+                            configurations over historical data from different markets.{% endblocktrans %}</p>
+                    </div>
+                    <div class="text-center position-absolute w-100 feature-btn">
+                        <a target="_blank"
+                           href="https://wide-bot.gitbook.io/widebot/v/{{ LANGUAGE_CODE }}/how-to-work-with-bot/transaction/what-is-backtesting"
+                           class="btn btn-primary btn-sm">{% trans "Read more" %}</a>
+                    </div>
+                </div>
+                <!-- Feature Box Ends -->
+                <!-- Feature Box Starts -->
+                <div class="feature-box three col-md-4 col-sm-12 position-relative ">
+                    <span class="feature-icon">
+                        <img src="{% static 'bot/imagesb/icons/blue/trade.png' %}" alt="buy and sell bitcoins">
+                    </span>
+                    <div class="feature-box-content">
+                        <h3>{% trans "Start trading" %}</h3>
+                        <p>{% blocktrans %}You can create your own strategy or use strategy concocted by others, once
+                            everything is set
+                            up you can start trading easily and be notified at every completed
+                            transaction.{% endblocktrans %}</p>
+                    </div>
+                    <div class="text-center position-absolute w-100 feature-btn">
+                        <a target="_blank"
+                           href="https://wide-bot.gitbook.io/widebot/v/{{ LANGUAGE_CODE }}/how-to-work-with-bot/transaction"
+                           class="btn btn-primary btn-sm">{% trans "Read more" %}</a>
+                    </div>
+                </div>
+                <!-- Feature Box Ends -->
+
+            </div>
+        </div>
+    </section>
+    <!-- Features Section Ends -->
+    <!-- About Section Starts -->
+    <section class="about-us">
+        <div class="container">
+            <!-- Section Title Starts -->
+            <div class="row text-center">
+                <h2 class="title-head"><span>Strong</span>Easy <span>to use</span></h2>
+                <div class="title-head-subtitle">
+                    <p>{% blocktrans %}WIDEBOT Using trading Bot, everyone can invest easily and effective {% endblocktrans %}</p>
+                </div>
+            </div>
+            <!-- Section Title Ends -->
+            <!-- Section Content Starts -->
+            <div class="row g-4">
+                <div class="col-4">
+                    <div class="section">
+                        <div class="section-header">Powerful experts' strategies for newbiers</div>
+                        <div class="section-body">
+                            New to trading bot?
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="section shadow-lg rounded">
+                        <div class="section-header">Real-time Backtest</div>
+                        <div class="section-body">
+                            Backtest is ready for you
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="section">
+                        <div class="section-header">Open platform</div>
+                        <div class="section-body">
+                            We are going to open source.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section Content Ends -->
+        </div>
+    </section>
+
+    <section class="pricing" id="supported-exchanges">
+        <div class="container">
+            <!-- Section Title Starts -->
+            <div class="row text-center">
+                <h2 class="title-head">{% trans "Supported" %} <span>{% trans "Exchanges" %}</span></h2>
+                <!-- <div class="title-head-subtitle">
+                    <p>Purchase Bitcoin using a credit card or with your linked bank account</p>
+                </div> -->
+            </div>
+            <!-- Section Title Ends -->
+            <!-- Section Content Starts -->
+            <div class="row pricing-tables-content">
+                <div class="mx-auto">
+                    <img style="margin-right: 10px;" src="{% static 'bot/images/binance_sup.png' %}">
+                    <img style="margin-left: 10px;" src="{% static 'bot/images/poloniex_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/bittrex_sup.png' %}">
+                    <img style="margin-right: 0px;margin-left: 0px;" src="{% static 'bot/images/huobipro_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;"
+                         src="{% static 'bot/images/digifinex_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/kraken_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/kucoin_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/bitz_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/ftx_sup.png' %}">
+                    <img style="margin-right: 10px;margin-left: 10px;" src="{% static 'bot/images/bw_sup.png' %}">
+                </div>
+                <!-- <div style="float: right; width: 10%"><img src="{% static 'bot/images/poloniex_sup.png' %}"></div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section Ends -->
+    <!-- Features and Video Section Starts -->
+    <!-- Features and Video Section Ends -->
+    <!-- Pricing Starts -->
+    <!-- Pricing Ends -->
+    <!-- Bitcoin Calculator Section Starts -->
+    <!-- Bitcoin Calculator Section Ends -->
+    <!-- Team Section Starts -->
+    <!-- Team Section Ends -->
+    <!-- Quote and Chart Section Starts -->
+    <!-- Quote and Chart Section Ends -->
+    <!-- Blog Section Starts -->
+
+    <!-- Blog Section Ends -->
+    <!-- Call To Action Section Starts -->
+    <section class="call-action-all">
+        <div class="call-action-all-overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- Call To Action Text Starts -->
+                        <div class="action-text">
+                            <h2>{% trans "Get Started Today" %}</h2>
+                            <p class="lead">{% trans "Open an account for free and start trading Cryptocurrency" %}!</p>
+                        </div>
+                        <!-- Call To Action Text Ends -->
+                        <!-- Call To Action Button Starts -->
+                        <p class="action-btn">
+                            <a class="btn btn-primary" href="{% url 'register-page' %}">{% trans "Register Now" %}</a>
+                        </p>
+                        <!-- Call To Action Button Ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action Section Ends -->
+    <!-- Footer Starts -->
+    <footer class="footer">
+        <!-- Footer Top Area Starts -->
+        <!-- Footer Top Area Ends -->
+        <!-- Footer Bottom Area Starts -->
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- Copyright Text Starts -->
+                        <p class="text-center">Copyright © 2021 WideBot </p>
+                        <!-- Copyright Text Ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom Area Ends -->
+    </footer>
+    <!-- Footer Ends -->
+    <!-- Back To Top Starts  -->
+    <a href="#" id="back-to-top" class="back-to-top fa fa-arrow-up"></a>
+    <!-- Back To Top Ends  -->
+
+    <!-- Template JS Files -->
+    <script src="{% static 'bot/jsb/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'bot/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/select2.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/custom.js' %}"></script>
+
+</div>
+<!-- Wrapper Ends -->
+</body>
+
+</html>

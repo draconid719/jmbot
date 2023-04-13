@@ -1,0 +1,406 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bot/datatable/datatables.min.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container-xxl">
+        <div class="row mt-4">
+            {% if mine == True %}
+                <h2 class="text-white">
+                    {% blocktrans with len=bot_count %}
+                        Total {{ len }} bots created by you
+                    {% endblocktrans %}
+                </h2>
+            {% else %}
+                <h2 class="text-white">
+                    {% blocktrans with len=bot_count %}
+                        Total {{ len }} public bots by WideBot
+                    {% endblocktrans %}
+                </h2>
+            {% endif %}
+        </div>
+        {% include "bot/particle/all_bot_filter_header.html" %}
+
+        {% if bot_count < 1 %}
+            <h1 class="mt-5 mb-5 text-white text-center">
+                {% trans "There is no bot" %}... <a class="text-underline text-info" href="{% url "create-bot-page" %}">{% trans "Create bot" %}</a>
+            </h1>
+        {% else %}
+            <div class="row sm-gutters h-100" id="botsl" style="height: 1200px; clear: both">
+                <div class="col-12">
+                    <div class="row sm-gutters" id="grid_view_wrapper"></div>
+                </div>
+
+                <div class="table-responsive mb-5">
+                    <table class="table table-striped crypt-table-market-cap" id="bot-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col" class="text-left pl-2">{% trans "Name" %}</th>
+                                <th scope="col">{% trans "Exchange" %}</th>
+                                <th scope="col">{% trans "Pair" %}</th>
+                                <th scope="col">{% trans "Candle Size" %}</th>
+                                <th scope="col">{% trans "Simultaneous Trades" %}</th>
+                                <th scope="col">{% trans "Strategy" %}</th>
+                                <th scope="col">{% trans "Creator" %}</th>
+                                <th scope="col">{% trans "Total Profit" %}</th>
+                                <th scope="col">{% trans "Paper" %}</th>
+                                <th scope="col">{% trans "Live" %}</th>
+                                {% if mine %}
+                                    <th scope="col">{% trans "Status" %}</th>
+                                    <th scope="col">{% trans "Visible" %}</th>
+                                {% endif %}
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" class="text-left pl-2 searchable"><input type="text" placeholder="{% trans "Name" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Exchange" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Pair" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Candle Size" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Simultaneous Trades" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Strategy" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Creator" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "> Total Profit %" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "> Paper %" %}"></th>
+                                <th scope="col" class="searchable"><input type="text" placeholder="{% trans "> Live %" %}"></th>
+                                {% if mine %}
+                                    <th scope="col" class="searchable">
+                                        <select class="form-select text-white filter-select">
+                                            <option value="all">{% trans "All" %}</option>
+                                            <option value="active">{% trans "Active" %}</option>
+                                            <option value="inactive">{% trans "Inactive" %}</option>
+                                            <option value="paper">{% trans "Paper" %}</option>
+                                            <option value="live">{% trans "Live" %}</option>
+                                        </select>
+                                    </th>
+                                    <th scope="col" class="searchable">
+                                        <select class="form-select text-white filter-select" style="min-width: 80px">
+                                            <option value="all">{% trans "All" %}</option>
+                                            <option value="yes">{% trans "Yes" %}</option>
+                                            <option value="no">{% trans "No" %}</option>
+                                        </select>
+                                    </th>
+                                {% endif %}
+                                <th scope="col"></th>
+                            </tr>
+                        </tfoot>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'bot/datatable/datatables.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const csrftoken = getCookie('csrftoken');
+            let columns = []
+            {% if mine == True %}
+                columns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ,13]
+            {% else %}
+                columns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+            {% endif %}
+
+            const initialVal = []
+            $('#columns_filter option').each(function(){
+                if ($(this).val()) {
+                    initialVal.push($(this).val())
+                }
+            })
+
+            const table = $('#bot-table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "language": {
+                    "paginate": {
+                        "previous": "{% trans "Prev" %}",
+                        "next": "{% trans "Next" %}"
+                    },
+                    "processing": "Loading, Please wait...",
+                    "zeroRecords": "No result",
+                    "info": "Total _TOTAL_ Records _START_ from _END_",
+                    "infoEmpty": "Result 0",
+                    "infoFiltered": "(Total _MAX_ records)"
+                },
+                "pageLength": 12,
+                "order": [[ 8, "desc" ]],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every( function () {
+                        var that = this;
+
+                        $( 'input, select', this.footer() ).on( 'change clear', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                    });
+                },
+                "ajax": {
+                    "url": '{% if mine == True %}{% url "my-bots-page" %}{% else %}{% url "bots-page" %}{% endif %}',
+                    "headers": {'X-CSRFToken': csrftoken},
+                    "type": "POST",
+                    "data": function (d) {
+                        return $.extend({}, d, {
+                            "csrfmiddlewaretoken": csrftoken,
+                            "unit": $('#sort-by').val(),
+                            "view_mode": $('input[name="view_mode"]:checked').val()
+                        });
+                    },
+                    "complete": function (result) {
+                        const data = result.responseJSON
+                        $('#grid_view_wrapper').html('');
+
+                        if (data.view_mode==='grid_view') {
+                            let grid_view = ''
+                            data.data.forEach(e=> {
+                                grid_view += renderGridElement(e)
+                            })
+                            visibleColumns(columns, false)
+                            $('#grid_view_wrapper').html(grid_view)
+                            draw_crypt_individual_marketcap()
+                        } else {
+                            visibleColumns(columns, true)
+                        }
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "rank",
+                        "visible": false,
+                        "orderable": false,
+                    },
+                    {
+                        "data": "name",
+                        "className": "text-start",
+                        "render": function (data, type, row) {
+                            return `<a class="bot-detail" href="{% url 'bots-page' %}${row.id}/detail">${data}</a>`
+                        },
+                        "visible": false
+                    },
+                    {
+                        "data": "exchange",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "pair",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "candle_size",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "simultaneousTrades",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "strategy",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "creator",
+                        "className": "text-start",
+                        "visible": false
+                    },
+                    {
+                        "data": "total_prof",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        },
+                        "visible": false
+                    },
+                    {
+                        "data": "paper_prof",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        },
+                        "visible": false
+                    },
+                    {
+                        "data": "live_prof",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            if (typeof data !== 'string')
+                                return '<div>' + data.usd_profit + '</div>'
+                                    + '<div>' + data.percent_profit + '%</div>';
+                            else
+                                return data
+                        },
+                        "visible": false
+                    },
+                    {% if mine == True %}
+                    {
+                        "data": "status",
+                        "className": "text-start col-status",
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            if (data)
+                                return `<span class="text-success">${row.elapsed_time}</span><br><span class="text-white-50">${row.mode}</span>`
+                            else
+                                return `<span class="text-secondary">${row.status_msg}</span>`
+                        }
+                    },
+                    {
+                        "data": "visible",
+                        "className": "text-start",
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            return data
+                        }
+                    },
+                    {% endif %}
+                    {
+                        "data": "action",
+                        "className": "table-td-profit text-start",
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="dropdown action">' +
+                                `<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="${row.id}-action" data-bs-toggle="dropdown" aria-expanded="false">` +
+                                '<i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>' +
+                                `<ul class="dropdown-menu" aria-labelledby="${row}action">` +
+                                {% if mine == False %}`<li><a class="dropdown-item" href="{% url 'bots-page' %}${row.id}/copy"><i class="fa fa-files-o" aria-hidden="true"></i>  {% trans "Copy" %}</a></li>` + {% endif %}
+                                `<li><a class="dropdown-item" href="{% url 'bots-page' %}${row.id}/detail"><i class="fa fa-bar-chart" aria-hidden="true"></i>  {% trans "Detail" %}</a></li>` +
+                                {% if mine == True %}
+                                    `<li><a class="dropdown-item" href="{% url 'activity' %}bots/${row.id}"><i class="fa fa-book" aria-hidden="true"></i>  {% trans "Orders" %}</a></li>` +
+                                    `<li><a class="dropdown-item" href="{% url 'bots-page' %}${row.id}/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {% trans "Edit" %}</a></li>` +
+                                    `<li><a class="dropdown-item" href="{% url 'bots-page' %}${row.id}/delete"><i class="fa fa-trash-o" aria-hidden="true"></i>  {% trans "Delete" %}</a></li>` +
+                                {% endif %}
+                                '</ul>' +
+                                '</div>'
+                        },
+                        "visible": false
+                    },
+                ]
+            });
+            let branch_all = [];
+            function formatResult(state) {
+                if (state.id) branch_all.push(state.id);
+                return state.text
+            }
+
+            // Initial column filter
+            function initColumnFilter() {
+                $('#columns_filter').next('span.select2').find('ul').html(function() {
+                    return "<li class='select2-search select2-search--inline'>" + (initialVal.length - 1)  + " {% trans "Columns" %}</li>"
+                })
+            }
+
+            let $select2 = $('#columns_filter').select2({
+                templateResult: formatResult,
+                closeOnSelect: false,
+                width: '140px',
+            });
+
+            $select2.val(initialVal).trigger('change');
+
+            initColumnFilter()
+
+            $select2.on('select2:selecting', function (e) {
+                const data = e.params.args.data
+                if (data.id==='check_all') {
+                    $select2.val(branch_all).trigger('change');
+                } else {
+                    const current_val = $select2.val()
+                    if (current_val.length === 12) {
+                        current_val.push(data.id)
+                        current_val.push('check_all')
+                        $select2.val(current_val).trigger('change')
+                    }
+
+                }
+            })
+            $select2.on('select2:unselecting', function (e) {
+                const data = e.params.args.data
+                if (data.id==='check_all') {
+                    $select2.val(null).trigger('change');
+                } else {
+                    const current_val = $select2.val()
+                    $select2.val(current_val.filter(e=>e!==data.id && e!=='check_all')).trigger('change')
+                }
+            })
+            $select2.on('select2:close select2:select select2:unselect', function () {
+                $(this).next('span.select2').find('ul').html(function() {
+                    let count = $select2.val().length
+                    count = count===initialVal.length?count-1:count;
+                    return "<li class='select2-search select2-search--inline'>" + count + " {% trans "Columns" %}</li>"
+                })
+            })
+
+            $select2.on('select2:select select2:unselect', function () {
+                columns = $(this).val().map(v=>initialVal.findIndex(i=>i===v)-1)
+                table.columns.adjust().draw();
+            })
+
+            $('#page_length').on('change', function (e) {
+                table.page.len(e.target.value).draw();
+            })
+
+            $('input[type=radio][name=view_mode]').on('change', function (e) {
+                table.columns.adjust().draw();
+            });
+
+            function visibleColumns(columns, visible) {
+                const indexes = [...initialVal.keys()]
+                if (visible) {
+                    table.columns(indexes).visible(false)
+                }
+                table.columns(columns).visible(visible);
+            }
+        })
+    function renderGridElement(data) {
+        return `<div style="word-break: break-all;" class="col col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="crypt-fulldiv-linechart mt-4" style="height: 400px;">
+                        <h4 class="coinname mx-2">${data.name}</h4>
+                        <p><span><b>{% trans "Creator" %}:</b> ${data.creator}</span></p>
+                        <div
+                            class="crypt-individual-marketcap"
+                            data-charts="[65,59,81,81,56,55,40,80,90]"
+                            data-bg="fdddb7"
+                            data-border="f8a036">
+                            <canvas></canvas>
+                        </div>
+                        <div class="coin-meta-data text-center">
+                            <h4>${ data.total_prof.usd_profit } USD (${ data.total_prof.percent_profit }%)</h4>
+                            <p><b>{% trans "Profit" %}</b></p>
+                            <div style="width: 150px;">
+                                <a href="{% url "bots-page" %}${data.id}/detail">
+                                    <button style="cursor: pointer;" class="crypt-button-green-full">
+                                        {% trans "View Bot" %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+    }
+
+    </script>
+{% endblock scripts %}

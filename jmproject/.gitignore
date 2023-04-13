@@ -1,0 +1,7 @@
+.idea
+
+__pycache__/
+*.sqlite3
+jmproject/.env
+venv
+/wb-3.8/

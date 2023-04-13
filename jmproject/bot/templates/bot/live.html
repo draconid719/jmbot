@@ -1,0 +1,36 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="row sm-gutters">
+            {% for data in bots %}
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="crypt-fulldiv-linechart mt-4">
+                        <h4 class="coinname">{{ data.name }}</h4>
+                        <span>{% trans "Creator" %}: {{ data.author }}</span>
+                        <div
+                                class="crypt-individual-marketcap"
+                                data-charts="[65,59,81,81,56,55,40,80,90]"
+                                data-bg="fdddb7"
+                                data-border="f8a036">
+                            <canvas></canvas>
+                        </div>
+                        <div class="coin-meta-data text-center">
+                            <h5 class="crypt-down">-9.05% <img src="{% static 'bot/images/download-arrow.svg' %}"
+                                                               width="15" class="crypt-market-cap-logo" alt="logo"></h5>
+                            <h4>$4,056,894.05</h4>
+                            <p><b>MARKET CAP</b></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+
+{% endblock scripts %}

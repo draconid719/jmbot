@@ -1,0 +1,70 @@
+{% load i18n %}
+
+<div class="header pt-4">
+    {{ url }}
+    <div class="row">
+        <div class="col-auto align-self-center ps-0">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="row align-items-center">
+                        <div class="col-auto pe-0">
+                            <label class="text-white-50 d-none d-sm-inline-block" for="bot_status">{% trans "Columns Filter" %}</label>
+                        </div>
+                        <div class="col-auto ps-1">
+                            <select id="columns_filter" name="columns_filter[]" class="form-select text-white filter-select" multiple="multiple">
+                                <option value="check_all">{% trans "All" %}</option>
+                                <option value="rank">{% trans "NO" %}</option>
+                                <option value="name">{% trans "Name" %}</option>
+                                <option value="exchange">{% trans "Exchange" %}</option>
+                                <option value="pair">{% trans "Pair" %}</option>
+                                <option value="candle_size">{% trans "Candle Size" %}</option>
+                                <option value="simultaneousTrades">{% trans "Simultaneous Trades" %}</option>
+                                <option value="strategy">{% trans "Strategy" %}</option>
+                                <option value="creator">{% trans "Creator" %}</option>
+                                <option value="total_prof">{% trans "Total Profit" %}</option>
+                                <option value="paper_prof">{% trans "Paper" %}</option>
+                                <option value="live_prof">{% trans "Live" %}</option>
+                                {% if mine == True %}
+                                    <option value="status">{% trans "Status" %}</option>
+                                    <option value="visible">{% trans "Visible" %}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col d-flex justify-content-end pe-0">
+            <div class="align-self-center me-2">
+                <div class="row align-items-center">
+                    <div class="col-auto pe-0">
+                        <label class="text-white-50 d-none d-sm-inline-block" for="page_length">{% trans "Rows" %}</label>
+                    </div>
+                    <div class="col-auto ps-1">
+                        <select id="page_length" class="form-select text-white filter-select">
+                            <option>12</option>
+                            <option>24</option>
+                            <option>36</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-center me-2">
+                <input type="radio" class="btn-check" name="view_mode" id="grid_view" value="grid_view" autocomplete="off" >
+                <label class="btn btn-outline-secondary" for="grid_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
+                    </svg>
+                </label>
+                <input type="radio" class="btn-check" name="view_mode" id="table_view" value="table_view" autocomplete="off" checked>
+                <label class="btn btn-outline-secondary" for="table_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"></path>
+                    </svg>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">WideBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'bot/cssb/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/css/ui.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/skins/blue.css' %}">
+    <link rel="shortcut icon" href="{% static 'bot/imagesb/favicon2.ico' %}">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1:100,200,300,400,500,600,700" rel="stylesheet">
+    {% block css %}{% endblock css %}
+    <link rel="stylesheet" href="{% static 'bot/css/style.css' %}">
+</head>
+<body class="crypt-dark">
+{% if user.is_authenticated %}
+    <header class="crypt-header language-select-wrapper">
+        <div class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="col col-md-auto">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="crypt-logo">
+                                <a href="{% url 'intro-page' %}">
+                                    <img src="{% static 'bot/imagesb/logo2.PNG' %}"
+                                         alt="logo-image">
+                                </a>
+                            </div>
+                        </div>
+                        {% if title == 'Bots' %}
+                            <div class="col-auto">
+                                <div class="crypt-mega-dropdown-menu">
+                                    <a href="" class="crypt-mega-dropdown-toggle">Market Bot <i
+                                            class="pe-7s-angle-down-circle"></i></a>
+                                    <div class="crypt-mega-dropdown-menu-block" style="width: 250px">
+                                        <a href="{% url 'my-bots-page' %}"><h6>Market Bot</h6></a>
+                                        <a href="{% url 'myarbitbots-page' %}"><h6>Arbitrage Bot</h6></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if title == 'displayname' %}
+                                <div class="d-none d-sm-block col-sm-auto" style="margin-top: 20px; ">
+                                    <span>{{ name }}<br/>({{ exchange }} {% trans "Exchange" %})</span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <button class="navbar-toggler btn btn-link d-xs-block"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#top-Menu">
+                    <i class=" pe-7s-menu"></i>
+                </button>
+                <div id="top-Menu" class="collapse navbar-collapse justify-content-end">
+                    <ul class="crypt-heading-menu">
+                        {% if user.is_authenticated %}
+                            {#                        <li><a href="{% url 'ranking-page' %}">{% trans "Public Bots" %}</a></li>#}
+                            {#                        <li><a href="{% url 'mybots-page' 'default'|slugify %}">{% trans "My Bots" %}</a></li>#}
+                            <li class="nav-item dropdown ms-0 ps-0">
+                                <a href="{% url 'bots-page' %}" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                   id="bot-menu">봇</a>
+                                <ul class="dropdown-menu" aria-labelledby="bot-menu">
+                                    <li><a class="dropdown-item" href="{% url "bots-page" %}">{% trans "All bots" %}</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{% url "my-bots-page" %}">{% trans "My bots" %}</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           href="{% url "create-bot-page" %}">{% trans "Create a bot" %}</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'activity' %}">{% trans "Transactions" %}</a></li>
+                            <li>
+                                <a class="notification" href="{% url 'chat-page' %}">
+                                    {% trans "Chat" %}</a>
+                            </li>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            <li><a href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}"
+                                   target="_blank">{% trans "Wiki" %}</a></li>
+                            <li class="ml-4"><a href="{% url 'profile-page' %}"><b>{{ user.username }}</b></a></li>
+                            <li class="crypt-box-menu menu-red"><a href="{% url 'logout' %}">{% trans "logout" %}</a>
+                            </li>
+                        {% endif %}
+                        {#                        <li>#}
+                        {#                            <form action="{% url 'set_language' %}" method="post" class="language-select"#}
+                        {#                                  id="language-select-form">#}
+                        {#                                {% csrf_token %}#}
+                        {#                                <input name="next" type="hidden" value="{{ redirect_to }}">#}
+                        {#                                <select name="language" class="form-control" id="language-select">#}
+                        {#                                    {% get_current_language as LANGUAGE_CODE %}#}
+                        {#                                    {% get_available_languages as LANGUAGES %}#}
+                        {#                                    {% get_language_info_list for LANGUAGES as languages %}#}
+                        {#                                    {% for language in languages %}#}
+                        {#                                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}#}
+                        {#                                                selected{% endif %}>#}
+                        {#                                            {{ language.name_local }} ({{ language.code }})#}
+                        {#                                        </option>#}
+                        {#                                    {% endfor %}#}
+                        {#                                </select>#}
+                        {#                            </form>#}
+                        {#                        </li>#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </header>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="col-lg-12">
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="text-align: center;height: 80px;">
+                    <h6 style="margin-top: 15px; color:#0095eb"><b>{{ message }}</b></h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% else %}
+
+    {% if messages %}
+        {% for message in messages %}
+
+            <div class="col-lg-12">
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="text-align: center;height: 80px;">
+                    <h6 style="margin-top: 15px; color:#0095eb"><b>{{ message }}</b></h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+
+{% endif %}
+<!-- Main Content -->
+
+{% block content %}{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'bot/js/jquery.js' %}"></script>
+    <script src="{% static 'bot/js/Chart.min.js' %}"></script>
+    <script src="{% static 'bot/js/chart.js' %}"></script>
+    <script src="{% static 'bot/amc/core.js' %}"></script>
+    <script src="{% static 'bot/amc/charts.js' %}"></script>
+    <script src="{% static 'bot/amc/dark.js' %}"></script>
+    <script src="{% static 'bot/amc/animated.js' %}"></script>
+    <script src="{% static 'bot/js/popper.min.js' %}"></script>
+    <script src="{% static 'bot/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'bot/js/moment.min.js' %}"></script>
+    <script src="{% static 'bot/js/ko.min.js' %}"></script>
+    <script src="{% static 'bot/jsb/select2.min.js' %}"></script>
+    <script src="{% static 'bot/js/main.js' %}"></script>
+    <script src="{% static 'bot/js/amc.js' %}"></script>
+{% endblock scripts %}
+</body>
+</html>

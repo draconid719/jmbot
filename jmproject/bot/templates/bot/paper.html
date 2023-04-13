@@ -1,0 +1,229 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
+            background-color: #F5F5F5;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+            border-radius: 7px;
+            background-color: #F5F5F5;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div id="tradingview_17804"></div>
+                    <div class="tradingview-widget-copyright"><a
+                            href="https://www.tradingview.com/symbols/COINBASE-BTCUSD/" rel="noopener"
+                            target="_blank"><span class="blue-text"></span></a></div>
+                </div>
+                <!-- TradingView Widget END -->
+            </div>
+
+            <div class="col-lg-12">
+                <div class="block">
+                    <section id="transactions">
+                        <h2>{% trans "Transactions" %}</h2>
+                        <div class="table-responsive" style="width: 1000px;height: 450px">
+                            <table class="table table-striped table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th class="n">{% trans "Date" %}</th>
+                                    <th class="n">{% trans "ID" %}</th>
+                                    <th class="n">{% trans "Amount" %}</th>
+                                    <th class="n">{% trans "Entry Price" %}</th>
+                                    <th class="n">{% trans "Exit Price" %}</th>
+                                    <th class="n">{% trans "Currency Pair" %}</th>
+                                    <th class="n">{% trans "Fee" %}</th>
+                                    <th class="n">{% trans "Profit" %}</th>
+                                </tr>
+                                </thead>
+                                <tbody id="table-body"></tbody>
+                            </table>
+                            <div class="loading" id="load"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="form-horizontal" id="live-form" method="POST">
+        {% csrf_token %}
+        <div class="col-lg-12">
+            <div class="block">
+                <label class="col-sm-3 form-control-label">{% trans "Select" %}</label>
+                <div class="col-sm-9">
+                    <select name="account" class="form-control mb-3 mb-3" id="bot">
+                        {% for data in bots %}
+                            <option id="botop">{{ data.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="text-align: center">
+            <input type="submit" id="strbtn" value="{% trans "Start" %}" class="btn btn-primary">
+            <button type="button" id="stopbtn" class="btn btn-secondary" style="width: 65px">{% trans "Stop" %}</button>
+            <div id="pls"></div>
+        </div>
+    </form>
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/paper/getpaperstatus/',
+
+                success: function (jsdata) {
+                    if (jsdata['bot'] != 'null') {
+                        var elmnt = document.getElementById("bot")
+                        var value = jsdata['bot']
+                        for (var i = 0; i < elmnt.options.length; i++) {
+                            if (elmnt.options[i].value === value) {
+                                elmnt.selectedIndex = i;
+                                break;
+                            }
+                        }
+
+                        document.getElementById("bot").disabled = true;
+                        document.getElementById("strbtn").disabled = true;
+                        document.getElementById("stopbtn").disabled = false;
+                        update()
+                        setTimeout(lichart, 550)
+                    } else {
+
+                        document.getElementById("strbtn").disabled = false;
+                        document.getElementById("stopbtn").disabled = true;
+                    }
+
+                }
+            })
+        });
+
+        $(document).on('submit', '#live-form', function (e) {
+            e.preventDefault();
+            document.getElementById("strbtn").disabled = true;
+            document.getElementById("stopbtn").disabled = false;
+            document.getElementById("pls").innerHTML = ''
+            $.ajax({
+                type: 'POST',
+                url: '/paper/startpaper/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+
+                }
+            })
+            update()
+            setTimeout(lichart, 550)
+
+
+        })
+        $('#stopbtn').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/paper/stoppaper/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+                    document.getElementById("pls").innerHTML = 'Closing bot processes...';
+                    document.getElementById("strbtn").disabled = true;
+                    document.getElementById("stopbtn").disabled = true;
+                    document.getElementById("bot").disabled = false;
+                    setTimeout(change, 14500)
+
+                }
+            })
+        })
+
+        function change() {
+            document.getElementById("pls").innerHTML = 'Successfully closed bot processes';
+            document.getElementById("strbtn").disabled = false;
+            document.getElementById("stopbtn").disabled = true;
+        }
+
+        function update() {
+            $.ajax({
+                type: 'POST',
+                url: '/paper/paperdata/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                datatype: 'json',
+                success: function (jsdata) {
+                    if (jsdata['tabletrade']) {
+                        document.getElementById('table-body').innerHTML = jsdata['tabletrade']
+                    }
+                    setTimeout(update, 5500)
+                }
+            })
+        }
+
+        function lichart() {
+            $.ajax({
+                type: 'POST',
+                url: '/paper/livechart/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function (coin) {
+                    new TradingView.widget(
+                        {
+                            "width": 1000,
+                            "height": 610,
+                            "symbol": `BINANCE:${coin['coin']}`,
+                            "interval": "D",
+                            "timezone": "Etc/UTC",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "tradingview_17804"
+                        }
+                    );
+                    document.getElementById("tradingview_17804").focus()
+                    document.getElementById("tradingview_17804").scrollIntoView()
+                }
+            })
+
+        }
+
+
+    </script>
+{% endblock scripts %}

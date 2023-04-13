@@ -1,0 +1,37 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/emojione/1.3.0/assets/css/emojione.min.css"/>
+    <link rel="stylesheet" href="{% static 'bot/css/shoutsstyles.css' %}"/>
+
+    <div class="container">
+        <h1 class="mt-4">{% trans "Shout box" %} <img src="{% static 'bot/images/refresh.png' %}" alt=""/></h1>
+
+        <ul class="shoutbox-content" id="shoutcontent"></ul>
+
+        <div class="shoutbox-form">
+{#            <h2>{% trans "Write a message" %}<span>×</span></h2>#}
+
+            <form action="" method="POST" class="d-flex align-items-center">
+                {% csrf_token %}
+                <input type="hidden" id="shoutbox-name" name="name" value="{{ user.username }}" style="display: none;"/>
+                <textarea maxlength="480" placeholder="{% trans "Type your message Here, Max length: 480 Characters" %}"
+                          id="shoutbox-comment" name="comment"></textarea>
+                <input type="submit" value="{% trans "Shout!" %}"/>
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+
+    <script src="http://cdn.jsdelivr.net/emojione/1.3.0/lib/js/emojione.min.js"></script>
+    <script src="{% static 'bot/js/shoutsscript.js' %}"></script>
+
+{% endblock scripts %}
+

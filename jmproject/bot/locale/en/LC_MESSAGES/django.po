@@ -1,0 +1,1954 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-29 18:16+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:12 models.py:101 models.py:104 templates/bot/manual.html:376
+#: templates/bot/manual.html:425
+msgid "binance"
+msgstr ""
+
+#: models.py:12 models.py:101 models.py:104 templates/bot/manual.html:377
+#: templates/bot/manual.html:426
+msgid "poloniex"
+msgstr ""
+
+#: models.py:13 templates/bot/manual.html:380 templates/bot/manual.html:429
+msgid "bitz"
+msgstr ""
+
+#: models.py:13 models.py:103 models.py:106 templates/bot/manual.html:378
+#: templates/bot/manual.html:427
+msgid "ftx"
+msgstr ""
+
+#: models.py:14 models.py:103 models.py:106 templates/bot/manual.html:381
+#: templates/bot/manual.html:430
+msgid "kraken"
+msgstr ""
+
+#: models.py:14 models.py:103 models.py:106 templates/bot/manual.html:382
+#: templates/bot/manual.html:431
+msgid "bittrex"
+msgstr ""
+
+#: models.py:15 templates/bot/manual.html:385 templates/bot/manual.html:434
+msgid "kucoin"
+msgstr ""
+
+#: models.py:15 templates/bot/manual.html:384 templates/bot/manual.html:433
+msgid "digifinex"
+msgstr ""
+
+#: models.py:16 templates/bot/manual.html:383 templates/bot/manual.html:432
+msgid "bw"
+msgstr ""
+
+#: models.py:16 models.py:102 models.py:105 templates/bot/manual.html:379
+#: templates/bot/manual.html:428
+msgid "huobipro"
+msgstr ""
+
+#: models.py:46 models.py:111 templates/bot/account.html:135
+#: templates/bot/allbots.html:14 templates/bot/mybots.html:13
+#: templates/bot/ranking.html:48 templates/bot/ranking.html:58
+msgid "Name"
+msgstr ""
+
+#: models.py:47 templates/bot/base.html:48 templates/bot/descriptions.html:29
+#: templates/bot/faq.html:97 templates/bot/manual.html:375
+#: templates/bot/manual.html:424 templates/bot/operation.html:120
+#: templates/bot/operation.html:208 templates/bot/ranking.html:59
+msgid "Exchange"
+msgstr ""
+
+#: models.py:48
+msgid "The cryptocurrency market being used"
+msgstr ""
+
+#: models.py:49 templates/bot/faq.html:99 templates/bot/ranking.html:61
+msgid "Candle Size"
+msgstr ""
+
+#: models.py:50
+msgid "The interval of time to consider as a single price data point"
+msgstr ""
+
+#: models.py:51 templates/bot/ranking.html:63
+msgid "Strategy"
+msgstr ""
+
+#: models.py:52
+msgid "The algorithm to use for trading using the market indicators"
+msgstr ""
+
+#: models.py:53
+msgid "The indicator parameter to use"
+msgstr ""
+
+#: models.py:55 models.py:119 templates/bot/arbdescriptions.html:20
+#: templates/bot/descriptions.html:37 templates/bot/faq.html:108
+#: templates/bot/operation.html:122 templates/bot/ranking.html:60
+msgid "Pair"
+msgstr ""
+
+#: models.py:56 models.py:120
+msgid "The cryptocurrency pair being used"
+msgstr ""
+
+#: models.py:57 templates/bot/descriptions.html:38
+#: templates/bot/operation.html:123
+msgid "SimultaneousTrades"
+msgstr ""
+
+#: models.py:59
+msgid "The number of trades the bot is allowed to enter at the same time"
+msgstr ""
+
+#: models.py:61
+msgid "Visible"
+msgstr ""
+
+#: models.py:61
+msgid "yes"
+msgstr ""
+
+#: models.py:61
+msgid "no"
+msgstr ""
+
+#: models.py:62
+msgid "Your bot will be visible by all user of this website"
+msgstr ""
+
+#: models.py:68 models.py:69 models.py:123 templates/bot/mybots.html:23
+msgid "Active"
+msgstr ""
+
+#: models.py:69 models.py:123 templates/bot/mybots.html:25
+msgid "Inactive"
+msgstr ""
+
+#: models.py:86 models.py:149 templates/bot/descriptions.html:284
+#: templates/bot/operation.html:270 views.py:701 views.py:710
+msgid "Not running"
+msgstr ""
+
+#: models.py:112 templates/bot/arbdescriptions.html:18
+msgid "First Exchange"
+msgstr ""
+
+#: models.py:113
+msgid "The first exchange from the exchange pair"
+msgstr ""
+
+#: models.py:114 templates/bot/arbdescriptions.html:19
+msgid "Second Exchange"
+msgstr ""
+
+#: models.py:115
+msgid "The second exchange from the exchange pair"
+msgstr ""
+
+#: models.py:116 templates/bot/arbdescriptions.html:21
+#: templates/bot/arbdescriptions.html:39 templates/bot/arbitrage.html:49
+#: templates/bot/arbitrage.html:76 templates/bot/arbitrage.html:101
+#: templates/bot/arbitrage.html:127 templates/bot/arbitrage.html:150
+#: templates/bot/arbitrage.html:173 templates/bot/paperarbitrage.html:49
+#: templates/bot/paperarbitrage.html:74 templates/bot/paperarbitrage.html:99
+#: templates/bot/paperarbitrage.html:124 templates/bot/paperarbitrage.html:148
+#: templates/bot/paperarbitrage.html:171 templates/bot/paperarbitrage.html:194
+#: templates/bot/paperarbitrage.html:217 templates/bot/paperarbitrage.html:240
+#: templates/bot/paperarbitrage.html:263
+msgid "Spread"
+msgstr ""
+
+#: models.py:116
+msgid "The gap between two different exchanges"
+msgstr ""
+
+#: models.py:148 templates/bot/descriptions.html:721
+msgid "Running"
+msgstr ""
+
+#: templates/admin/base.html:44
+msgid "Welcome,"
+msgstr ""
+
+#: templates/admin/base.html:49
+msgid "View site"
+msgstr ""
+
+#: templates/admin/base.html:54
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/base.html:58
+msgid "Change password"
+msgstr ""
+
+#: templates/admin/base.html:60
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base.html:70 templates/admin/bot/thread/change_list.html:33
+#: templates/bot/about.html:72 templates/bot/about.html:130
+#: templates/bot/contact.html:72 templates/bot/contact.html:130
+#: templates/bot/intro.html:72 templates/bot/messagesent.html:70
+#: templates/bot/messagesent.html:114 templates/bot/services.html:116
+msgid "Home"
+msgstr ""
+
+#: templates/admin/base_site.html:3
+msgid "Django site admin"
+msgstr ""
+
+#: templates/admin/base_site.html:6
+msgid "Widebot administration"
+msgstr ""
+
+#: templates/admin/bot/thread/change_list.html:64
+msgid "Please correct the error below."
+msgstr ""
+
+#: templates/admin/bot/thread/change_list.html:65
+msgid "Please correct the errors below."
+msgstr ""
+
+#: templates/admin/bot/thread/change_list.html:99 templates/bot/mybots.html:19
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/bot/thread/change_list.html:101
+msgid "Clear all filters"
+msgstr ""
+
+#: templates/bot/404.html:49
+msgid "Error"
+msgstr ""
+
+#: templates/bot/about.html:73 templates/bot/contact.html:73
+#: templates/bot/intro.html:73 templates/bot/messagesent.html:71
+#: templates/bot/services.html:117
+msgid "About Us"
+msgstr ""
+
+#: templates/bot/about.html:74 templates/bot/contact.html:74
+#: templates/bot/intro.html:74 templates/bot/messagesent.html:72
+#: templates/bot/services.html:120
+msgid "Contact"
+msgstr ""
+
+#: templates/bot/about.html:75 templates/bot/base.html:69
+#: templates/bot/contact.html:75 templates/bot/intro.html:75
+msgid "FAQ"
+msgstr ""
+
+#: templates/bot/about.html:87 templates/bot/contact.html:87
+#: templates/bot/intro.html:87 templates/bot/messagesent.html:85
+#: templates/bot/services.html:89
+msgid "sign in"
+msgstr ""
+
+#: templates/bot/about.html:90 templates/bot/contact.html:90
+#: templates/bot/intro.html:90 templates/bot/messagesent.html:88
+#: templates/bot/services.html:90
+msgid "register"
+msgstr ""
+
+#: templates/bot/about.html:125 templates/bot/intro.html:227
+msgid "About <span>Us</span>"
+msgstr ""
+
+#: templates/bot/about.html:131
+msgid "About"
+msgstr ""
+
+#: templates/bot/about.html:154
+msgid ""
+"A place for everyone who wants to trade without any hassle or constraint. "
+"No\n"
+"                            skill is required to start trading. Our "
+"implemented strategies are created by experts and\n"
+"                            have been tested in multiple markets. Join our "
+"community of users from all over the\n"
+"                            world."
+msgstr ""
+
+#: templates/bot/about.html:181 templates/bot/intro.html:328
+msgid "Get Started Today"
+msgstr ""
+
+#: templates/bot/about.html:182 templates/bot/contact.html:215
+#: templates/bot/intro.html:329
+msgid "Open an account for free and start trading Cryptocurrency"
+msgstr ""
+
+#: templates/bot/about.html:187 templates/bot/contact.html:220
+#: templates/bot/intro.html:334 templates/bot/messagesent.html:162
+#: templates/bot/services.html:255
+msgid "Register Now"
+msgstr ""
+
+#: templates/bot/account.html:7 templates/bot/arbitragebot_form.html:11
+#: templates/bot/bot_form.html:11
+msgid "Create Bot"
+msgstr ""
+
+#: templates/bot/account.html:13 templates/bot/arbitrage.html:48
+#: templates/bot/arbitrage.html:74 templates/bot/arbitrage.html:125
+#: templates/bot/paperarbitrage.html:72 templates/bot/paperarbitrage.html:97
+#: templates/bot/paperarbitrage.html:122
+msgid "Binance"
+msgstr ""
+
+#: templates/bot/account.html:20 templates/bot/arbitrage.html:48
+#: templates/bot/arbitrage.html:149 templates/bot/arbitrage.html:172
+#: templates/bot/arbitrage.html:196 templates/bot/paperarbitrage.html:147
+#: templates/bot/paperarbitrage.html:170 templates/bot/paperarbitrage.html:193
+msgid "Poloniex"
+msgstr ""
+
+#: templates/bot/account.html:27
+msgid "Huobi"
+msgstr ""
+
+#: templates/bot/account.html:35
+msgid "Account"
+msgstr ""
+
+#: templates/bot/account.html:37
+msgid "Profile"
+msgstr ""
+
+#: templates/bot/account.html:38
+msgid "Exchange API"
+msgstr ""
+
+#: templates/bot/account.html:48 templates/bot/allbots.html:21
+#: templates/bot/mybots.html:31
+msgid "Search"
+msgstr ""
+
+#: templates/bot/account.html:56
+msgid "Bitcoin"
+msgstr ""
+
+#: templates/bot/account.html:61
+msgid "Ethereum"
+msgstr ""
+
+#: templates/bot/account.html:66
+msgid "Litecoin"
+msgstr ""
+
+#: templates/bot/account.html:105
+msgid "Total"
+msgstr ""
+
+#: templates/bot/account.html:114 templates/bot/bot_form.html:29
+#: templates/bot/faq.html:16
+msgid "Bot parameters"
+msgstr ""
+
+#: templates/bot/account.html:115
+msgid "Change will be applied only on next bot operation"
+msgstr ""
+
+#: templates/bot/account.html:118 templates/bot/backtest.html:85
+#: templates/bot/descriptions.html:166 templates/bot/descriptions.html:212
+#: templates/bot/descriptions.html:260 templates/bot/descriptions.html:328
+#: templates/bot/descriptions.html:363 templates/bot/descriptions.html:387
+#: templates/bot/manual.html:366 templates/bot/manual.html:415
+#: templates/bot/manual.html:475 templates/bot/operation.html:34
+#: templates/bot/operation.html:84 templates/bot/operation.html:140
+#: templates/bot/operation.html:161 templates/bot/operation.html:248
+#: templates/bot/operation.html:309 templates/bot/operation.html:343
+#: templates/bot/paper.html:51 views.py:1570 views.py:1599
+msgid "Amount"
+msgstr ""
+
+#: templates/bot/account.html:124
+msgid "Bank Account Number"
+msgstr ""
+
+#: templates/bot/account.html:126
+msgid "Other Address"
+msgstr ""
+
+#: templates/bot/account.html:138
+msgid "Swift Code"
+msgstr ""
+
+#: templates/bot/account.html:143
+msgid "Country"
+msgstr ""
+
+#: templates/bot/account.html:144
+msgid "United States"
+msgstr ""
+
+#: templates/bot/account.html:145
+msgid "India"
+msgstr ""
+
+#: templates/bot/account.html:146
+msgid "Japan"
+msgstr ""
+
+#: templates/bot/account.html:147
+msgid "Korea"
+msgstr ""
+
+#: templates/bot/account.html:148
+msgid "China"
+msgstr ""
+
+#: templates/bot/account.html:156
+msgid "Add To recipient"
+msgstr ""
+
+#: templates/bot/account.html:160
+msgid "Initiate Withdraw"
+msgstr ""
+
+#: templates/bot/allbots.html:6 templates/bot/mybots.html:6
+#: templates/bot/ranking.html:42
+msgid "Sort By"
+msgstr ""
+
+#: templates/bot/allbots.html:10 templates/bot/allbots.html:12
+#: templates/bot/allbots.html:51 templates/bot/backtest.html:86
+#: templates/bot/bothistory.html:19 templates/bot/descriptions.html:68
+#: templates/bot/descriptions.html:90 templates/bot/descriptions.html:213
+#: templates/bot/descriptions.html:368 templates/bot/descriptions.html:392
+#: templates/bot/mybots.html:10 templates/bot/mybots.html:12
+#: templates/bot/mybots.html:107 templates/bot/operation.html:86
+#: templates/bot/operation.html:144 templates/bot/operation.html:165
+#: templates/bot/operation.html:348 templates/bot/paper.html:56
+#: templates/bot/paperarbitrage.html:326 templates/bot/ranking.html:45
+#: templates/bot/ranking.html:46 views.py:1574 views.py:1603
+msgid "Profit"
+msgstr ""
+
+#: templates/bot/allbots.html:10 templates/bot/mybots.html:10
+#: templates/bot/ranking.html:45
+msgid "High to Low"
+msgstr ""
+
+#: templates/bot/allbots.html:12 templates/bot/mybots.html:12
+#: templates/bot/ranking.html:46
+msgid "Low to High"
+msgstr ""
+
+#: templates/bot/allbots.html:13 templates/bot/allbots.html:40
+#: templates/bot/arbdescriptions.html:9 templates/bot/live.html:11
+#: templates/bot/operation.html:108 templates/bot/ranking.html:47
+#: templates/bot/ranking.html:64
+msgid "Creator"
+msgstr ""
+
+#: templates/bot/allbots.html:32 templates/bot/mybots.html:43
+msgid "There is no bot"
+msgstr ""
+
+#: templates/bot/allbots.html:41 templates/bot/descriptions.html:325
+#: templates/bot/manual.html:472 templates/bot/mybots.html:95
+#: templates/bot/operation.html:306 templates/bot/paper.html:50
+#: templates/bot/paperarbitrage.html:319
+msgid "ID"
+msgstr ""
+
+#: templates/bot/allbots.html:55 templates/bot/mybots.html:112
+msgid "View Bot"
+msgstr ""
+
+#: templates/bot/allbots.html:71 templates/bot/mybots.html:128
+msgid "First"
+msgstr ""
+
+#: templates/bot/allbots.html:76 templates/bot/allbots.html:81
+#: templates/bot/mybots.html:133 templates/bot/mybots.html:138
+msgid "Previous"
+msgstr ""
+
+#: templates/bot/allbots.html:95
+msgid "current"
+msgstr ""
+
+#: templates/bot/allbots.html:113 templates/bot/mybots.html:168
+#: templates/bot/mybots.html:172
+msgid "Next"
+msgstr ""
+
+#: templates/bot/allbots.html:122 templates/bot/mybots.html:177
+msgid "Last"
+msgstr ""
+
+#: templates/bot/apierror.html:9
+#, python-format
+msgid ""
+"Something went wrong, please check your API credentials for\n"
+"                        %(exchange)s."
+msgstr ""
+
+#: templates/bot/arbdescriptions.html:11 templates/bot/descriptions.html:19
+#: templates/bot/operation.html:111
+msgid "Information"
+msgstr ""
+
+#: templates/bot/arbdescriptions.html:14 templates/bot/descriptions.html:23
+#: templates/bot/operation.html:114
+msgid "Parameters"
+msgstr ""
+
+#: templates/bot/arbdescriptions.html:38 templates/bot/operation.html:189
+msgid "Base Strategy"
+msgstr ""
+
+#: templates/bot/arbdescriptions.html:44
+#: templates/bot/arbitragebot_form.html:13
+#: templates/bot/arbitragebot_form.html:21 templates/bot/bot_form.html:13
+#: templates/bot/bot_form.html:21 templates/bot/operation.html:195
+msgid "Market"
+msgstr ""
+
+#: templates/bot/arbdescriptions.html:52
+msgid "Use this bot"
+msgstr ""
+
+#: templates/bot/arbitrage.html:74 templates/bot/arbitrage.html:149
+#: templates/bot/paperarbitrage.html:72 templates/bot/paperarbitrage.html:147
+#: templates/bot/paperarbitrage.html:216 templates/bot/paperarbitrage.html:239
+msgid "Bittrex"
+msgstr ""
+
+#: templates/bot/arbitrage.html:125 templates/bot/paperarbitrage.html:122
+#: templates/bot/paperarbitrage.html:193 templates/bot/paperarbitrage.html:239
+#: templates/bot/paperarbitrage.html:262
+msgid "FTX"
+msgstr ""
+
+#: templates/bot/arbitrage.html:172 templates/bot/paperarbitrage.html:97
+#: templates/bot/paperarbitrage.html:170 templates/bot/paperarbitrage.html:216
+#: templates/bot/paperarbitrage.html:262
+msgid "Kraken"
+msgstr ""
+
+#: templates/bot/arbitragebot_form.html:14
+#: templates/bot/arbitragebot_form.html:22 templates/bot/bot_form.html:14
+#: templates/bot/bot_form.html:22
+msgid "Arbitrage"
+msgstr ""
+
+#: templates/bot/arbitragebot_form.html:29
+msgid "Arbitrage parameters"
+msgstr ""
+
+#: templates/bot/arbitragebot_form.html:37 templates/bot/bot_form.html:37
+msgid "Save"
+msgstr ""
+
+#: templates/bot/arbitragebot_form.html:40 templates/bot/bot_form.html:40
+#: views.py:795
+msgid "Cancel"
+msgstr ""
+
+#: templates/bot/backtest.html:36
+msgid "StartDate"
+msgstr ""
+
+#: templates/bot/backtest.html:42
+msgid "EndDate"
+msgstr ""
+
+#: templates/bot/backtest.html:62
+msgid "Start Backtest"
+msgstr ""
+
+#: templates/bot/backtest.html:75 templates/bot/operation.html:66
+#: templates/bot/operation.html:294 templates/bot/paper.html:44
+#: templates/bot/paperarbitrage.html:313
+msgid "Transactions"
+msgstr ""
+
+#: templates/bot/backtest.html:80 templates/bot/bothistory.html:15
+#: templates/bot/paper.html:49 templates/bot/paperarbitrage.html:318
+msgid "Date"
+msgstr ""
+
+#: templates/bot/backtest.html:81 templates/bot/descriptions.html:209
+#: templates/bot/descriptions.html:326 templates/bot/manual.html:473
+#: templates/bot/operation.html:81 templates/bot/operation.html:307
+msgid "Type"
+msgstr ""
+
+#: templates/bot/backtest.html:82 templates/bot/bothistory.html:16
+#: templates/bot/descriptions.html:210 templates/bot/descriptions.html:364
+#: templates/bot/descriptions.html:388 templates/bot/operation.html:82
+#: templates/bot/operation.html:141 templates/bot/operation.html:162
+#: templates/bot/operation.html:344 templates/bot/paper.html:52 views.py:1571
+#: views.py:1600
+msgid "Entry Price"
+msgstr ""
+
+#: templates/bot/backtest.html:83 templates/bot/bothistory.html:17
+#: templates/bot/descriptions.html:211 templates/bot/descriptions.html:365
+#: templates/bot/descriptions.html:389 templates/bot/operation.html:83
+#: templates/bot/operation.html:142 templates/bot/operation.html:163
+#: templates/bot/operation.html:345 templates/bot/paper.html:53 views.py:1572
+#: views.py:1601
+msgid "Exit Price"
+msgstr ""
+
+#: templates/bot/backtest.html:84 templates/bot/bothistory.html:18
+#: templates/bot/descriptions.html:366 templates/bot/descriptions.html:390
+#: templates/bot/operation.html:143 templates/bot/operation.html:164
+#: templates/bot/operation.html:346 templates/bot/paper.html:54
+#: templates/bot/paperarbitrage.html:324 views.py:1573 views.py:1602
+msgid "Currency Pair"
+msgstr ""
+
+#: templates/bot/base.html:62
+msgid "Public Bots"
+msgstr ""
+
+#: templates/bot/base.html:63
+msgid "My Bots"
+msgstr ""
+
+#: templates/bot/base.html:64
+msgid "Create New"
+msgstr ""
+
+#: templates/bot/base.html:67
+msgid "Chat"
+msgstr ""
+
+#: templates/bot/base.html:71
+msgid "logout"
+msgstr ""
+
+#: templates/bot/bot_confirm_delete.html:11
+msgid "Delete Bot, Click yes to confirm"
+msgstr ""
+
+#: templates/bot/bothistory.html:8
+msgid "All Transactions"
+msgstr ""
+
+#: templates/bot/bothistory.html:14
+msgid "Session ID"
+msgstr ""
+
+#: templates/bot/chat.html:10
+msgid "Shout box"
+msgstr ""
+
+#: templates/bot/chat.html:20
+msgid "Type your message Here, Max length: 480 Characters"
+msgstr ""
+
+#: templates/bot/chat.html:22
+msgid "Shout!"
+msgstr ""
+
+#: templates/bot/contact.html:125
+msgid "Get in <span>touch</span>"
+msgstr ""
+
+#: templates/bot/contact.html:131 templates/bot/messagesent.html:115
+msgid "contact"
+msgstr ""
+
+#: templates/bot/contact.html:147 templates/bot/messagesent.html:131
+msgid "feel free to drop us a message"
+msgstr ""
+
+#: templates/bot/contact.html:149
+msgid ""
+"Need to speak to us? Do you have any queries or suggestions? Please contact "
+"us\n"
+"                            about all\n"
+"                            inquiries including membership and volunteer "
+"work using the form below."
+msgstr ""
+
+#: templates/bot/contact.html:159
+msgid "FIRST NAME"
+msgstr ""
+
+#: templates/bot/contact.html:165
+msgid "LAST NAME"
+msgstr ""
+
+#: templates/bot/contact.html:170
+msgid "EMAIL"
+msgstr ""
+
+#: templates/bot/contact.html:176
+msgid "SUBJECT"
+msgstr ""
+
+#: templates/bot/contact.html:183
+msgid "MESSAGE"
+msgstr ""
+
+#: templates/bot/contact.html:189
+msgid "send message"
+msgstr ""
+
+#: templates/bot/contact.html:214 templates/bot/messagesent.html:156
+msgid "Get Started Today With Bitcoin"
+msgstr ""
+
+#: templates/bot/descriptions.html:24 templates/bot/operation.html:115
+msgid "Live History"
+msgstr ""
+
+#: templates/bot/descriptions.html:25 templates/bot/operation.html:116
+msgid "Paper History"
+msgstr ""
+
+#: templates/bot/descriptions.html:32 templates/bot/descriptions.html:120
+#: templates/bot/descriptions.html:125 templates/bot/descriptions.html:130
+msgid "Check more"
+msgstr ""
+
+#: templates/bot/descriptions.html:36 templates/bot/operation.html:121
+msgid "CandleSize"
+msgstr ""
+
+#: templates/bot/descriptions.html:42 templates/bot/operation.html:127
+msgid "General Explanation"
+msgstr ""
+
+#: templates/bot/descriptions.html:44 templates/bot/operation.html:129
+msgid "Strategy Detail"
+msgstr ""
+
+#: templates/bot/descriptions.html:63 templates/bot/descriptions.html:85
+msgid "User"
+msgstr ""
+
+#: templates/bot/descriptions.html:69 templates/bot/descriptions.html:91
+#: templates/bot/paper.html:73
+msgid "Select"
+msgstr ""
+
+#: templates/bot/descriptions.html:107
+msgid "ClosedProfit"
+msgstr ""
+
+#: templates/bot/descriptions.html:109
+msgid "OpenProfit"
+msgstr ""
+
+#: templates/bot/descriptions.html:112 templates/bot/descriptions.html:176
+#: templates/bot/operation.html:44 templates/bot/operation.html:200
+#: templates/bot/ranking.html:65
+msgid "Total Profit"
+msgstr ""
+
+#: templates/bot/descriptions.html:129
+msgid ""
+"You can backtest the bot then easily trade with the live and paper module"
+msgstr ""
+
+#: templates/bot/descriptions.html:133 templates/bot/operation.html:9
+msgid "Backtest"
+msgstr ""
+
+#: templates/bot/descriptions.html:134
+msgid "Trading"
+msgstr ""
+
+#: templates/bot/descriptions.html:144 templates/bot/operation.html:11
+msgid "See some backtesting rule"
+msgstr ""
+
+#: templates/bot/descriptions.html:152 templates/bot/operation.html:20
+msgid "Start Date"
+msgstr ""
+
+#: templates/bot/descriptions.html:159 templates/bot/operation.html:27
+msgid "End Date"
+msgstr ""
+
+#: templates/bot/descriptions.html:181 templates/bot/descriptions.html:289
+#: templates/bot/descriptions.html:554 templates/bot/descriptions.html:641
+#: templates/bot/operation.html:50 templates/bot/operation.html:274
+#: templates/bot/paper.html:85 templates/bot/paperarbitrage.html:298
+msgid "Start"
+msgstr ""
+
+#: templates/bot/descriptions.html:207 templates/bot/descriptions.html:361
+#: templates/bot/descriptions.html:385 templates/bot/operation.html:79
+#: templates/bot/operation.html:341
+msgid "EntryTime"
+msgstr ""
+
+#: templates/bot/descriptions.html:208 templates/bot/descriptions.html:362
+#: templates/bot/descriptions.html:386 templates/bot/operation.html:80
+#: templates/bot/operation.html:342
+msgid "ExitTime"
+msgstr ""
+
+#: templates/bot/descriptions.html:237 templates/bot/operation.html:232
+msgid "Paper and Live mode require API keys"
+msgstr ""
+
+#: templates/bot/descriptions.html:238 templates/bot/operation.html:233
+msgid "See how to add API"
+msgstr ""
+
+#: templates/bot/descriptions.html:244 templates/bot/operation.html:239
+msgid "Quote"
+msgstr ""
+
+#: templates/bot/descriptions.html:245 templates/bot/manual.html:353
+#: templates/bot/manual.html:402 templates/bot/operation.html:240
+#: templates/bot/operation.html:243
+msgid "Available"
+msgstr ""
+
+#: templates/bot/descriptions.html:251
+msgid "Base"
+msgstr ""
+
+#: templates/bot/descriptions.html:263
+msgid "You must have sufficient Quote currency to start trading"
+msgstr ""
+
+#: templates/bot/descriptions.html:272 templates/bot/operation.html:258
+msgid "Mode"
+msgstr ""
+
+#: templates/bot/descriptions.html:273 templates/bot/operation.html:259
+#: templates/bot/ranking.html:66
+msgid "Paper"
+msgstr ""
+
+#: templates/bot/descriptions.html:274 templates/bot/operation.html:260
+#: templates/bot/ranking.html:67
+msgid "Live"
+msgstr ""
+
+#: templates/bot/descriptions.html:281 templates/bot/operation.html:198
+#: templates/bot/operation.html:267
+msgid "Closed Trade Profit"
+msgstr ""
+
+#: templates/bot/descriptions.html:283 templates/bot/operation.html:269
+msgid "Elapsed time"
+msgstr ""
+
+#: templates/bot/descriptions.html:304 templates/bot/manual.html:458
+#: templates/bot/operation.html:290
+msgid "Closed Orders"
+msgstr ""
+
+#: templates/bot/descriptions.html:308
+msgid "Open Transactions"
+msgstr ""
+
+#: templates/bot/descriptions.html:311
+msgid "Closed Transactions"
+msgstr ""
+
+#: templates/bot/descriptions.html:323 templates/bot/manual.html:471
+#: templates/bot/operation.html:139 templates/bot/operation.html:160
+#: templates/bot/operation.html:304 views.py:1569 views.py:1598
+msgid "Time"
+msgstr ""
+
+#: templates/bot/descriptions.html:324 templates/bot/operation.html:305
+msgid "Side"
+msgstr ""
+
+#: templates/bot/descriptions.html:327 templates/bot/manual.html:20
+#: templates/bot/manual.html:148 templates/bot/manual.html:235
+#: templates/bot/manual.html:287 templates/bot/manual.html:358
+#: templates/bot/manual.html:407 templates/bot/manual.html:474
+#: templates/bot/operation.html:308
+msgid "Price"
+msgstr ""
+
+#: templates/bot/descriptions.html:367 templates/bot/descriptions.html:391
+#: templates/bot/operation.html:347 templates/bot/paper.html:55
+#: templates/bot/paperarbitrage.html:325
+msgid "Fee"
+msgstr ""
+
+#: templates/bot/descriptions.html:533 templates/bot/descriptions.html:599
+msgid "Loading"
+msgstr ""
+
+#: templates/bot/descriptions.html:588 templates/bot/descriptions.html:649
+#: templates/bot/paper.html:86 templates/bot/paperarbitrage.html:300
+msgid "Stop"
+msgstr ""
+
+#: templates/bot/faq.html:12 templates/bot/faq.html:32
+msgid "How to create new bot"
+msgstr ""
+
+#: templates/bot/faq.html:14 templates/bot/faq.html:45
+msgid "How to change profile information and to add API keys and secrets"
+msgstr ""
+
+#: templates/bot/faq.html:17 templates/bot/faq.html:119
+msgid "How to use trading view chart"
+msgstr ""
+
+#: templates/bot/faq.html:18 templates/bot/faq.html:54
+msgid "What is an arbitrage bot"
+msgstr ""
+
+#: templates/bot/faq.html:19 templates/bot/faq.html:133
+msgid "What is a depth chart"
+msgstr ""
+
+#: templates/bot/faq.html:20 templates/bot/faq.html:239
+msgid "What is backtesting"
+msgstr ""
+
+#: templates/bot/faq.html:21 templates/bot/faq.html:309
+msgid "What is warm up period"
+msgstr ""
+
+#: templates/bot/faq.html:22 templates/bot/faq.html:324
+msgid "How to use any bot"
+msgstr ""
+
+#: templates/bot/faq.html:23 templates/bot/faq.html:344
+msgid "Closed orders and transactions"
+msgstr ""
+
+#: templates/bot/faq.html:34
+msgid ""
+"Go to the profile section by clicking on your username at the upper right "
+"corner"
+msgstr ""
+
+#: templates/bot/faq.html:35
+msgid "Fill the fields with your bot name, preferred strategy, etc"
+msgstr ""
+
+#: templates/bot/faq.html:37
+msgid "Save the bot you just created"
+msgstr ""
+
+#: templates/bot/faq.html:39
+msgid "Once created your bot will appear in MY BOTS page"
+msgstr ""
+
+#: templates/bot/faq.html:48
+msgid ""
+"You can see your profile by clicking on your username at the upper right "
+"corner of the page"
+msgstr ""
+
+#: templates/bot/faq.html:49
+msgid ""
+"To change your informations or add API keys and secrets, fill in your "
+"informations or API keys and secrets and then click on the 'save' button at "
+"the bottom of the page"
+msgstr ""
+
+#: templates/bot/faq.html:55
+msgid ""
+"Arbitrage is the purchase and sale of an asset in\n"
+"                            order to profit from a difference in the\n"
+"                            asset's\n"
+"                            price\n"
+"                            between markets. It is a trade that profits by "
+"exploiting the price differences of identical\n"
+"                            or\n"
+"                            similar\n"
+"                            financial instruments in different markets or in "
+"different forms. Arbitrage exists as a\n"
+"                            result\n"
+"                            of\n"
+"                            market\n"
+"                            inefficiencies and would therefore not exist if "
+"all markets were perfectly efficient.<br/>\n"
+"                            Arbitrage occurs when a security is purchased in "
+"one market and simultaneously sold in\n"
+"                            another\n"
+"                            market at\n"
+"                            a higher price, thus considered to be risk-free "
+"profit for the trader.<br/>\n"
+"                            <br/>\n"
+"                            The arbitrage module takes into account the fees "
+"of each exchange when proceeding with a\n"
+"                            trade\n"
+"                            to\n"
+"                            ensure\n"
+"                            that a profit is made, so it is necessary to "
+"make sure that enough balance is held on your\n"
+"                            account.\n"
+"                            There needs to be a certain amount of Quote "
+"currency and Base currency on each respective\n"
+"                            exchange\n"
+"                            being\n"
+"                            used with the Arbitrage module.\n"
+"                            <br/>\n"
+"                            To start trading just create a new bot and "
+"choose your desired spread or the difference\n"
+"                            between\n"
+"                            the\n"
+"                            two\n"
+"                            exchanges then save your bot. Your saved bot "
+"should appear at the arbitrage page of your\n"
+"                            account."
+msgstr ""
+
+#: templates/bot/faq.html:89 templates/bot/faq.html:232
+#: templates/bot/faq.html:303
+msgid "Source"
+msgstr ""
+
+#: templates/bot/faq.html:90 templates/bot/faq.html:233
+#: templates/bot/faq.html:304
+msgid "Investopedia"
+msgstr ""
+
+#: templates/bot/faq.html:95
+msgid "Bot Parameters"
+msgstr ""
+
+#: templates/bot/faq.html:97
+msgid ""
+"It represents the platform on which the\n"
+"                            transaction proceeds."
+msgstr ""
+
+#: templates/bot/faq.html:99
+msgid ""
+"A candlestick chart (also called Japanese\n"
+"                            candlestick chart) is a style of financial chart "
+"used to describe price movements of a\n"
+"                            security, derivative, or currency.\n"
+"                            It is similar to a bar chart in that each "
+"candlestick represents all four important pieces\n"
+"                            of information for that day:\n"
+"                            open and close in the thick body; high and low "
+"in the “candle wick”. Being densely packed\n"
+"                            with information, it tends to represent trading "
+"patterns over short periods of time, often a\n"
+"                            few days or a few trading sessions."
+msgstr ""
+
+#: templates/bot/faq.html:107
+msgid "Candle"
+msgstr ""
+
+#: templates/bot/faq.html:108
+msgid ""
+"Indicates the symbol of an ongoing\n"
+"                            transaction."
+msgstr ""
+
+#: templates/bot/faq.html:110 templates/bot/ranking.html:62
+msgid "Simultaneous Trades"
+msgstr ""
+
+#: templates/bot/faq.html:110
+msgid ""
+"The number of concurrent\n"
+"                            transactions\n"
+"                            represents the maximum number of transactions "
+"that one bot participates in the transaction.\n"
+"                            When the number of trading owners reaches this "
+"number, the transaction will not proceed\n"
+"                            further. If any of the current trades close, you "
+"will be able to participate in the trade\n"
+"                            again."
+msgstr ""
+
+#: templates/bot/faq.html:122
+msgid ""
+"Let's see how to use the trading charts on our platform. As an example,\n"
+"                                let's say the bot is structured like this:\n"
+"                                Strategy: MAGOLDENCROSS, Candle size: 3m, "
+"Number of concurrent transactions: 5\n"
+"                                Then, as shown in the figure on the right, "
+"select the candle size of 3m and the\n"
+"                                indicator select Move Average.\n"
+"                                Then you can see the red and blue lines on "
+"the chart, and the points where these lines\n"
+"                                meet are the trading point, namely "
+"Goldencrossover and Deadcrossover."
+msgstr ""
+
+#: templates/bot/faq.html:135
+msgid ""
+"On the trading page, you will find different charts and tools to help you "
+"to\n"
+"                                analyze the\n"
+"                                market\n"
+"                                situation, one of them is the Depth chart.\n"
+"                                Depth charts are one of those which can let "
+"you know about Demand and Supply. It gives a\n"
+"                                visualization\n"
+"                                of demand or supply of a particular stock or "
+"commodity or a cryptocurrency.<br/>\n"
+"                                You probably already know the relationship "
+"between supply and demand.\n"
+"                                Depth charts are something to essentially "
+"show the supply and demand at different\n"
+"                                prices."
+msgstr ""
+
+#: templates/bot/faq.html:146
+msgid ""
+"A depth chart for a bid/ask market has two lines, one for BIDs (BUY orders)\n"
+"                                and one for ASKs\n"
+"                                (SELL\n"
+"                                orders). GDAX live chart has an Green line "
+"for BIDs (BUY orders), a Red line for ASKs\n"
+"                                (SELL\n"
+"                                orders).<br/>\n"
+"                                <br/>\n"
+"                                Again, a line on a chart is simply made up "
+"by plotting dots. Each dot on a depth chart\n"
+"                                line\n"
+"                                represents\n"
+"                                how much can be traded at that point.<br/>\n"
+"                                <br/>\n"
+"                                BIDs (BUY orders) are placed with dollars. I "
+"might enter that I want to buy 2.0 BTC at\n"
+"                                $3300\n"
+"                                each,\n"
+"                                but\n"
+"                                really that is a total bid size of $6600 USD "
+"for trade at $3300 or lower.<br/>\n"
+"                                <br/>\n"
+"                                ASKs (SELL orders) are placed with bitcoins. "
+"I would enter that I want to sell 3.0 BTC\n"
+"                                at\n"
+"                                $3500\n"
+"                                or\n"
+"                                higher.<br/>\n"
+"                                <br/>\n"
+"                                I’ve changed numbers compared to Image "
+"attached above to make calculations and\n"
+"                                understanding\n"
+"                                a\n"
+"                                bit\n"
+"                                easier.<br/>\n"
+"                                <br/>\n"
+"                                Now the charts are cumulative. So if Alice "
+"bids 2.0 at $3300 and Bob bids 3.0 at $3400,\n"
+"                                the\n"
+"                                cumulative\n"
+"                                number of bids at $3300 is $16800 cumulative "
+"(both Bob’s $10200 plus Alice’s $6600 are\n"
+"                                for\n"
+"                                sale\n"
+"                                at\n"
+"                                that\n"
+"                                price point.).<br/>\n"
+"                                <br/>\n"
+"                                So to plot the BIDs (Green line), at every "
+"increment along the horizontal axis (at the\n"
+"                                bottom of\n"
+"                                the\n"
+"                                chart) representing each price point, e.g., "
+"$3200, $3300, $3400, etc.) add up all the\n"
+"                                bids\n"
+"                                at\n"
+"                                that\n"
+"                                price\n"
+"                                point or below and plot that total along the "
+"vertical axis (along the left of the chart)\n"
+"                                representing\n"
+"                                total dollars of orders at the level.<br/>\n"
+"                                <br/>\n"
+"                                The ASKs (the Red line) have the same "
+"concept but the total accumulated value shows up\n"
+"                                on\n"
+"                                the\n"
+"                                right\n"
+"                                hand\n"
+"                                side, in terms of BTCs but stretched out so "
+"that those values correspond to the USD\n"
+"                                amounts\n"
+"                                on\n"
+"                                the\n"
+"                                left\n"
+"                                vertical axis (e.g., if the spot price of "
+"$3500, then the mark for 100 BTC of cumulative\n"
+"                                asks\n"
+"                                would\n"
+"                                line\n"
+"                                up vertically with the $350k USD mark on the "
+"left side vertical axis.)<br/>\n"
+"                                <br/>\n"
+"                                So at any point on the Bids (Green) line you "
+"can put your cursor there and know exactly\n"
+"                                how\n"
+"                                much\n"
+"                                you\n"
+"                                could sell (from where it sits on the left / "
+"vertical axis) at that price (from where\n"
+"                                that\n"
+"                                point\n"
+"                                sits on\n"
+"                                the bottom / horizontal axis.)<br/>\n"
+"                                <br/>\n"
+"                                And similarly at any point on the Asks (Red) "
+"line you can put your cursor there and know\n"
+"                                exactly\n"
+"                                how\n"
+"                                many BTCs you could buy (from where it sits "
+"on the right / vertical axis) at that price\n"
+"                                (from\n"
+"                                where\n"
+"                                that\n"
+"                                point sits on the bottom / horizontal axis.)"
+msgstr ""
+
+#: templates/bot/faq.html:234
+msgid "Hackermoon"
+msgstr ""
+
+#: templates/bot/faq.html:241
+msgid ""
+"Backtesting is a key component of effective trading system development. It\n"
+"                                is accomplished\n"
+"                                by\n"
+"                                reconstructing, with historical data, trades "
+"that would have occurred in the past using\n"
+"                                rules\n"
+"                                defined by\n"
+"                                a given strategy. The result offers "
+"statistics to gauge the effectiveness of the\n"
+"                                strategy.<br/>\n"
+"                                <br/>\n"
+"                                The underlying theory is that any strategy "
+"that worked well in the past is likely to\n"
+"                                work\n"
+"                                well\n"
+"                                in\n"
+"                                the\n"
+"                                future, and conversely, any strategy that "
+"performed poorly in the past is likely to\n"
+"                                perform\n"
+"                                poorly\n"
+"                                in\n"
+"                                the future. This article takes a look at "
+"what applications are used in backtesting, what\n"
+"                                kind of\n"
+"                                data is\n"
+"                                obtained and how to put it to use.<br/>\n"
+"                                <br/>\n"
+"                                Some rule for backtesting<br/>\n"
+"                                <br/>\n"
+"                                Take into account the broad market trends in "
+"the time frame a given strategy was tested.\n"
+"                                For\n"
+"                                example, if\n"
+"                                a strategy was only backtested from 1999 to "
+"2000, it may not fare well in a bear market.\n"
+"                                It\n"
+"                                is\n"
+"                                often\n"
+"                                a\n"
+"                                good idea to backtest over a long time frame "
+"encompassing several different types of\n"
+"                                market\n"
+"                                conditions.<br/>\n"
+"                                <br/>\n"
+"                                Take into account the universe in which "
+"backtesting occurred. For example, if a broad\n"
+"                                market\n"
+"                                system\n"
+"                                is\n"
+"                                tested with a universe consisting of tech "
+"stocks, it may fail to do well in different\n"
+"                                sectors.\n"
+"                                As a\n"
+"                                general rule, if a strategy is targeted "
+"toward a specific genre of stock, limit the\n"
+"                                universe\n"
+"                                to\n"
+"                                that\n"
+"                                genre; in all other cases, maintain a large "
+"universe for testing purposes.<br/>\n"
+"                                <br/>\n"
+"                                Volatility measures are extremely important "
+"to consider in developing a trading system.\n"
+"                                This\n"
+"                                is\n"
+"                                especially true for leveraged accounts, "
+"which are subjected to margin calls if their\n"
+"                                equity\n"
+"                                drops\n"
+"                                below\n"
+"                                a certain point. Traders should seek to keep "
+"volatility low to reduce risk and enable\n"
+"                                easier\n"
+"                                transition\n"
+"                                in and out of a given stock."
+msgstr ""
+
+#: templates/bot/faq.html:311
+msgid ""
+"When a bot starts, it needs a certain amount of time to get the proper\n"
+"                                length for the\n"
+"                                strategy's\n"
+"                                required candle. During this period no trade "
+"is carried on, but this step is necessary\n"
+"                                to\n"
+"                                avoid\n"
+"                                getting\n"
+"                                partial or incorrect data that does not "
+"reflect the market situation."
+msgstr ""
+
+#: templates/bot/faq.html:326
+msgid ""
+"On this platform, you can make use of only bots which any user made them\n"
+"                                available to\n"
+"                                others. If\n"
+"                                you\n"
+"                                want to use other's bot, you can do this by "
+"just clicking on the 'Use this bot' green\n"
+"                                button\n"
+"                                on\n"
+"                                the\n"
+"                                bot's page, then you will be redirected into "
+"a copy of the new bot by which you will be\n"
+"                                able\n"
+"                                to\n"
+"                                trade.\n"
+"                                This bot will be unaffected even if the "
+"original owner of the bot deletes it later\n"
+"                                on."
+msgstr ""
+
+#: templates/bot/faq.html:345
+msgid ""
+"An order is the record of requests for goods or\n"
+"                            services initiated by the customer, while a\n"
+"                            transaction\n"
+"                            in progress might have multiple orders, e.g. buy "
+"and sell orders grouped together. If the\n"
+"                            transaction\n"
+"                            doesn't have a closed order it's an open "
+"transaction. Or else it's a closed transaction with\n"
+"                            the\n"
+"                            profit,\n"
+"                            the price for entry and exit as well as the date."
+msgstr ""
+
+#: templates/bot/home.html:28
+msgid "Type in a Coin"
+msgstr ""
+
+#: templates/bot/intro.html:132
+msgid ""
+"<span>Secure</span> and <span>Easy Way</span><br/>\n"
+"                                To Trade\n"
+"                                Cryptocurrency"
+msgstr ""
+
+#: templates/bot/intro.html:137
+msgid "Learn more"
+msgstr ""
+
+#: templates/bot/intro.html:150
+msgid ""
+"<span>Trade</span> Across <br/>More Than\n"
+"                                    <span> 10 Exchanges</span>"
+msgstr ""
+
+#: templates/bot/intro.html:183
+msgid "Choose a Strategy"
+msgstr ""
+
+#: templates/bot/intro.html:184
+msgid ""
+"Pick the strategy that fits you the most, we have a large range of "
+"strategies\n"
+"                            that are easily\n"
+"                            modulable to reach the outcome you aim for."
+msgstr ""
+
+#: templates/bot/intro.html:196
+msgid "Backtest your strategy"
+msgstr ""
+
+#: templates/bot/intro.html:197
+msgid ""
+"Our platform offers a backtesting unit that allows you to test your "
+"settings\n"
+"                            and\n"
+"                            configurations over historical data from "
+"different markets."
+msgstr ""
+
+#: templates/bot/intro.html:209
+msgid "Start trading"
+msgstr ""
+
+#: templates/bot/intro.html:210
+msgid ""
+"You can create your own strategy or use strategy concocted by others, once\n"
+"                            everything is set\n"
+"                            up you can start trading easily and be notified "
+"at every completed\n"
+"                            transaction."
+msgstr ""
+
+#: templates/bot/intro.html:229
+msgid ""
+"WideBot platform makes it easy for anyone to invest smarter using trading "
+"bots\n"
+"                        that trade on your\n"
+"                        behalf."
+msgstr ""
+
+#: templates/bot/intro.html:243
+msgid ""
+"A place for everyone who wants to trade without any hassle or\n"
+"                        constraint. No\n"
+"                        skill is required to start trading. Our implemented "
+"strategies are created by experts and have\n"
+"                        been tested in multiple markets. Join our community "
+"of users from all over the\n"
+"                        world."
+msgstr ""
+
+#: templates/bot/intro.html:249
+msgid "Our advantages"
+msgstr ""
+
+#: templates/bot/intro.html:250
+msgid "Our guarantees"
+msgstr ""
+
+#: templates/bot/intro.html:254
+msgid ""
+"Using our platform you can securely and easily trade across multiple\n"
+"                                exchanges, test your\n"
+"                                strategies in real-time using paper money, "
+"and on large historical datasets using our\n"
+"                                different trading modules."
+msgstr ""
+
+#: templates/bot/intro.html:261
+msgid ""
+"We are here because we are passionate about opening the cryptocurrency\n"
+"                                trading world to\n"
+"                                everyone, using the most powerful tools we "
+"aim to be a major driving force in helping\n"
+"                                people invest their fund smarter and more "
+"efficiently, we are simply the best and the\n"
+"                                most versatile cryptocurrency trading "
+"platform."
+msgstr ""
+
+#: templates/bot/intro.html:280
+msgid "Supported"
+msgstr ""
+
+#: templates/bot/intro.html:280
+msgid "Exchanges"
+msgstr ""
+
+#: templates/bot/manual.html:19 templates/bot/manual.html:147
+msgid "Coin"
+msgstr ""
+
+#: templates/bot/manual.html:21 templates/bot/manual.html:199
+msgid "Change"
+msgstr ""
+
+#: templates/bot/manual.html:149 templates/bot/manual.html:213
+#: templates/bot/manual.html:236 templates/bot/manual.html:288
+msgid "Volume"
+msgstr ""
+
+#: templates/bot/manual.html:195
+msgid "Last Price"
+msgstr ""
+
+#: templates/bot/manual.html:205
+msgid "High"
+msgstr ""
+
+#: templates/bot/manual.html:209
+msgid "Low"
+msgstr ""
+
+#: templates/bot/manual.html:227
+msgid "Asks"
+msgstr ""
+
+#: templates/bot/manual.html:228
+msgid "Bids"
+msgstr ""
+
+#: templates/bot/manual.html:345 templates/bot/manual.html:352
+#: templates/bot/manual.html:391
+msgid "Buy"
+msgstr ""
+
+#: templates/bot/manual.html:346 templates/bot/manual.html:401
+#: templates/bot/manual.html:440
+msgid "Sell"
+msgstr ""
+
+#: templates/bot/messagesent.html:132
+msgid ""
+"Need to speak to us? Do you have any queries or suggestions? Please\n"
+"                    contact us about all enquiries including membership and "
+"volunteer work using the form\n"
+"                    below."
+msgstr ""
+
+#: templates/bot/messagesent.html:138
+msgid "message sent"
+msgstr ""
+
+#: templates/bot/messagesent.html:157
+msgid "Open account for free and start trading Bitcoins"
+msgstr ""
+
+#: templates/bot/mybots.html:21
+msgid "All"
+msgstr ""
+
+#: templates/bot/mybots.html:94
+msgid "Status"
+msgstr ""
+
+#: templates/bot/operation.html:85
+msgid "Currency Price"
+msgstr ""
+
+#: templates/bot/operation.html:106
+msgid "Copied"
+msgstr ""
+
+#: templates/bot/operation.html:199
+msgid "Open Trade Profit"
+msgstr ""
+
+#: templates/bot/operation.html:231
+msgid "BOT"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:280
+msgid "Arbitrage Bot"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:285
+msgid "Choose bot"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:320
+msgid "Buy Market"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:321
+msgid "Buy Market Price"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:322
+msgid "Sell Market"
+msgstr ""
+
+#: templates/bot/paperarbitrage.html:323
+msgid "Sell Market Price"
+msgstr ""
+
+#: templates/bot/ranking.html:9
+msgid "Not Enough User For Ranking"
+msgstr ""
+
+#: templates/bot/ranking.html:25 templates/bot/ranking.html:334
+msgid "View All"
+msgstr ""
+
+#: templates/bot/ranking.html:35
+msgid "Top 10 Trading Bots By Profit"
+msgstr ""
+
+#: templates/bot/ranking.html:57
+msgid "Rank"
+msgstr ""
+
+#: templates/bot/ranking.html:326
+msgid "Total Number of Bots"
+msgstr ""
+
+#: templates/bot/services.html:118
+msgid "Services"
+msgstr ""
+
+#: views.py:1397
+msgid "Changes will be applied on next bot operation"
+msgstr ""
+
+#: views.py:1561 views.py:1590
+msgid "View More"
+msgstr ""
+
+#: views.py:1871
+msgid ""
+"Crossovers are one of the main moving average strategies. The first type is "
+"a price crossover,\n"
+" \n"
+"        which is when the price crosses above or below a moving average to "
+"signal a potential change in trend.\n"
+"\n"
+"\n"
+"        Another strategy is to apply two moving averages to a chart: one "
+"longer and one shorter.\n"
+" When the \n"
+"        shorter-term MA crosses above the longer-term MA, it's a buy signal, "
+"as it indicates that the trend is \n"
+"        shifting up.\n"
+" This is known as a \"golden cross.\" \n"
+"\n"
+"        Meanwhile, when the shorter-term MA crosses below the longer-term "
+"MA, it's a sell signal, as it indicates \n"
+"        that the trend is shifting down.\n"
+" This is known as a \"dead/death cross.\""
+msgstr ""
+
+#: views.py:1880
+msgid "Combine Macd indicator and Stochastic"
+msgstr ""
+
+#: views.py:1881
+msgid ""
+"Having a strong entry strategy can increase the probability of success by "
+"confirming \n"
+"        the direction of the trend before\n"
+" entering a trade. In the case of the MACD crossover, the most widely \n"
+"        used entry signal is when the MACD line crosses over the signal line "
+"in\n"
+" the direction of the trend. \n"
+"\n"
+"        A bullish signal is present when the MACD line crosses ABOVE the "
+"signal line and is below the zero line. \n"
+"        When the crossover takes place,\n"
+" traders may look for confirmation of an upward trend by waiting for the \n"
+"        MACD line to cross over the zero line before opening a long "
+"position. \n"
+"\n"
+"        Likewise, a bearish signal is present when the MACD line crosses "
+"BELOW the signal line and is above the \n"
+"        zero line. Once again, confirmation\n"
+" can be seen when the MACD line crosses below the zero line. "
+msgstr ""
+
+#: views.py:1891
+msgid ""
+"A moving average helps cut down the amount of \"noise\" on a price chart. "
+"Look at the \n"
+"        direction of the moving average to get\n"
+" a basic idea of which way the price is moving. If it is angled up, \n"
+"        the price is moving up (or was recently) overall; angled down, and "
+"the\n"
+" price is moving down overall; \n"
+"        moving sideways, and the price is likely in a range. \n"
+"\n"
+"        A moving average can also act as support or resistance. In an "
+"uptrend, a 50-day, 100-day or 200-day \n"
+"        moving average may act as a support\n"
+" level, as shown in the figure below. This is because the average \n"
+"        acts like a floor (support), so the price bounces up off of it. In "
+"a\n"
+" downtrend, a moving average may \n"
+"        act as resistance; like a ceiling, the price hits the level and then "
+"starts to drop again. \n"
+"\n"
+"        The price won't always \"respect\" the moving average in this way. "
+"The price may run through it slightly or \n"
+"        stop and reverse prior to reaching it. \n"
+"\n"
+"        As a general guideline, if the price is above a moving average, the "
+"trend is up. If the price is below a \n"
+"        moving average, the trend is down. However,\n"
+" moving averages can have different lengths (discussed \n"
+"        shortly), so one MA may indicate an uptrend while another MA "
+"indicates a downtrend. "
+msgstr ""
+
+#: views.py:1907
+msgid ""
+"Crossovers are one of the main moving average strategies. <br/>The first "
+"type is a price \n"
+"        crossover, which is when the price crosses above or below a moving "
+"average to signal a potential change in \n"
+"        trend. \n"
+"\n"
+"        Another strategy is to apply two moving averages to a chart: one "
+"longer and one shorter. When the \n"
+"        shorter-term MA crosses above the longer-term MA, it's a buy signal, "
+"as it indicates that the trend is \n"
+"        shifting up. This is known as a \"golden cross.\" \n"
+"\n"
+"        Meanwhile, when the shorter-term MA crosses below the longer-term "
+"MA, it's a sell signal, as it indicates \n"
+"        that the trend is shifting down. This is known as a \"dead/death "
+"cross.\" "
+msgstr ""
+
+#: views.py:1917
+msgid "Combine RSI indicator and Moving average crossover "
+msgstr ""
+
+#: views.py:1918
+msgid ""
+"As any other oscillator, the RSI indicator is not plotted on the price "
+"chart, but in a \n"
+"        separate window below. This technical instrument consists of a "
+"single line and two levels set by default. \n"
+"\n"
+"        Vertical axis range of the indicator is set to 1 to 100 showing "
+"extremality of current price against its \n"
+"        previous values. \n"
+"\n"
+"        Usually standard overbought and oversold levels are 70 and 30. If "
+"the indicator’s line goes above the 70 \n"
+"        level, it signals that market is\n"
+" overbought and the trend may reverse downwards. \n"
+"\n"
+"        If the indicator’s line goes below the level 30, it signifies that "
+"market is oversold and the trend may \n"
+"        reverse upwards. \n"
+"\n"
+"        The reference level is 50, and it is the median value. If the "
+"indicator chart is ranging between the \n"
+"        levels 30 and 70, the market is flat\n"
+" or that the current trend is smooth, steady and there is less of a \n"
+"        likelihood for reversal in short-term \n"
+"\n"
+"        Sometimes, overbought and oversold levels are set at 80 and 20 "
+"instead of 70 and 30. This setting is used \n"
+"        during increased market volatility. "
+msgstr ""
+
+#: views.py:1936
+msgid ""
+"The stochastic oscillator uses a quite complex mathematical formula to "
+"calculate simple moving averages:\n"
+"\n"
+"        %K = 100(C – L14)/(H14 – L14)\n"
+"\n"
+"        L14 = the low of the 14 previous trading sessions\n"
+"        Where:\n"
+"\n"
+"        C = the most recent closing price\n"
+"        H14 = the highest price traded during the same 14-day period\n"
+"        %K= the current market rate for the currency pair\n"
+"        %D = 3-period moving average of %K\n"
+"\n"
+"        This step is similar to the previous rule, but this time we apply "
+"the rules on the 15-minute time frame: \n"
+"        wait for the Stochastic indicator to hit\n"
+" the 20 level and the %Kline (blue line) is crossing above the \n"
+"        %D line (orange line).  "
+msgstr ""
+
+#: views.py:1951
+msgid ""
+"General Stochastic: This strategy uses the Stochastic indicator, enter a "
+"trade when the \n"
+"        market is oversold(below 20) and exit a trade when the market is "
+"overbought(above 80).\n"
+"\n"
+" The charted \n"
+"        stochastic oscillator actually consists of two lines: the indicator "
+"itself is represented by %K, and a signal \n"
+"        line\n"
+" reflecting the three-day simple moving average (SMA) of %K, which is called "
+"%D. Like other range-bound \n"
+"        momentum oscillators, such as the relative strength index (RSI) and "
+"Williams %R, the stochastic oscillator is \n"
+"        also useful\n"
+" for determining overbought or oversold conditions. Ranging from 0 to 100, "
+"the stochastic \n"
+"        oscillator reflects overbought conditions with readings\n"
+" over 80 and oversold conditions with readings under \n"
+"        20."
+msgstr ""
+
+#: views.py:1959
+msgid ""
+"General Stochastic: This strategy uses the Stochastic indicator and combine "
+"the \n"
+"        Stochcrossover strategy and the Stochsignal strategy.\n"
+"\n"
+" The stochastic oscillator uses a quite complex \n"
+"        mathematical formula to calculate simple moving averages: \n"
+"\n"
+"        %K = 100(C – L14)/(H14 – L14)\n"
+"\n"
+"        Where:\n"
+"\n"
+"        C = the most recent closing price\n"
+"        L14 = the low of the 14 previous trading sessions\n"
+"        H14 = the highest price traded during the same 14-day period\n"
+"        %K= the current market rate for the currency pair\n"
+"        %D = 3-period moving average of %K\n"
+"\n"
+"        This step is similar to the previous rule, but this time we apply "
+"the rules on the 15-minute time frame: \n"
+"        wait for the Stochastic indicator to hit\n"
+" the 20 level and the %Kline (blue line) is crossing above the \n"
+"        %D line (orange line).  "
+msgstr ""
+
+#: views.py:1976
+msgid ""
+"Bollinger Bands® are composed of three lines. One of the more common "
+"calculations uses a \n"
+"        20-day simple moving average (SMA)\n"
+" for the middle band. The upper band is calculated by taking the middle \n"
+"        band and adding twice the daily standard deviation to that amount.\n"
+" The lower band is calculated by taking \n"
+"        the middle band minus two times the daily standard deviation. \n"
+"\n"
+"        The Bollinger Band® formula consists of the following:\n"
+"\n"
+"\n"
+"        BOLU=MA(TP,n)+m∗σ[TP,n]\n"
+" BOLD=MA(TP,n)−m∗σ[TP,n]\n"
+" where:\n"
+" BOLU=Upper Bollinger Band\n"
+" BOLD=Lower \n"
+"        Bollinger Band\n"
+" MA=Moving average\n"
+" TP (typical price)=(High+Low+Close)÷3\n"
+" n=Number of days in \n"
+"        smoothing period\n"
+" m=Number of standard deviations\n"
+" σ[TP,n]=Standard Deviation over last n periods of \n"
+"        TP\n"
+" ​ Overbought and Oversold Strategy\n"
+" A common approach when using Bollinger Bands® is to identify \n"
+"        overbought or oversold market conditions. When the price of the\n"
+" asset breaks below the lower band of \n"
+"        the Bollinger Bands®, prices have perhaps fallen too much and are "
+"due to bounce. On the other hand,\n"
+"        \n"
+" when price breaks above the upper band, the market is perhaps overbought "
+"and due for a pullback."
+msgstr ""
+
+#: views.py:1995
+msgid ""
+"General Explanation: This is a strategy that combines the MACD indicator and "
+"the RSI"
+msgstr ""
+
+#: views.py:1996
+msgid ""
+"General Explanation: This is a strategy that combines the MACD indicator "
+"with the \n"
+"            Stochastic indicator."
+msgstr ""
+
+#: views.py:1998
+msgid ""
+"General Explanation: This is a strategy that uses the MACD indicator, enter "
+"a trade \n"
+"           when the MACD line is above the Signal line and exit when the "
+"MACD line is below the Signal line"
+msgstr ""
+
+#: views.py:2000
+msgid ""
+"General Explanation: This strategy uses the Moving Average, enter a trade "
+"when the \n"
+"           Moving Average falls below the current price average and exit a "
+"trade when the Moving Average is above the \n"
+"           current price average."
+msgstr ""
+
+#: views.py:2003
+msgid ""
+"General Explanation: This strategy uses the Moving Average indicator, enter "
+"a trade \n"
+"           when the Moving Average of a short period falls below the Moving "
+"Average of a long period."
+msgstr ""
+
+#: views.py:2005
+msgid ""
+"General Explanation: This strategy uses RSI and Moving Average Combined."
+msgstr ""
+
+#: views.py:2006
+msgid ""
+"General Explanation: This strategy uses RSI, enter a trade when the market "
+"is oversold(\n"
+"           below 30) and exit a trade when the market is overbought(over 70)."
+msgstr ""
+
+#: views.py:2008
+msgid ""
+"General Explanation: This strategy uses the Stochastic indicator, enter a "
+"trade when \n"
+"           the Kline is above the Dline, and exit a trade when the Kline is "
+"below the Dline."
+msgstr ""
+
+#: views.py:2010
+msgid ""
+"General Explanation: This strategy uses the Stochastic indicator, enter a "
+"trade when the \n"
+"           market is oversold(below 20) and exit a trade when the market is "
+"overbought(above 80)."
+msgstr ""
+
+#: views.py:2012
+msgid ""
+"General Explanation: This strategy uses the Stochastic indicator and combine "
+"the \n"
+"           Stochcrossover strategy and the Stochsignal strategy."
+msgstr ""
+
+#: views.py:2014
+msgid ""
+"General Explanation: This strategy use the Bollinger band to assess oversold "
+"and \n"
+"           overbought signal "
+msgstr ""
+
+#~ msgid "MAgoldenCross_decscription"
+#~ msgstr ""
+#~ "Crossovers are one of the main moving average strategies. <br/>The first "
+#~ "type is a price crossover, which is when the price crosses\n"
+#~ " above or below a moving average to signal a potential change intrend."
+#~ "Another strategy is to apply two moving averages to a chart: one longer "
+#~ "and one shorter. When theshorter-term MA crosses above the longer-term "
+#~ "MA,\n"
+#~ " it's a buy signal, as it indicates that the trend isshifting up. This is "
+#~ "known as a \"golden cross.\"Meanwhile, when the shorter-term MA crosses "
+#~ "below the longer-term MA, it's a sell signal, as it indicatesthat the "
+#~ "trend is shifting down. This is\n"
+#~ " known as a \"dead/death cross.\" "

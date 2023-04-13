@@ -1,0 +1,58 @@
+{% load i18n %}
+
+<div class="header pt-4">
+    <div class="row">
+        <div class="col-auto align-self-center">
+            <div class="row">
+                <div class="col-auto align-self-center ps-0">
+                    <div id="reportrange">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="row align-items-center">
+                        <div class="col-auto pe-0">
+                            <label class="text-white-50 d-none d-sm-inline-block" for="bot_status">{% trans "Columns Filter" %}</label>
+                        </div>
+                        <div class="col-auto ps-1">
+                            <select id="columns_filter" name="columns_filter[]" class="form-select text-white filter-select" multiple="multiple">
+                                <option value="check_all">{% trans "All" %}</option>
+                                <option value="no">{% trans "NO" %}</option>
+                                <option value="bot">{% trans "Name" %}</option>
+                                <option value="exchange">{% trans "Exchange" %}</option>
+                                <option value="pair">{% trans "Pair" %}</option>
+                                <option value="amount">{% trans "Amount" %}</option>
+                                <option value="entry_price">{% trans "Entry Price" %}</option>
+                                <option value="exit_price">{% trans "Exit Price" %}</option>
+                                <option value="fee">{% trans "Fee" %}</option>
+                                <option value="start_time">{% trans "Start Time" %}</option>
+                                <option value="end_time">{% trans "Exit Time" %}</option>
+                                <option value="profit">{% trans "Profit" %}</option>
+                                <option value="paper_trading">{% trans "Mode" %}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col d-flex justify-content-end pe-0">
+            <div class="align-self-center me-2">
+                <div class="row align-items-center">
+                    <div class="col-auto pe-0">
+                        <label class="text-white-50" for="page_length">{% trans "Rows" %}</label>
+                    </div>
+                    <div class="col-auto ps-1">
+                        <select id="page_length" class="form-select text-white filter-select">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

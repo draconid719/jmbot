@@ -1,0 +1,20 @@
+{% extends "bot/base.html" %}
+
+{% block content %}
+  <div class="col-lg-6" style=" margin-left: 38%; margin-top: 25%">
+    <div class="block">
+      <div class="block-body">
+        <form method="POST">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <h4>Delete Bot, Click yes to confirm</h4>
+          </fieldset>        
+          <div class="form-group" style="margin-left: 16%">       
+            <button type="submit" class="btn btn-primary">Yes </button> 
+            <a class="btn btn-secondary" href="{% url 'mybots-page' '-current_profit'|slugify %} ">No </a> 
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

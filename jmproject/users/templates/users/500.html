@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>WideBot - Cryptocurrency Trading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'bot/imagesb/favicon2.ico' %}">
+
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="{% static 'bot/cssb/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bot/cssb/style.css' %}">
+	<link rel="stylesheet" href="{% static 'bot/cssb/skins/pink.css' %}">
+
+    <!-- Template JS Files -->
+    <script src="{% static 'bot/jsb/modernizr.js' %}"></script>
+
+</head>
+
+<body class="error-page server-error-page">
+    <!-- Wrapper Starts -->
+    <div class="wrapper">
+        <div class="container-fluid error">
+			<div>
+				<div class="text-center">
+					<!-- Logo Starts -->
+					<a class="logo" href="/">
+						<img class="img-responsive" src="{% static 'bot/imagesb/logo2.PNG' %}" alt="logo">
+					</a>
+					<!-- Logo Ends -->
+					<!-- Error 503 Content Starts -->
+					<div class="big-404">500</div>
+					<h3>{% trans "Oh no ! ... Server Error" %}</h3>
+                    <p>{% trans "The server encountered an error and could not complete your request, Please Try again later or refresh the page" %}</p>
+					<a id="refresh" href="#" class="refresh"><i class="fa fa-refresh"></i> refresh the page</a>
+					<!-- Error 503 Content Starts -->
+				</div>
+			</div>
+		</div>
+        <!-- Template JS Files -->
+        <script src="{% static 'bot/jsb/jquery-2.2.4.min.js' %}"></script>
+        <script src="{% static 'bot/jsb/bootstrap.min.js' %}"></script>
+        <script src="{% static 'bot/jsb/select2.min.js' %}"></script>
+        <script src="{% static 'bot/jsb/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'bot/jsb/custom.js' %}"></script>
+
+    </div>
+    <!-- Wrapper Ends -->
+</body>
+
+</html>

@@ -1,0 +1,375 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    {% load static %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="crypt-side-menu crypt-left-sided " style="width: 20%">
+                <hr>
+                <!-- <p>Create Bot</p> -->
+                <ul>
+                    <li><a href="#create">{% trans "How to create new bot" %}</a></li>
+                    <li>
+                        <a href="#profile">{% trans "How to change profile information and to add API keys and secrets" %}</a>
+                    </li>
+                    <li><a href="#botparameters">{% trans "Bot parameters" %}</a></li>
+                    <li><a href="#tradingview">{% trans "How to use trading view chart" %}</a></li>
+                    <li><a href="#arbitrage">{% trans "What is an arbitrage bot" %}</a></li>
+                    <li><a href="#depth">{% trans "What is a depth chart" %}</a></li>
+                    <li><a href="#backtest">{% trans "What is backtesting" %}</a></li>
+                    <li><a href="#warmup">{% trans "What is warm up period" %}</a></li>
+                    <li><a href="#otheruser">{% trans "How to use any bot" %}</a></li>
+                    <li><a href="#order">{% trans "Closed orders and transactions" %}</a></li>
+                </ul>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row"></div>
+                <div class="col-md-12">
+
+                    <div style="margin-top: -30px; padding-top: 115px; " id="create">
+                        <h6 style="margin-left: 90px;"><b>{% trans "How to create new bot" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            1. {% trans "Go to the profile section by clicking on your username at the upper right corner" %}.<br/>
+                            2. {% trans "Fill the fields with your bot name, preferred strategy, etc" %}.<br/>
+                            <img class="py-4" src="{% static 'bot/images/simple.PNG' %}" alt=""><br/>
+                            3. {% trans "Save the bot you just created" %}. <br/>
+                            <img class="py-4" src="{% static 'bot/images/resave.PNG' %}" style="margin-top: 2px" alt=""><br/>
+                            {% trans "Once created your bot will appear in MY BOTS page" %}.
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="profile" style="padding-top:7rem !important;">
+                        <h6 style="margin-left: 90px;">
+                            <b>{% trans "How to change profile information and to add API keys and secrets" %}</b>
+                        </h6>
+                        <p style="margin-left: 90px;">
+                            {% trans "You can see your profile by clicking on your username at the upper right corner of the page" %}.<br/>
+                            {% trans "To change your informations or add API keys and secrets, fill in your informations or API keys and secrets and then click on the 'save' button at the bottom of the page" %}.
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="arbitrage" style="padding-top: 7rem !important;">
+                        <h6 style="margin-left: 90px;"><b>{% trans "What is an arbitrage bot" %}</b></h6>
+                        <p style="margin-left: 90px;">{% blocktrans %}Arbitrage is the purchase and sale of an asset in
+                            order to profit from a difference in the
+                            asset's
+                            price
+                            between markets. It is a trade that profits by exploiting the price differences of identical
+                            or
+                            similar
+                            financial instruments in different markets or in different forms. Arbitrage exists as a
+                            result
+                            of
+                            market
+                            inefficiencies and would therefore not exist if all markets were perfectly efficient.<br/>
+                            Arbitrage occurs when a security is purchased in one market and simultaneously sold in
+                            another
+                            market at
+                            a higher price, thus considered to be risk-free profit for the trader.<br/>
+                            <br/>
+                            The arbitrage module takes into account the fees of each exchange when proceeding with a
+                            trade
+                            to
+                            ensure
+                            that a profit is made, so it is necessary to make sure that enough balance is held on your
+                            account.
+                            There needs to be a certain amount of Quote currency and Base currency on each respective
+                            exchange
+                            being
+                            used with the Arbitrage module.
+                            <br/>
+                            To start trading just create a new bot and choose your desired spread or the difference
+                            between
+                            the
+                            two
+                            exchanges then save your bot. Your saved bot should appear at the arbitrage page of your
+                            account.{% endblocktrans %}
+                            <span style="font-size: 10px;">{% trans "Source" %}:
+                                <a href="https://www.investopedia.com/terms/a/arbitrage.asp">{% trans "Investopedia" %}</a>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="py-3" id="botparameters" style="padding-top: 7rem !important;">
+                        <h6 style="margin-left: 90px;"><b>{% trans "Bot Parameters" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            <b>{% trans "Exchange" %}</b>:{% blocktrans %}It represents the platform on which the
+                            transaction proceeds.{% endblocktrans %}<br><br>
+                            <b>{% trans "Candle Size" %}</b>:{% blocktrans %}A candlestick chart (also called Japanese
+                            candlestick chart) is a style of financial chart used to describe price movements of a
+                            security, derivative, or currency.
+                            It is similar to a bar chart in that each candlestick represents all four important pieces
+                            of information for that day:
+                            open and close in the thick body; high and low in the “candle wick”. Being densely packed
+                            with information, it tends to represent trading patterns over short periods of time, often a
+                            few days or a few trading sessions.{% endblocktrans %}
+                            *** <a target="_blank" href="http://wiki.hash.kr/index.php/%EC%BA%94%EB%93%A4"><u>{% trans "Candle" %}</u></a><br><br>
+                            <b>{% trans "Pair" %}</b>: {% blocktrans %}Indicates the symbol of an ongoing
+                            transaction.{% endblocktrans %}<br><br>
+                            <b>{% trans "Simultaneous Trades" %}</b>: {% blocktrans %}The number of concurrent
+                            transactions
+                            represents the maximum number of transactions that one bot participates in the transaction.
+                            When the number of trading owners reaches this number, the transaction will not proceed
+                            further. If any of the current trades close, you will be able to participate in the trade
+                            again.{% endblocktrans %}
+                        </p>
+                    </div>
+                    <div class="py-5" id="tradingview" style="padding-top: 7rem !important;">
+                        <h6 style="margin-left: 90px;"><b>{% trans "How to use trading view chart" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            <img class="py-4" src="{% static 'bot/images/trading-view-detail.png' %}" alt=""><br/>
+                            {% blocktrans %}Let's see how to use the trading charts on our platform. As an example,
+                                let's say the bot is structured like this:
+                                Strategy: MAGOLDENCROSS, Candle size: 3m, Number of concurrent transactions: 5
+                                Then, as shown in the figure on the right, select the candle size of 3m and the
+                                indicator select Move Average.
+                                Then you can see the red and blue lines on the chart, and the points where these lines
+                                meet are the trading point, namely Goldencrossover and Deadcrossover.{% endblocktrans %}
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="depth" style="padding-top: 7rem !important;">
+                        <h6 style="margin-left: 90px;"><b>{% trans "What is a depth chart" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            {% blocktrans %}On the trading page, you will find different charts and tools to help you to
+                                analyze the
+                                market
+                                situation, one of them is the Depth chart.
+                                Depth charts are one of those which can let you know about Demand and Supply. It gives a
+                                visualization
+                                of demand or supply of a particular stock or commodity or a cryptocurrency.<br/>
+                                You probably already know the relationship between supply and demand.
+                                Depth charts are something to essentially show the supply and demand at different
+                                prices.{% endblocktrans %}<br/>
+                            <img class="py-4" src="{% static 'bot/images/depth.PNG' %}"><br/>
+                            {% blocktrans %}A depth chart for a bid/ask market has two lines, one for BIDs (BUY orders)
+                                and one for ASKs
+                                (SELL
+                                orders). GDAX live chart has an Green line for BIDs (BUY orders), a Red line for ASKs
+                                (SELL
+                                orders).<br/>
+                                <br/>
+                                Again, a line on a chart is simply made up by plotting dots. Each dot on a depth chart
+                                line
+                                represents
+                                how much can be traded at that point.<br/>
+                                <br/>
+                                BIDs (BUY orders) are placed with dollars. I might enter that I want to buy 2.0 BTC at
+                                $3300
+                                each,
+                                but
+                                really that is a total bid size of $6600 USD for trade at $3300 or lower.<br/>
+                                <br/>
+                                ASKs (SELL orders) are placed with bitcoins. I would enter that I want to sell 3.0 BTC
+                                at
+                                $3500
+                                or
+                                higher.<br/>
+                                <br/>
+                                I’ve changed numbers compared to Image attached above to make calculations and
+                                understanding
+                                a
+                                bit
+                                easier.<br/>
+                                <br/>
+                                Now the charts are cumulative. So if Alice bids 2.0 at $3300 and Bob bids 3.0 at $3400,
+                                the
+                                cumulative
+                                number of bids at $3300 is $16800 cumulative (both Bob’s $10200 plus Alice’s $6600 are
+                                for
+                                sale
+                                at
+                                that
+                                price point.).<br/>
+                                <br/>
+                                So to plot the BIDs (Green line), at every increment along the horizontal axis (at the
+                                bottom of
+                                the
+                                chart) representing each price point, e.g., $3200, $3300, $3400, etc.) add up all the
+                                bids
+                                at
+                                that
+                                price
+                                point or below and plot that total along the vertical axis (along the left of the chart)
+                                representing
+                                total dollars of orders at the level.<br/>
+                                <br/>
+                                The ASKs (the Red line) have the same concept but the total accumulated value shows up
+                                on
+                                the
+                                right
+                                hand
+                                side, in terms of BTCs but stretched out so that those values correspond to the USD
+                                amounts
+                                on
+                                the
+                                left
+                                vertical axis (e.g., if the spot price of $3500, then the mark for 100 BTC of cumulative
+                                asks
+                                would
+                                line
+                                up vertically with the $350k USD mark on the left side vertical axis.)<br/>
+                                <br/>
+                                So at any point on the Bids (Green) line you can put your cursor there and know exactly
+                                how
+                                much
+                                you
+                                could sell (from where it sits on the left / vertical axis) at that price (from where
+                                that
+                                point
+                                sits on
+                                the bottom / horizontal axis.)<br/>
+                                <br/>
+                                And similarly at any point on the Asks (Red) line you can put your cursor there and know
+                                exactly
+                                how
+                                many BTCs you could buy (from where it sits on the right / vertical axis) at that price
+                                (from
+                                where
+                                that
+                                point sits on the bottom / horizontal axis.){% endblocktrans %}<br/>
+                            <span style="font-size: 10px;">{% trans "Source" %}: <a
+                                    href="https://www.investopedia.com/terms/d/depth-of-market.asp">{% trans "Investopedia" %}</a>,<a
+                                    href="https://hackernoon.com/depth-chart-and-its-significance-in-trading-bdbfbbd23d33">{% trans "Hackermoon" %}</a></span>
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="backtest" style="padding-top: 7rem !important;">
+                        <h6 style="margin-left: 90px;"><b>{% trans "What is backtesting" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            {% blocktrans %}Backtesting is a key component of effective trading system development. It
+                                is accomplished
+                                by
+                                reconstructing, with historical data, trades that would have occurred in the past using
+                                rules
+                                defined by
+                                a given strategy. The result offers statistics to gauge the effectiveness of the
+                                strategy.<br/>
+                                <br/>
+                                The underlying theory is that any strategy that worked well in the past is likely to
+                                work
+                                well
+                                in
+                                the
+                                future, and conversely, any strategy that performed poorly in the past is likely to
+                                perform
+                                poorly
+                                in
+                                the future. This article takes a look at what applications are used in backtesting, what
+                                kind of
+                                data is
+                                obtained and how to put it to use.<br/>
+                                <br/>
+                                Some rule for backtesting<br/>
+                                <br/>
+                                Take into account the broad market trends in the time frame a given strategy was tested.
+                                For
+                                example, if
+                                a strategy was only backtested from 1999 to 2000, it may not fare well in a bear market.
+                                It
+                                is
+                                often
+                                a
+                                good idea to backtest over a long time frame encompassing several different types of
+                                market
+                                conditions.<br/>
+                                <br/>
+                                Take into account the universe in which backtesting occurred. For example, if a broad
+                                market
+                                system
+                                is
+                                tested with a universe consisting of tech stocks, it may fail to do well in different
+                                sectors.
+                                As a
+                                general rule, if a strategy is targeted toward a specific genre of stock, limit the
+                                universe
+                                to
+                                that
+                                genre; in all other cases, maintain a large universe for testing purposes.<br/>
+                                <br/>
+                                Volatility measures are extremely important to consider in developing a trading system.
+                                This
+                                is
+                                especially true for leveraged accounts, which are subjected to margin calls if their
+                                equity
+                                drops
+                                below
+                                a certain point. Traders should seek to keep volatility low to reduce risk and enable
+                                easier
+                                transition
+                                in and out of a given stock.{% endblocktrans %}<br/>
+                            <br/>
+                            <span style="font-size: 10px;">{% trans "Source" %}: <a
+                                    href="https://www.investopedia.com/articles/trading/05/030205.asp#:~:text=Backtesting%20is%20a%20key%20component,the%20effectiveness%20of%20the%20strategy.">{% trans "Investopedia" %}</a></span>
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="warmup">
+                        <h6 style="margin-left: 90px;"><b>{% trans "What is warm up period" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            {% blocktrans %}When a bot starts, it needs a certain amount of time to get the proper
+                                length for the
+                                strategy's
+                                required candle. During this period no trade is carried on, but this step is necessary
+                                to
+                                avoid
+                                getting
+                                partial or incorrect data that does not reflect the market situation.{% endblocktrans %}
+                            <br/>
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="otheruser">
+                        <h6 style="margin-left: 90px;"><b>{% trans "How to use any bot" %}</b></h6>
+                        <p style="margin-left: 90px;">
+                            {% blocktrans %}On this platform, you can make use of only bots which any user made them
+                                available to
+                                others. If
+                                you
+                                want to use other's bot, you can do this by just clicking on the 'Use this bot' green
+                                button
+                                on
+                                the
+                                bot's page, then you will be redirected into a copy of the new bot by which you will be
+                                able
+                                to
+                                trade.
+                                This bot will be unaffected even if the original owner of the bot deletes it later
+                                on.{% endblocktrans %}<br/>
+                        </p>
+                    </div>
+
+                    <div class="py-5" id="order">
+                        <h6 style="margin-left: 90px;"><b>{% trans "Closed orders and transactions" %}</b></h6>
+                        <p style="margin-left: 90px;">{% blocktrans %}An order is the record of requests for goods or
+                            services initiated by the customer, while a
+                            transaction
+                            in progress might have multiple orders, e.g. buy and sell orders grouped together. If the
+                            transaction
+                            doesn't have a closed order it's an open transaction. Or else it's a closed transaction with
+                            the
+                            profit,
+                            the price for entry and exit as well as the date.{% endblocktrans %}<br/>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <footer>
+
+            </footer>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+{% endblock scripts %}
+
+
+
+
+  

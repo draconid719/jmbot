@@ -1,0 +1,653 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="container-fluid" style="padding-top: 20px">
+        <div class="row sm-gutters">
+            <div class="col-lg-5">
+                <div class="crypt-boxed-area">
+                    <h6 class="crypt-bg-head"><b>{% trans "Backtest" %}</b></h6>
+                    <span style="margin-left: 20px; margin-bottom: 5px;">
+                        <a href="{% url 'faq-page' %}">{% trans "See some backtesting rule" %}</a>
+                    </span>
+
+                    <form id="backtest-form" method="POST">
+                        {% csrf_token %}
+                        <div class="crypt-buy-sell-form" style="padding-bottom: 20px;">
+                            <div class="crypt-buy-bot" style="margin-left: 20px; margin-right: 20px;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{% trans "Start Date" %}</span>
+                                    </div>
+                                    <input type="date" class="form-control" id="startdate" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <div style="margin-right: 5px;">{% trans "End Date" %}</div>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" id="endate" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{% trans "Amount" %}</span>
+                                    </div>
+                                    <input type="number" step="any" min="0" class="form-control" id="amountback"
+                                           required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">{{ base }}</span>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="pk" name="pk" value="{{ pk }}">
+                                <div class="text-center mt-5 mb-5 crypt-up" style="padding-bottom: 2px">
+                                    <p>{% trans "Total Profit" %}:</p>
+                                    <h4 id="profitback"></h4>
+                                </div>
+
+                                <div class="menu-green">
+                                    <button style="cursor: pointer;" id="submitback" type="submit"
+                                            class="crypt-button-green-full">{% trans "Start" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div>
+                    <div class="crypt-market-status">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li role="presentation">
+                                    <a href="#closed-ordersback" class="active"
+                                       data-toggle="tab">{% trans "Transactions" %}</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="closed-ordersback"
+                                     style="background-color: #2f3a56;">
+                                    <div class="table-responsive" style="height: 360px">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">{% trans "EntryTime" %}</th>
+                                                <th scope="col">{% trans "ExitTime" %}</th>
+                                                <th scope="col">{% trans "Type" %}</th>
+                                                <th scope="col">{% trans "Entry Price" %}</th>
+                                                <th scope="col">{% trans "Exit Price" %}</th>
+                                                <th scope="col">{% trans "Amount" %}</th>
+                                                <th scope="col">{% trans "Currency Price" %}</th>
+                                                <th scope="col">{% trans "Profit" %}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="table-bodyback" style="height: 100px; overflow-y: auto;"></tbody>
+                                        </table>
+                                        <div class="no-orders text-center" style="height: 100%;" id="emptyback">
+                                            <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row sm-gutters">
+            <div class="col-lg-6">
+                <h2><strong style="color: #f7614e;">{{ bots.name }} </strong></h2>
+                {% if bots.copy %}
+                    <p style="color: #f7614e;"><b></b>{% trans "Copied" %}</p>
+                {% else %}
+                    <p style="color: #f7614e;"><b>{% trans "Creator" %}</b>: {{ bots.author }} </p>
+                {% endif %}
+                <br>
+                <h4><b style="color: #f7614e;">{% trans "Information" %}</b></h4>
+
+                <ul class="nav nav-tabs">
+                    <li><a class="active" data-toggle="tab" href="#menu1">{% trans "Parameters" %}</a></li>
+                    <li><a data-toggle="tab" href="#menu2">{% trans "Live History" %}</a></li>
+                    <li><a data-toggle="tab" href="#menu3">{% trans "Paper History" %}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="menu1" class="tab-pane active" style="margin-left: 3%;margin-top: 2%;">
+                        <p><b style="color:#f7614e ">{% trans "Exchange" %}: </b>{{ bots.exchange }}</p>
+                        <p><b style="color:#f7614e ">{% trans "CandleSize" %}: </b>{{ bots.candle_size }}</p>
+                        <p><b style="color:#f7614e ">{% trans "Pair" %}: </b>{{ bots.pair }}</p>
+                        <p><b style="color:#f7614e ">{% trans "SimultaneousTrades" %}: </b>{{ bots.simultanousTrades }}
+                        </p>
+                        <!-- <p><b style="color:#f7614e ">Indicator parameter: </b></p>
+                            <p >{{indicator}}</p> -->
+                        <p><b style="color:#f7614e ">{% trans "General Explanation" %}: </b></p>
+                        <p style="margin-left: 3%;">{{ strategyexp }}</p>
+                        <p><b style="color:#f7614e ">{% trans "Strategy Detail" %}: </b></p>
+                        <p style="margin-left: 3%">{{ strategydef }}</p>
+                    </div>
+
+                    <div id="menu2" class="tab-pane fade">
+                        <div role="tabpanel" class="tab-pane active" id="closed-orderslive">
+                            <div class="table-responsive" style="height: 391px">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Time" %}</th>
+                                        <th scope="col">{% trans "Amount" %}</th>
+                                        <th scope="col">{% trans "Entry Price" %}</th>
+                                        <th scope="col">{% trans "Exit Price" %}</th>
+                                        <th scope="col">{% trans "Currency Pair" %}</th>
+                                        <th scope="col">{% trans "Profit" %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{ rawhtml|safe }}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <div role="tabpanel" class="tab-pane active" id="closed-orderspaper">
+                            <div class="table-responsive" style="height: 391px">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Time" %}</th>
+                                        <th scope="col">{% trans "Amount" %}</th>
+                                        <th scope="col">{% trans "Entry Price" %}</th>
+                                        <th scope="col">{% trans "Exit Price" %}</th>
+                                        <th scope="col">{% trans "Currency Pair" %}</th>
+                                        <th scope="col">{% trans "Profit" %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{ rawhtml2|safe }}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6" style="margin-top: 38px">
+                <div class="row sm-gutters" style="">
+                    <div class="col-md-12 pl-2 ml-1">
+                        <div id="carousel-pager" class="carousel vert slide crypt-currency-slider mt-3"
+                             data-ride="carousel" data-interval="3000">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner vertical">
+                                <div class="active  carousel-item item">
+                                    <div class="crypt-slider-content">
+                                        <div class="row no-gutters">
+                                            <div class="col-xs-4 crypt-slider-balance">
+                                                <h6>{% trans "Base Strategy" %}</h6>
+                                                <p>{{ bots.strategy }}</p>
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <div class="crypt-slider-current-status">
+                                                    <!-- <h3>Performance  <span class="ml-3 crypt-up">+25%</span></h3> -->
+                                                    <h5>{% trans "Market" %}: <span
+                                                            class="ml-3 crypt-down">{{ bots.pair }}</span>
+                                                    </h5>
+                                                    <p>{% trans "Closed Trade Profit" %} =<b id="ctp">--</b></p>
+                                                    <p>{% trans "Open Trade Profit" %} =<b id="otp2">--</b></p>
+                                                    <p>{% trans "Total Profit" %} =<b id="tp">--</b></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3 d-xs-none d-sm-block d-md-block d-lg-none d-xl-block">
+                                                <div class="crypt-exchange-hints">
+                                                    <img src="{% static exchangeurl %}" class="mt-3" alt="logo"
+                                                         style="width: 125px; height: 125px">
+                                                    <p class="mb-1 mt-3" style="text-align: center;">
+                                                        <b>{% trans "Exchange" %}: {{ bots.exchange }}</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                        </div>
+                    </div>
+                    <div class="col-md-12 pl-2 ml-1" style="margin-top: 20px">
+                        <div class="tradingview-widget-container mb-3">
+                            <div id="crypt-candle-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row sm-gutters">
+            <div class="col-lg-5">
+                <div class="crypt-boxed-area">
+                    <h6 class="crypt-bg-head"><b>{% trans "BOT" %}</b></h6><span
+                        style="margin-left: 20px"><b>NB: {% trans "Paper and Live mode require API keys" %} </b><a
+                        href="{% url 'faq-page' %}#profile">({% trans "See how to add API" %})</a></span>
+
+                    <form id="live-form" method="POST">
+                        {% csrf_token %}
+                        <div class="crypt-buy-sell-form">
+                            <div style="margin-left: 20px; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
+                                {% trans "Quote" %} <span class="crypt-up" id="balancesymb"></span> <span
+                                    class="fright">{% trans "Available" %}: <b
+                                    class="crypt-up" id="balance"></b></span></div>
+                            <div style="margin-left: 20px; margin-right: 20px; margin-bottom: 5px;">Base <span
+                                    class="crypt-up" id="basesymb"></span> <span class="fright">{% trans "Available" %}: <b
+                                    class="crypt-up" id="balancebase"></b></span></div>
+                            <div class="crypt-buy-bot" style="margin-left: 20px; margin-right: 20px; height: 400px;">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{% trans "Amount" %}</span>
+                                    </div>
+                                    <input type="number" step="any" min="0" id="amount" class="form-control" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">{{ base }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <select class="form-control" id="mode" required>
+                                            <option disabled>{% trans "Mode" %}</option>
+                                            <option id="paper">{% trans "Paper" %}</option>
+                                            <option id="live">{% trans "Live" %}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="pk" name="pk" value="{{ pk }}">
+                                <input type="hidden" id="cur" value="{{ bots.pair }}">
+                                <div class="text-center mt-5 mb-5 crypt-up" style="padding-bottom: 2px">
+                                    <p>{% trans "Closed Trade Profit" %}:</p>
+                                    <h4 id="transprofit">--</h4>
+                                    <p>{% trans "Elapsed time" %}:</p>
+                                    <h4 id="elapsed">{% trans "Not running" %}</h4>
+                                </div>
+                                <div class="menu-green">
+                                    <button style="cursor: pointer;margin-top: 50px;" class="crypt-button-green-full"
+                                            id="submit">{% trans "Start" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div id="depthchart" class="depthchart h-40 crypto-depth-chart-small-height crypt-dark-segment"></div>
+                <div>
+                    <div class="crypt-market-status">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li role="presentation">
+                                <a href="#closed-orders" class="active"
+                                   data-toggle="tab">{% trans "Closed Orders" %}</a>
+                            </li>
+                            <!-- <li role="presentation"><a href="#active-orders" data-toggle="tab">Active Orders</a></li> -->
+                            <li role="presentation">
+                                <a href="#transaction" data-toggle="tab">{% trans "Transactions" %}</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="" class="tab-pane active" id="closed-orders" style="background-color: #2f3a56;">
+                                <div class="table-responsive" style="height: 300px;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">{% trans "Time" %}</th>
+                                            <th scope="col">{% trans "Side" %}</th>
+                                            <th scope="col">{% trans "ID" %}</th>
+                                            <th scope="col">{% trans "Type" %}</th>
+                                            <th scope="col">{% trans "Price" %}</th>
+                                            <th scope="col">{% trans "Amount" %}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="order"></tbody>
+                                    </table>
+                                    <div class="no-orders text-center" style="height: 100%;" id="orderempty">
+                                        <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div role="tabpanel" class="tab-pane" id="active-orders">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Time</th>
+                                  <th scope="col">Buy/sell</th>
+                                  <th scope="col">Price BTC</th>
+                                  <th scope="col">Amount BPS</th>
+                                  <th scope="col">Dealt BPS</th>
+                                  <th scope="col">Operation</th>
+                                </tr>
+                              </thead>
+                            </table>
+                            <div class="no-orders text-center">
+                                <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                            </div>
+                        </div> -->
+                            <div role="tabpanel" class="tab-pane" id="transaction" style="background-color: #2f3a56;">
+                                <div class="table-responsive" style="height: 300px">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">{% trans "EntryTime" %}</th>
+                                            <th scope="col">{% trans "ExitTime" %}</th>
+                                            <th scope="col">{% trans "Amount" %}</th>
+                                            <th scope="col">{% trans "Entry Price" %}</th>
+                                            <th scope="col">{% trans "Exit Price" %}</th>
+                                            <th scope="col">{% trans "Currency Pair" %}</th>
+                                            <th scope="col">{% trans "Fee" %}</th>
+                                            <th scope="col">{% trans "Profit" %}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="table-body"></tbody>
+                                    </table>
+                                    <div class="no-orders text-center" style="height: 100%;" id="tableempty">
+                                        <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+    <script type="text/javascript">
+        var canupdate = true
+        update()
+        updateelapsed()
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/paper/getlivestatus/',
+                data: {
+                    pk: $("#pk").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (jsdata) {
+                    if (jsdata['bot'] == 'true') {
+                        // console.log(jsdata['bot'])
+                        document.getElementById("amount").disabled = true;
+                        document.getElementById("mode").disabled = true;
+                        document.getElementById("submit").innerHTML = 'Stop';
+                        document.getElementById("submit").className = 'crypt-button-red-full';
+
+
+                    }
+
+                }
+            })
+        });
+        $(document).on('submit', '#live-form', function (e) {
+            document.getElementById("submit").disabled = true;
+            e.preventDefault();
+            document.getElementById("amount").disabled = true;
+            document.getElementById("mode").disabled = true;
+            document.getElementById("submit").innerHTML = '<div class="spinner-border" role="status">' + '<span class="sr-only">Loading...</span>' + '</div>'
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/paper/getlivestatus/',
+                data: {
+                    pk: $("#pk").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (jsdata) {
+                    if (jsdata['bot'] == 'false') {
+
+                        setTimeout(changestart, 2000)
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/live/startlive/',
+                            data: {
+                                pk: $("#pk").val(),
+                                amount: $("#amount").val(),
+                                mode: $("#mode").val(),
+                                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            //datatype: 'json',
+                        })
+                        // update()
+
+
+                    } else {
+
+                        setTimeout(changestop, 1000)
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/paper/stoplive/',
+                            data: {
+                                pk: $("#pk").val(),
+                                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            //datatype: 'json',
+                        })
+                    }
+
+                }
+            })
+        })
+
+        function changestop() {
+            document.getElementById("amount").disabled = false;
+            document.getElementById("mode").disabled = false;
+            document.getElementById("submit").disabled = false;
+            document.getElementById("submit").innerHTML = 'Start';
+            document.getElementById("submit").className = 'crypt-button-green-full';
+            canupdate = false
+        }
+
+        function changestart() {
+            document.getElementById("amount").disabled = true;
+            document.getElementById("mode").disabled = true;
+            document.getElementById("submit").disabled = false;
+            document.getElementById("submit").innerHTML = 'Stop';
+            document.getElementById("submit").className = 'crypt-button-red-full';
+            canupdate = true
+        }
+
+        function update() {
+            if (true) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/live/countidata/',
+                    data: {
+                        pk: $("#pk").val(),
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+
+                    datatype: 'json',
+                    success: function (jsdata) {
+                        if (jsdata['balance']) {
+                            document.getElementById('balance').innerHTML = jsdata['balance']
+                            document.getElementById('balancebase').innerHTML = jsdata['balancebase']
+                            document.getElementById('balancesymb').innerHTML = jsdata['balancesymb']
+                            document.getElementById('basesymb').innerHTML = jsdata['basesymb']
+                            document.getElementById('ctp').innerHTML = jsdata['ctp']
+                            document.getElementById('otp2').innerHTML = jsdata['otp']
+                            document.getElementById('tp').innerHTML = jsdata['tp']
+
+                            if (jsdata['amount'] != '') {
+                                document.getElementById('amount').value = jsdata['amount'];
+                            }
+
+                            if (jsdata['cursus'] == 'Paper') {
+
+                                document.getElementById('paper').selected = 'selected';
+
+                            } else if (jsdata['cursus'] == 'Live') {
+                                document.getElementById('live').selected = 'selected';
+
+                            }
+                        }
+                        if (jsdata['order']) {
+                            document.getElementById('orderempty').style.display = 'none';
+                            document.getElementById('order').innerHTML = jsdata['order']
+                        }
+
+                        if (jsdata['tabletrade']) {
+                            document.getElementById('tableempty').style.display = 'none';
+                            document.getElementById('table-body').innerHTML = jsdata['tabletrade']
+                            document.getElementById('transprofit').innerHTML = jsdata['ctp']
+
+
+                        }
+
+                        setTimeout(update, 10000)
+                    },
+                    error: function () {
+                        setTimeout(update, 20000)
+                    }
+                })
+            }
+        }
+
+        function updateelapsed() {
+            if (true) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/live/elapsed/',
+                    data: {
+                        pk: $("#pk").val(),
+                        type: 'bot',
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+
+                    datatype: 'json',
+                    success: function (jsdata) {
+
+                        if (jsdata['elapsed'] != '') {
+                            if (jsdata['elapsed'].includes('second') || jsdata['elapsed'].includes('now')) {
+                                document.getElementById('elapsed').innerHTML = 'Running'
+                            } else {
+                                document.getElementById('elapsed').innerHTML = jsdata['elapsed']
+                            }
+
+                        }
+
+                        setTimeout(updateelapsed, 10000)
+                    },
+                    error: function () {
+                        setTimeout(updateelapsed, 10000)
+                    }
+                })
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        // $(document).ready(function(){
+
+        //     (async function getprice(){
+        //         let binance = new ccxt.binance ({
+        //         apiKey: 'YOUR_PUBLIC_API_KEY',
+        //         secret: 'YOUR_SECRET_PRIVATE_KEY',
+        //         })
+
+        //         var pair = ['BTC/USDT','ETH/USDT','LTC/USDT', 'BCH/USDT', 'XRP/USDT', 'EOS/USDT', 'LINK/USDT','XTZ/USDT']
+
+        //         var locationprice = ['pricebtcusdt', 'priceethusdt', 'priceltcusdt', 'pricebchusdt','pricexrpusdt', 'priceeosusdt', 'pricelinkusdt', 'pricextzusdt']
+
+        //         var locationvolume = ['volumebtcusdt', 'volumeethusdt', 'volumeltcusdt', 'volumebchusdt','volumexrpusdt', 'volumeeosusdt', 'volumelinkusdt', 'volumextzusdt']
+
+        //         var locationchange = ['changebtcusdt', 'changeethusdt', 'changeltcusdt', 'changebchusdt','changexrpusdt', 'changeeosusdt', 'changelinkusdt', 'changextzusdt']
+
+
+        //         var price = await binance.fetchTickers(pair)
+        //         var len = pair.length
+        //         for (var i = 0; i < len; i++) {
+        //             if ( price[pair[i]].symbol.includes('BTC') && price[pair[i]].symbol != 'BTC/USDT' ) {
+        //                 symbole = '₿'
+
+        //             }else{
+        //                 symbole = '$'
+        //             }
+        //             document.getElementById(locationprice[i]).innerHTML = symbole+price[pair[i]].last
+        //             document.getElementById(locationvolume[i]).innerHTML = symbole+price[pair[i]].quoteVolume
+        //             document.getElementById(locationchange[i]).innerHTML = price[pair[i]].percentage+'%'
+        //             if (parseFloat(price[pair[i]].percentage) > 0) {
+        //                 document.getElementById(locationchange[i]).className = 'crypt-up'
+        //             }else{
+        //                 document.getElementById(locationchange[i]).className = 'crypt-down'
+        //             }
+
+        //          }
+
+        //         setTimeout(getprice,5500)
+        //     })() ;
+        // })
+    </script>
+    <script type="text/javascript">
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("startdate").setAttribute('max', today);
+        document.getElementById("endate").setAttribute('max', today);
+
+        $(document).on('submit', '#backtest-form', function (e) {
+            e.preventDefault();
+            // document.getElementById("bot").disabled = true;
+
+            document.getElementById("endate").disabled = true;
+            document.getElementById("startdate").disabled = true;
+            document.getElementById("amountback").disabled = true;
+
+            document.getElementById("submitback").innerHTML = '<div class="spinner-border" role="status">' + '<span class="sr-only">Loading...</span>' + '</div>'
+
+            $.ajax({
+                type: 'POST',
+                url: '/backtest/startback/',
+                data: {
+                    startdate: $("#startdate").val(),
+                    endate: $("#endate").val(),
+                    amount: $("#amountback").val(),
+                    pk: $("#pk").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                datatype: 'json',
+                success: function (jsdata) {
+                    if (jsdata) {
+                        //$("#result").load("backtestdata");
+                        // document.getElementById("bot").disabled = false;
+
+                        document.getElementById("endate").disabled = false;
+                        document.getElementById("startdate").disabled = false;
+                        document.getElementById("amountback").disabled = false;
+                        document.getElementById("submitback").innerHTML = 'Start'
+
+                        // document.getElementById('lds-content').innerHTML = ''
+                        // document.getElementById('result').innerHTML = jsdata['html'];
+                        // document.getElementById('line_top_x').innerHTML = ''
+
+                        if (jsdata['tabletrade']) {
+                            document.getElementById('emptyback').style.display = 'none';
+                            document.getElementById('table-bodyback').innerHTML = jsdata['tabletrade']
+                            document.getElementById('profitback').innerHTML = jsdata['profit']
+                        } else {
+                            window.location.reload();
+                        }
+
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock scripts %}

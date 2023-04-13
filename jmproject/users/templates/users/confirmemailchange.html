@@ -1,0 +1,6 @@
+{% load i18n %}
+{% autoescape off %}
+{% trans "Hi" %} {{ user.username }},
+{% trans "Someone requested an email change" %}, {% trans "Please follow this link if it is you or else just ignore this message" %},
+http://{{ domain }}{% url 'confirm_change_email' uidb64=uid token=token %}
+{% endautoescape %}

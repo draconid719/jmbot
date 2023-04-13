@@ -1,0 +1,58 @@
+{% extends "bot/base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    {% load static %}
+
+    <div class="container">
+        <div class="row sm-gutters">
+{#            <div class="crypt-side-menu d-none d-sm-block col-12 col-sm-3 col-md-2">#}
+{#                <p>{% trans "Create Bot" %}</p>#}
+{#                <ul>#}
+{#                    <li class="d-flex"><a class="w-100" href="{% url 'create-bot-page' %}"><i class="pe-7s-way me-2"></i>{% trans "Market" %}</a></li>#}
+{#                    <li class="d-flex"><a class="w-100" href="{% url 'createarbit-page' %}"><i class="pe-7s-gym me-2"></i>{% trans "Arbitrage" %}</a></li>#}
+{#                </ul>#}
+{#                <hr class="text-white">#}
+{#            </div>#}
+
+            <div class="crypt-side-menu col-12 d-sm-none text-center d-flex justify-content-center">
+                <ul class="d-flex">
+                    <li class="me-4"><a href="{% url 'create-bot-page' %}"><i class="pe-7s-way me-2"></i>{% trans "Market" %}</a></li>
+                    <li><a href="{% url 'createarbit-page' %}"><i class="pe-7s-gym me-2"></i>{% trans "Arbitrage" %}</a></li>
+                </ul>
+            </div>
+
+            <div class="crypt-withdraw-body col-12 col-sm-12 col-md-8 px-5">
+                <div class="row">
+                    <div class="col-12 col-sm-12 mt-4 p-4 shadow-sm">
+                        <h4 class="crypt-red">{% trans "Bot parameters" %}</h4>
+                        <p><i class="pe-7s-info"></i> To learn more in detail about Bot Parameters, please read from next link. <a target="_blank" href="https://wide-bot.gitbook.io/v/{{ LANGUAGE_CODE }}/how-to-work-with-bot/create-a-new-bot/bot-parameters"
+                               class="text-underline text-info float-right fs-6">Bot Parameters Settings <i class="fa fa-external-link"></i></a></p>
+                        <form method="POST" id="form2">
+                            {% csrf_token %}
+                            <fieldset class="mb-3 text-white">
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group d-flex justify-content-end">
+                                <input type="submit" class="btn btn-primary me-2" name="click" value="{% trans "Save" %}">
+                                <a href="{% url 'my-bots-page' %}">
+                                    <button type="button" class="btn btn-secondary">{% trans "Cancel" %}</button>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+{% endblock scripts %}
+
+
+
+
+  

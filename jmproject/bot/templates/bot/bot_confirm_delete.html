@@ -1,0 +1,21 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="col-lg-6 ms-auto me-auto mt-5">
+    <div class="block">
+      <div class="block-body">
+        <form method="POST">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <h4 class="text-center">{% trans "Delete Bot, Click yes to confirm" %}</h4>
+          </fieldset>        
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">{% trans "Yes" %}</button>
+            <a class="btn btn-secondary" href="{% url 'my-bots-page' %} ">{% trans "No" %}</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

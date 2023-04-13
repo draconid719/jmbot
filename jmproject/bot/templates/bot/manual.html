@@ -1,0 +1,759 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    <div class="container-fluid">
+        <div class="row sm-gutters">
+            <div class="col-md-6 col-lg-6 col-xl-3 col-xxl-2">
+                <div class="crypt-market-status mt-4">
+                    <div>
+                        <ul class="nav nav-tabs" id="crypt-tab">
+                            <li role="presentation"><a href="#usd" class="active" data-toggle="tab">USDT</a></li>
+                            <li role="presentation"><a href="#btc" data-toggle="tab">BTC</a></li>
+                        </ul>
+                        <div class="tab-content crypt-tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="usd">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Coin" %}</th>
+                                        <th scope="col">{% trans "Price" %}</th>
+                                        <th scope="col">{% trans "Change" %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="crypt-table-hover">
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img class="crypt-star pr-1" alt="star"
+                                                 src="{% static 'bot/images/star.svg' %}"
+                                                 width="15"> BTC/USDT
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="pr-2" data-toggle="tooltip" data-placement="right"
+                                                  title="$ 0.05" id="pricebtcusdt"></span>
+                                        </td>
+                                        <td> <!-- <span class="d-block" id="volumebtcusdt"></span> --> <b
+                                                class="crypt-down" id="changebtcusdt"></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img class="crypt-star pr-1" alt="star"
+                                                 src="{% static 'bot/images/star.svg' %}"
+                                                 width="15">ETH/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="priceethusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumeethusdt"></span> --> <b><span
+                                                id="changeethusdt"></b></span> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> LTC/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="priceltcusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumeltcusdt"></span> --> <b
+                                                class="crypt-down" id="changeltcusdt"></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> BCH/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricebchusdt"></span></td>
+                                        <td><span class="d-block" id="volumebchusdt"></span> <b class="crypt-up"
+                                                                                                id="changebchusdt"></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> XRP/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricexrpusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumexrpusdt"></span> --> <b><span
+                                                id="changexrpusdt"></span></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> EOS/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="priceeosusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumeeosusdt"></span>  --><b><span
+                                                class="crypt-up" id="changeeosusdt"></span></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> LINK/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricelinkusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumelinkusdt"></span> --> <b><span
+                                                class="crypt-up" id="changelinkusdt"></span></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> XTZ/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricextzusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumextzusdt"></span> --> <b><span
+                                                class="crypt-up" id="changextzusdt"></span></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> DASH/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricedashusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumedashusdt"></span> --> <b><span
+                                                id="changedashusdt"></span></b></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> XLM/USDT
+                                        </td>
+                                        <td class="align-middle"><span class="pr-2" data-toggle="tooltip"
+                                                                       data-placement="right" title="$ 0.05"
+                                                                       id="pricexlmusdt"></span></td>
+                                        <td> <!-- <span class="d-block" id="volumexlmusdt"></span> --><b> <span
+                                                id="changexlmusdt"></b></span> </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="btc">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Coin" %}</th>
+                                        <th scope="col">{% trans "Price" %}</th>
+                                        <th scope="col">{% trans "Volume" %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="align-middle"><img class="crypt-star pr-1" alt="star"
+                                                                      src="{% static 'bot/images/star.svg' %}"
+                                                                      width="15"> LTC/BTC
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="pr-2" data-toggle="tooltip" data-placement="right"
+                                                  title="$ 0.05" id="priceltcbtc"></span>
+                                        </td>
+                                        <td>
+                                            <span class="d-block" id="volumeltcbtc"></span>
+                                            <b class="crypt-down" id="changeltcbtc"></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img class="crypt-star pr-1" alt="star"
+                                                 src="{% static 'bot/images/star.svg' %}"
+                                                 width="15"> ETH/BTC
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="pr-2" data-toggle="tooltip" data-placement="right"
+                                                  title="$ 0.05" id="priceethbtc"></span>
+                                        </td>
+                                        <td>
+                                            <span class="d-block" id="volumeethbtc"></span>
+                                            <b class="crypt-down" id="changeethbtc"></b>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-8">
+                <div class="crypt-gross-market-cap mt-4">
+                    <div class="row">
+                        <div class="col-3 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <p>{% trans "Last Price" %} {{ base }}</p>
+                                    <p id="lastprice"></p>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <p>{% trans "Change" %} {{ base }}</p>
+                                    <p id="changelastprice"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2 col-md-3 col-lg-2">
+                            <p>{% trans "High" %} {{ base }}</p>
+                            <p id="highlastprice"></p>
+                        </div>
+                        <div class="col-3 col-sm-2 col-md-3 col-lg-2">
+                            <p>{% trans "Low" %} {{ base }}</p>
+                            <p id="lowlastprice"></p>
+                        </div>
+                        <div class="col-3 col-sm-2 col-md-3 col-lg-2">
+                            <p>{% trans "Volume" %} 24hr</p>
+                            <p id="volumelastprice"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tradingview-widget-container mb-3">
+                    <div id="crypt-candle-chart"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3 col-xxl-2">
+                <div class="crypt-market-status mt-4">
+                    <div>
+                        <ul class="nav nav-tabs">
+                            <li role="presentation"><a href="#asks" class="active"
+                                                       data-toggle="tab">{% trans "Asks" %}</a></li>
+                            <li role="presentation"><a href="#bids" data-toggle="tab">{% trans "Bids" %}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="asks">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Price" %}({{ quote }})</th>
+                                        <th scope="col">{% trans "Volume" %}({{ base }})</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td id="asks1price" class="crypt-up">--</td>
+                                        <td id="asks1amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks2price" class="crypt-up">--</td>
+                                        <td id="asks2amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks3price" class="crypt-up">--</td>
+                                        <td id="asks3amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks4price" class="crypt-up">--</td>
+                                        <td id="asks4amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks5price" class="crypt-up">--</td>
+                                        <td id="asks5amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks6price" class="crypt-up">--</td>
+                                        <td id="asks6amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks7price" class="crypt-up">--</td>
+                                        <td id="asks7amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks8price" class="crypt-up">--</td>
+                                        <td id="asks8amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks9price" class="crypt-up">--</td>
+                                        <td id="asks9amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="asks10price" class="crypt-up">--</td>
+                                        <td id="asks10amount"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="bids">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Price" %}({{ quote }})</th>
+                                        <th scope="col">{% trans "Volume" %}({{ base }})</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td id="bids1price" class="crypt-down">--</td>
+                                        <td id="bids1amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids2price" class="crypt-down">--</td>
+                                        <td id="bids2amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids3price" class="crypt-down">--</td>
+                                        <td id="bids3amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids4price" class="crypt-down">--</td>
+                                        <td id="bids4amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids5price" class="crypt-down">--</td>
+                                        <td id="bids5amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids6price" class="crypt-down">--</td>
+                                        <td id="bids6amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids7price" class="crypt-down">--</td>
+                                        <td id="bids7amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids8price" class="crypt-down">--</td>
+                                        <td id="bids8amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids9price" class="crypt-down">--</td>
+                                        <td id="bids9amount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="bids10price" class="crypt-down">--</td>
+                                        <td id="bids10amount"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+    <div class="row sm-gutters">
+        <div class="col-xl-5">
+            <div class="crypt-boxed-area">
+                <h6 class="crypt-bg-head"><b class="crypt-up">{% trans "Buy" %}</b> / <b
+                        class="crypt-down">{% trans "Sell" %}</b></h6>
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="crypt-buy-sell-form">
+                                <p>{% trans "Buy" %}<span class="crypt-up">{{ base }}</span> <span
+                                        class="fright">{% trans "Available" %}: <b
+                                        class="crypt-up" id="balance1"></b></span></p>
+                                <div class="crypt-buy">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend"><span
+                                                class="input-group-text">{% trans "Price" %}</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="priceform2" readonly>
+                                        <div class="input-group-append"><span
+                                                class="input-group-text">{{ quote }}</span></div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">{% trans "Amount" %}</span>
+                                        </div>
+                                        <input type="number" step="any" class="form-control" id="buyamount" required>
+                                        <div class="input-group-append"><span class="input-group-text">{{ base }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <select class="form-control" id="buyexchange" required>
+                                                <option disabled>{% trans "Exchange" %}</option>
+                                                <option>{% trans "binance" %}</option>
+                                                <option>{% trans "poloniex" %}</option>
+                                                <option>{% trans "ftx" %}</option>
+                                                <option>{% trans "huobipro" %}</option>
+                                                <option>{% trans "bitz" %}</option>
+                                                <option>{% trans "kraken" %}</option>
+                                                <option>{% trans "bittrex" %}</option>
+                                                <option>{% trans "bw" %}</option>
+                                                <option>{% trans "digifinex" %}</option>
+                                                <option>{% trans "kucoin" %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-green">
+                                        <button class="crypt-button-green-full" id="buy">{% trans "Buy" %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="crypt-buy-sell-form">
+                                <p>{% trans "Sell" %} <span class="crypt-down">{{ base }}</span> <span
+                                        class="fright">{% trans "Available" %}: <b
+                                        class="crypt-down" id="balance2"></b></span></p>
+                                <div class="crypt-sell">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend"><span
+                                                class="input-group-text">{% trans "Price" %}</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="priceform1" readonly>
+                                        <div class="input-group-append"><span
+                                                class="input-group-text">{{ quote }}</span></div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend"><span
+                                                class="input-group-text">{% trans "Amount" %}</span>
+                                        </div>
+                                        <input id="sellamount" step="any" type="number" class="form-control" required>
+                                        <div class="input-group-append"><span class="input-group-text">{{ base }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <select class="form-control" id="sellexchange" required>
+                                                <option disabled>{% trans "Exchange" %}</option>
+                                                <option>{% trans "binance" %}</option>
+                                                <option>{% trans "poloniex" %}</option>
+                                                <option>{% trans "ftx" %}</option>
+                                                <option>{% trans "huobipro" %}</option>
+                                                <option>{% trans "bitz" %}</option>
+                                                <option>{% trans "kraken" %}</option>
+                                                <option>{% trans "bittrex" %}</option>
+                                                <option>{% trans "bw" %}</option>
+                                                <option>{% trans "digifinex" %}</option>
+                                                <option>{% trans "kucoin" %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-green">
+                                        <button class="crypt-button-red-full" id="sell">{% trans "Sell" %}</button>
+                                    </div>
+                                    <input type="hidden" id="coin" value="{{ coin }}">
+                                    <input type="hidden" id="cur" value="{{ coin }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div id="depthchart" class="depthchart h-40 crypto-depth-chart-small-height crypt-dark-segment"></div>
+            <div>
+                <div class="crypt-market-status">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li role="presentation">
+                            <a href="#closed-orders" class="active" data-toggle="tab">{% trans "Closed Orders" %}</a>
+                        </li>
+                        <!-- <li role="presentation"><a href="#active-orders" data-toggle="tab">Active Orders</a></li> -->
+                        <!-- <li role="presentation"><a href="#transaction" data-toggle="tab">Transactions</a></li> -->
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="" class="tab-pane active" id="closed-orders">
+                            <div class="table-responsive" style="height: 300px;">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans "Time" %}</th>
+                                        <th scope="col">{% trans "ID" %}</th>
+                                        <th scope="col">{% trans "Type" %}</th>
+                                        <th scope="col">{% trans "Price" %}</th>
+                                        <th scope="col">{% trans "Amount" %}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="order"></tbody>
+                                </table>
+                                <div class="no-orders text-center" style="height: 100%;" id="orderempty">
+                                    <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div role="tabpanel" class="tab-pane" id="active-orders">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Time</th>
+                                  <th scope="col">Buy/sell</th>
+                                  <th scope="col">Price BTC</th>
+                                  <th scope="col">Amount BPS</th>
+                                  <th scope="col">Dealt BPS</th>
+                                  <th scope="col">Operation</th>
+                                </tr>
+                              </thead>
+                            </table>
+                            <div class="no-orders text-center">
+                                <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                            </div>
+                        </div> -->
+                        <!-- <div role="tabpanel" class="tab-pane" id="transaction">
+                            <div class="table-responsive" style="height: 300px">
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Time</th>
+                                      <th scope="col">ID</th>
+                                      <th scope="col">Amount</th>
+                                      <th scope="col">Entry Price</th>
+                                      <th scope="col">Exit Price</th>
+                                      <th scope="col">Currency Pair</th>
+                                      <th scope="col">Fee</th>
+                                      <th scope="col">Profit</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="table-body">
+                                    
+                                  </tbody>
+                                </table>
+                                <div class="no-orders text-center" style="height: 100%;" id="tableempty" >
+                                    <img src="{% static 'bot/images/empty.png' %}" alt="no-orders">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+    <script type="text/javascript">
+        $('#buy').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/buy/',
+                data: {
+                    amount: $("#buyamount").val(),
+                    pair: $("#coin").val(),
+                    exchange: $("#buyexchange").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+                    buyupdate()
+                }
+            })
+        })
+        $('#sell').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/sell/',
+                data: {
+                    amount: $("#sellamount").val(),
+                    pair: $("#coin").val(),
+                    exchange: $("#sellexchange").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+                    sellupdate()
+                }
+            })
+        })
+
+        function buyupdate() {
+            $.ajax({
+                type: 'POST',
+                url: '/live/manual/countidata/',
+                data: {
+                    amount: $("#buyamount").val(),
+                    pair: $("#coin").val(),
+                    exchange: $("#buyexchange").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                datatype: 'json',
+                success: function (jsdata) {
+                    if (jsdata['balance1']) {
+                        document.getElementById('balance1').innerHTML = jsdata['balance2']
+                        document.getElementById('balance2').innerHTML = jsdata['balance1']
+
+                    }
+                    if (jsdata['order']) {
+                        document.getElementById('orderempty').style.display = 'none';
+                        document.getElementById('order').innerHTML = jsdata['order']
+                    }
+
+
+                }
+            })
+        }
+
+        function sellupdate() {
+            $.ajax({
+                type: 'POST',
+                url: '/live/manual/countidata/',
+                data: {
+                    amount: $("#sellamount").val(),
+                    pair: $("#coin").val(),
+                    exchange: $("#sellexchange").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+
+                datatype: 'json',
+                success: function (jsdata) {
+                    if (jsdata['balance1']) {
+                        document.getElementById('balance1').innerHTML = jsdata['balance2']
+                        document.getElementById('balance2').innerHTML = jsdata['balance1']
+                    }
+                    if (jsdata['order']) {
+                        document.getElementById('orderempty').style.display = 'none';
+                        document.getElementById('order').innerHTML = jsdata['order']
+                    }
+
+
+                }
+            })
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            (async function getprice() {
+                let binance = new ccxt.binance({
+                    apiKey: 'YOUR_PUBLIC_API_KEY',
+                    secret: 'YOUR_SECRET_PRIVATE_KEY',
+                })
+
+                var pair = ['BTC/USDT', 'ETH/USDT', 'LTC/USDT', 'BCH/USDT', 'XRP/USDT', 'EOS/USDT', 'LINK/USDT', 'XTZ/USDT', 'LTC/BTC', 'ETH/BTC', 'DASH/USDT', 'XLM/USDT']
+
+                var locationprice = ['pricebtcusdt', 'priceethusdt', 'priceltcusdt', 'pricebchusdt', 'pricexrpusdt', 'priceeosusdt', 'pricelinkusdt', 'pricextzusdt', 'priceltcbtc', 'priceethbtc', 'pricedashusdt', 'pricexlmusdt']
+
+                // var locationvolume = ['volumebtcusdt', 'volumeethusdt', 'volumeltcusdt', 'volumebchusdt','volumexrpusdt', 'volumeeosusdt', 'volumelinkusdt', 'volumextzusdt','volumeltcbtc', 'volumeethbtc', 'volumedashusdt', 'volumexlmusdt']
+
+                var locationchange = ['changebtcusdt', 'changeethusdt', 'changeltcusdt', 'changebchusdt', 'changexrpusdt', 'changeeosusdt', 'changelinkusdt', 'changextzusdt', 'changeltcbtc', 'changeethbtc', 'changedashusdt', 'changexlmusdt']
+
+
+                var price = await binance.fetchTickers(pair)
+
+                var thecoin = document.getElementById('coin').value
+                var lastprice = await binance.fetchTicker(thecoin)
+                var order = await binance.fetch_order_book(thecoin, 10)
+                console.log(order)
+                var len = pair.length
+                for (var i = 0; i < len; i++) {
+                    if (price[pair[i]].symbol.includes('BTC') && price[pair[i]].symbol != 'BTC/USDT') {
+                        symbole = '₿'
+
+                    } else {
+                        symbole = '$'
+                    }
+                    document.getElementById(locationprice[i]).innerHTML = symbole + price[pair[i]].last
+                    // document.getElementById(locationvolume[i]).innerHTML = symbole+price[pair[i]].quoteVolume
+                    document.getElementById(locationchange[i]).innerHTML = price[pair[i]].percentage + '%'
+                    if (parseFloat(price[pair[i]].percentage) > 0) {
+                        document.getElementById(locationchange[i]).className = 'crypt-up'
+                    } else {
+                        document.getElementById(locationchange[i]).className = 'crypt-down'
+                    }
+
+                    if (lastprice.symbol.includes('BTC') && lastprice.symbol != 'BTC/USDT') {
+                        symbole = '₿'
+
+                    } else {
+                        symbole = '$'
+                    }
+
+                    document.getElementById('lastprice').innerHTML = symbole + lastprice.last
+                    document.getElementById('highlastprice').innerHTML = symbole + lastprice.high
+                    document.getElementById('lowlastprice').innerHTML = symbole + lastprice.low
+                    document.getElementById('volumelastprice').innerHTML = parseFloat(lastprice.quoteVolume).toFixed(2)
+                    document.getElementById('changelastprice').innerHTML = lastprice.percentage + '%'
+                    document.getElementById('priceform1').value = lastprice.last
+                    document.getElementById('priceform2').value = lastprice.last
+
+                    if (parseFloat(lastprice.percentage) > 0) {
+                        document.getElementById('changelastprice').className = 'crypt-up'
+                    } else {
+                        document.getElementById('changelastprice').className = 'crypt-down'
+                    }
+
+                    document.getElementById('asks1price').innerHTML = order.asks[0][0]
+                    document.getElementById('asks1amount').innerHTML = order.asks[0][1]
+
+                    document.getElementById('asks2price').innerHTML = order.asks[1][0]
+                    document.getElementById('asks2amount').innerHTML = order.asks[1][1]
+
+                    document.getElementById('asks3price').innerHTML = order.asks[2][0]
+                    document.getElementById('asks3amount').innerHTML = order.asks[2][1]
+
+                    document.getElementById('asks4price').innerHTML = order.asks[3][0]
+                    document.getElementById('asks4amount').innerHTML = order.asks[3][1]
+
+                    document.getElementById('asks5price').innerHTML = order.asks[4][0]
+                    document.getElementById('asks5amount').innerHTML = order.asks[4][1]
+
+                    document.getElementById('asks6price').innerHTML = order.asks[5][0]
+                    document.getElementById('asks6amount').innerHTML = order.asks[5][1]
+
+                    document.getElementById('asks7price').innerHTML = order.asks[6][0]
+                    document.getElementById('asks7amount').innerHTML = order.asks[6][1]
+
+                    document.getElementById('asks8price').innerHTML = order.asks[7][0]
+                    document.getElementById('asks8amount').innerHTML = order.asks[7][1]
+
+                    document.getElementById('asks9price').innerHTML = order.asks[8][0]
+                    document.getElementById('asks9amount').innerHTML = order.asks[8][1]
+
+                    document.getElementById('asks10price').innerHTML = order.asks[9][0]
+                    document.getElementById('asks10amount').innerHTML = order.asks[9][1]
+
+
+                    document.getElementById('bids1price').innerHTML = order.bids[0][0]
+                    document.getElementById('bids1amount').innerHTML = order.bids[0][1]
+
+                    document.getElementById('bids2price').innerHTML = order.bids[1][0]
+                    document.getElementById('bids2amount').innerHTML = order.bids[1][1]
+
+                    document.getElementById('bids3price').innerHTML = order.bids[2][0]
+                    document.getElementById('bids3amount').innerHTML = order.bids[2][1]
+
+                    document.getElementById('bids4price').innerHTML = order.bids[3][0]
+                    document.getElementById('bids4amount').innerHTML = order.bids[3][1]
+
+                    document.getElementById('bids5price').innerHTML = order.bids[4][0]
+                    document.getElementById('bids5amount').innerHTML = order.bids[4][1]
+
+                    document.getElementById('bids6price').innerHTML = order.bids[5][0]
+                    document.getElementById('bids6amount').innerHTML = order.bids[5][1]
+
+                    document.getElementById('bids7price').innerHTML = order.bids[6][0]
+                    document.getElementById('bids7amount').innerHTML = order.bids[6][1]
+
+                    document.getElementById('bids8price').innerHTML = order.bids[7][0]
+                    document.getElementById('bids8amount').innerHTML = order.bids[7][1]
+
+                    document.getElementById('bids9price').innerHTML = order.bids[8][0]
+                    document.getElementById('bids9amount').innerHTML = order.bids[8][1]
+
+                    document.getElementById('bids10price').innerHTML = order.bids[9][0]
+                    document.getElementById('bids10amount').innerHTML = order.bids[9][1]
+
+                }
+
+                setTimeout(getprice, 5500)
+            })();
+        })
+    </script>
+{% endblock scripts %}

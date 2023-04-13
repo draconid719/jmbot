@@ -1,0 +1,575 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            /*background-image: url('
+        {% static 'bot/img/search.png' %} ');
+	  background-position: 5px 6px;*/
+            background-color: #2d3035;
+            background-repeat: no-repeat;
+            width: 20%;
+            font-size: 16px;
+            /*padding: 12px 20px 12px 40px;*/
+            border: 1px solid #2d3035;
+            margin-bottom: 25px;
+            margin-left: 80%;
+            color: #939596;
+        }
+    </style>
+
+    <div class="col-lg-12">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Coin"
+               title="{% trans "Type in a Coin" %}">
+        <ul id="theul" style="list-style-type: none; padding: 0">
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/btc.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">BTCUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricebtcusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumebtcusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/eth.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ETHUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceethusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeethusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ripple.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">XRPUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricexrpusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumexrpusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/eos.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">EOSUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceeosusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeeosusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/link.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">LINKUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricelinkusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumelinkusdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/bch.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">BCHUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricebchusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumebchusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/xtz.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">XTZUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricextzusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumextzusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/eth.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ETHBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceethbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeethbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ltc.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">LTCUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceltcusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeltcusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/dash.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">DASHUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricedashusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumedashusdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/xlm.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">XLMUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricexlmusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumexlmusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/sol.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">SOLBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricesolbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumesolbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/zec.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ZECUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricezecusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumezecusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/xtz.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">XTZBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricextzbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumextzbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/xmr.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">XMRBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricexmrbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumexmrbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/trx.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">TRXUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricetrxusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumetrxusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ada.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ADAUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceadausdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeadausdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ripple.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">XRPBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricexrpbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumexrpbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/neo.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">NEOUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceneousdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeneousdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100% ">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ltc.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">LTCBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceltcbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeltcbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/dash.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">DASHBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricedashbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumedashbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/eos.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">EOSBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceeosbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeeosbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/data.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">DATABTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricedatabtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumedatabtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/atom.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <a href="#" class="name"><strong class="d-block">ATOMUSDT</strong></a>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceatomusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeatomusdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/qtum.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">QTUMUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceqtumusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeqtumusdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/ada.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ADABTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceadabtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeadabtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/nav.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">NAVBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricenavbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumenavbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/enj.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">ENJUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceenjusdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeenjusdt" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/trx.png' %}" alt="..." class="img-fluid"></div>
+                        <strong class="d-block">TRXBTC</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricetrxbtc">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumetrxbtc" style="color:#e95f71"></span></div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/algo.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">ALGOUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="pricealgousdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumealgousdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="public-user-block block" style="width: 100%">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <div class="order"></div>
+                        <div class="avatar"><img src="{% static 'bot/img/iota.png' %}" alt="..." class="img-fluid">
+                        </div>
+                        <strong class="d-block">IOTAUSDT</strong>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="number dashtext-1" id="priceiotausdt">$</div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contributions">24h Vol: <span id="volumeiotausdt" style="color:#e95f71"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            (async function getprice() {
+                let binance = new ccxt.binance({
+                    apiKey: 'YOUR_PUBLIC_API_KEY',
+                    secret: 'YOUR_SECRET_PRIVATE_KEY',
+                })
+
+                var pair = ['BTC/USDT', 'ETH/USDT', 'XRP/USDT', 'EOS/USDT', 'LINK/USDT', 'BCH/USDT', 'XTZ/USDT', 'ETH/BTC', 'LTC/USDT', 'DASH/USDT', 'XLM/USDT', 'SOL/BTC', 'ZEC/USDT', 'XTZ/BTC', 'XMR/BTC', 'TRX/USDT', 'ADA/USDT', 'XRP/BTC', 'NEO/USDT', 'LTC/BTC', 'DASH/BTC', 'EOS/BTC', 'DATA/BTC', 'ATOM/USDT', 'QTUM/USDT', 'ADA/BTC', 'NAV/BTC', 'ENJ/USDT', 'ALGO/USDT', 'IOTA/USDT', 'TRX/BTC', 'LTO/BTC']
+
+                var locationprice = ['pricebtcusdt', 'priceethusdt', 'pricexrpusdt', 'priceeosusdt', 'pricelinkusdt', 'pricebchusdt', 'pricextzusdt', 'priceethbtc', 'priceltcusdt', 'pricedashusdt', 'pricexlmusdt', 'pricesolbtc', 'pricezecusdt', 'pricextzbtc', 'pricexmrbtc', 'pricetrxusdt', 'priceadausdt', 'pricexrpbtc', 'priceneousdt', 'priceltcbtc', 'pricedashbtc', 'priceeosbtc', 'pricedatabtc', 'priceatomusdt', 'priceqtumusdt', 'pricedatabtc', 'priceadabtc', 'pricenavbtc', 'priceenjusdt', 'pricealgousdt', 'priceiotausdt', 'pricetrxbtc', 'priceltobtc']
+
+                var locationvolume = ['volumebtcusdt', 'volumeethusdt', 'volumexrpusdt', 'volumeeosusdt', 'volumelinkusdt', 'volumebchusdt', 'volumextzusdt', 'volumeethbtc', 'volumeltcusdt', 'volumedashusdt', 'volumexlmusdt', 'volumesolbtc', 'volumezecusdt', 'volumextzbtc', 'volumexmrbtc', 'volumetrxusdt', 'volumeadausdt', 'volumexrpbtc', 'volumeneousdt', 'volumeltcbtc', 'volumedashbtc', 'volumeeosbtc', 'volumedatabtc', 'volumeatomusdt', 'volumeqtumusdt', 'volumedatabtc', 'volumeadabtc', 'volumenavbtc', 'volumeenjusdt', 'volumealgousdt', 'volumeiotausdt', 'volumetrxbtc', 'volumeltobtc']
+
+                var price = await binance.fetchTickers(pair)
+                var len = pair.length
+                for (var i = 0; i < len; i++) {
+                    if (price[pair[i]].symbol.includes('BTC') && price[pair[i]].symbol != 'BTC/USDT') {
+                        symbole = '₿'
+
+                    } else {
+                        symbole = '$'
+                    }
+                    document.getElementById(locationprice[i]).innerHTML = symbole + price[pair[i]].last
+                    document.getElementById(locationvolume[i]).innerHTML = symbole + price[pair[i]].quoteVolume
+
+                }
+
+                setTimeout(getprice, 5500)
+            })();
+        })
+
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("theul");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                divone = li[i].getElementsByTagName("div")[0];
+                divsec = divone.getElementsByTagName("div")[0];
+                a = divsec.getElementsByTagName("a")[0];
+                strong = a.getElementsByTagName("strong")[0];
+                txtValue = strong.textContent || strong.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+{% endblock scripts %}

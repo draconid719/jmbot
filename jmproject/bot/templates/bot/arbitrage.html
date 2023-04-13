@@ -1,0 +1,488 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 7px;
+            background-color: #F5F5F5;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+            border-radius: 7px;
+            background-color: #F5F5F5;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+
+    <div class="col-lg-12">
+        <div class="table-responsive" style="width: 100%">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/binance.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/poloniex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Binance" %} - {% trans "Poloniex" %}</h3></a>
+                                <div class="contributions" id="binanpolobtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span id="binancevolume"></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span id="poloniexvolume"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/binance.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/bittrex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Binance" %} - {% trans "Bittrex" %}</h3>
+                                </a>
+                                <div class="contributions" id="binanbittbtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span id="binancevolume1"></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span id="bittrexvolume"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/binance.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/kraken.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">Binance - Kraken</h3>
+                                </a>
+                                <div class="contributions" id="binankrabtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span id="binancevolume2"></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span id="krakenvolume"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/binance.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/ftx.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Binance" %} - {% trans "FTX" %}</h3>
+                                </a>
+                                <div class="contributions" id="binanftxbtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/poloniex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/bittrex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Poloniex" %} - {% trans "Bittrex" %}</h3></a>
+                                <div class="contributions" id="polobittbtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/poloniex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/kraken.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Poloniex" %} - {% trans "Kraken" %}</h3></a>
+                                <div class="contributions" id="polokrabtcusdt">{% trans "Spread" %}</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;">
+                                    <img src="{% static 'bot/img/poloniex.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px; margin-right: 5px">
+                                    <img src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                         style="width: 20px; height: 20px">
+                                    <img src="{% static 'bot/img/ftx.png' %}" alt="..." class="img-fluid"
+                                         style="width: 60px; height: 60px;margin-left: 5px">
+
+                                </div>
+                                <a href="#" class="user-title">
+                                    <h3 class="h5">{% trans "Poloniex" %} - FTX</h3>
+                                </a>
+                                <div class="contributions" id="poloftxbtcusdt"> Spread</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;"><img
+                                        src="{% static 'bot/img/bittrex.png' %}" alt="..." class="img-fluid"
+                                        style="width: 60px; height: 60px; margin-right: 5px"><img
+                                        src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                        style="width: 20px; height: 20px"><img src="{% static 'bot/img/kraken.png' %}"
+                                                                               alt="..." class="img-fluid"
+                                                                               style="width: 60px; height: 60px;margin-left: 5px">
+
+                                </div>
+                                <a href="#" class="user-title">
+
+                                    <h3 class="h5">Bittrex - Kraken</h3></a>
+                                <div class="contributions" id="bittkrabtcusdt"> Spread</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;"><img
+                                        src="{% static 'bot/img/bittrex.png' %}" alt="..." class="img-fluid"
+                                        style="width: 60px; height: 60px; margin-right: 5px"><img
+                                        src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                        style="width: 20px; height: 20px"><img src="{% static 'bot/img/ftx.png' %}"
+                                                                               alt="..." class="img-fluid"
+                                                                               style="width: 60px; height: 60px;margin-left: 5px">
+
+                                </div>
+                                <a href="#" class="user-title">
+
+                                    <h3 class="h5">Bittrex - FTX</h3></a>
+                                <div class="contributions" id="bittftxbtcusdt"> Spread</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-4">
+                            <div class="user-block block text-center" style="width: 320px">
+
+                                <div class="avatar" style="width: 150px; margin-right:auto; margin-left: auto;"><img
+                                        src="{% static 'bot/img/kraken.png' %}" alt="..." class="img-fluid"
+                                        style="width: 60px; height: 60px; margin-right: 5px"><img
+                                        src="{% static 'bot/img/transfer.png' %}" alt="..." class="img-fluid"
+                                        style="width: 20px; height: 20px"><img src="{% static 'bot/img/ftx.png' %}"
+                                                                               alt="..." class="img-fluid"
+                                                                               style="width: 60px; height: 60px;margin-left: 5px">
+
+                                </div>
+                                <a href="#" class="user-title">
+
+                                    <h3 class="h5">Kraken - FTX</h3></a>
+                                <div class="contributions" id="kraftxbtcusdt"> Spread</div>
+                                <div class="details d-flex">
+                                    <div class="item" style="margin-right: 15%; margin-left: auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                    <div class="item" style="margin-left: 15%; margin-right:auto;">
+                                        <i></i><strong></strong><span></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="block">
+            <div class="title"><strong>Arbitrage Bot</strong></div>
+            <div class="block-body">
+                <form class="form-horizontal" id="arbitrage-form" method="POST">
+                    {% csrf_token %}
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Choose bot</label>
+                        <div class="col-sm-9">
+                            <select name="account" class="form-control mb-3 mb-3" id="bot" style="width: 60%">
+                                {% for data in bots %}
+                                    <option>{{ data.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <div class="form-group row" style="margin-right: 0%; margin-left: 100% width: 500px">
+                        <div class="col-sm-9 ml-auto" style=" margin-right: 0%; margin-left: 100%">
+                            <button type="submit" id="strbtn" class="btn btn-primary">Start</button>
+                            <button type="button" id="stopbtn" class="btn btn-secondary" style="width: 62px">Stop
+                            </button>
+                            <div id="pls"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="content" id="result"></div>
+
+
+    </div>
+    <div class="col-lg-12">
+        <div class="block">
+            <section id="transactions">
+                <h2>Transactions</h2>
+
+                <div class="table-responsive" style="width: 1000px;height: 350px">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th class="n">Date</th>
+                            <th class="n">ID</th>
+                            <th class="n">Buy Market</th>
+                            <th class="n">Buy Market Price</th>
+                            <th class="n">Sell Market</th>
+                            <th class="n">Sell Market Price</th>
+                            <th class="n">Currency Pair</th>
+                            <th class="n">Fee</th>
+                            <th class="n">Profit</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-body">
+
+                        </tbody>
+                    </table>
+                    <div class="loading" id="load"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/paper/getarblivestatus/',
+
+                success: function (jsdata) {
+                    if (jsdata['bot'] != 'null') {
+                        var elmnt = document.getElementById("bot")
+                        var value = jsdata['bot']
+                        for (var i = 0; i < elmnt.options.length; i++) {
+                            if (elmnt.options[i].value === value) {
+                                elmnt.selectedIndex = i;
+                                break;
+                            }
+                        }
+
+                        document.getElementById("bot").disabled = true;
+                        document.getElementById("strbtn").disabled = true;
+                        document.getElementById("stopbtn").disabled = false;
+                        update()
+                        setTimeout(lichart, 550)
+                    } else {
+
+                        document.getElementById("strbtn").disabled = false;
+                        document.getElementById("stopbtn").disabled = true;
+                    }
+
+                }
+            })
+        });
+        $(document).on('submit', '#arbitrage-form', function (e) {
+            e.preventDefault();
+            document.getElementById("strbtn").disabled = true;
+            document.getElementById("bot").disabled = true;
+            document.getElementById("stopbtn").disabled = false;
+            document.getElementById("pls").innerHTML = '';
+
+            function exchange() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/arbitrage/exchangeslive/',
+                    datatype: 'json',
+                    data: {
+                        bot: $("#bot").val(),
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (jsdata) {
+                        if (jsdata) {
+                            for ([key, value] of Object.entries(jsdata)) {
+                                document.getElementById(key).innerHTML = String(value) + ' Spread'
+                            }
+
+                        }
+
+                        setTimeout(exchange, 5500)
+                    }
+                })
+            }
+
+            exchange()
+
+            $.ajax({
+                type: 'POST',
+                url: '/arbitrage/startlivearbitrage/',
+                data: {
+                    bot: $("#bot").val(),
+                    paper: 'False',
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+
+                }
+            })
+            update()
+
+
+        })
+        $('#stopbtn').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/paper/stoplivearbitrage/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                //datatype: 'json',
+                success: function () {
+                    document.getElementById("pls").innerHTML = 'Closing bot processes...';
+                    document.getElementById("strbtn").disabled = true;
+                    document.getElementById("stopbtn").disabled = true;
+                    document.getElementById("bot").disabled = false;
+                    setTimeout(change, 14500)
+                }
+            })
+        })
+
+        function change() {
+            document.getElementById("pls").innerHTML = 'Successfully closed bot processes';
+            document.getElementById("strbtn").disabled = false;
+            document.getElementById("stopbtn").disabled = true;
+        }
+
+        function update() {
+            $.ajax({
+                type: 'POST',
+                url: '/arbitrage/countidata/',
+                data: {
+                    bot: $("#bot").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                datatype: 'json',
+                success: function (jsdata) {
+                    if (jsdata['tabletrade']) {
+                        document.getElementById('table-body').innerHTML = jsdata['tabletrade']
+                    }
+
+                    setTimeout(update, 5500)
+                }
+            })
+        }
+
+
+    </script>
+{% endblock scripts %}
+

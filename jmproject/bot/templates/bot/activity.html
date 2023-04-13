@@ -1,0 +1,385 @@
+{% extends "bot/base.html" %}
+{% load i18n %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bot/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+{% endblock css %}
+{% block content %}
+    <div class="container-xxl">
+        <div class="row pt-4 justify-content-between">
+            <div class="col-auto">
+                <h2 class="text-white">
+                    {% trans "Total Profit" %}: ${{ total_profit.usd_profit|floatformat:-2 }} ({{ total_profit.percent_profit|floatformat:-2 }}%)
+                </h2>
+            </div>
+            <div class="col-auto d-flex flex-column text-white">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><span id="selected_range"></span></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Total Profit" %}:</td><td class="text-end"><span id="range_total_profit"></span></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Paper Profit" %}:</td><td class="text-end"><span id="range_paper_profit"></span></td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Live Profit" %}:</td><td class="text-end"><span id="range_live_profit"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% include "bot/particle/activity_filter_header.html" %}
+
+        {% if order_histories|length < 1 %}
+            <h1 class="mt-5 mb-5 text-white"
+                style="top: 50%; left: 50%; margin-top: 100px; margin-left: 37%; padding-top: 200px">{% trans "거래내역이 없습니다." %}...</h1>
+        {% else %}
+
+        <div class="row sm-gutters h-100" id="botsl" style="height: 1200px; clear: both">
+            <div class="table-responsive">
+                <table class="table table-striped crypt-table-market-cap" id="bot-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col" class="text-left pl-2">{% trans "Bot" %}</th>
+                        <th scope="col">{% trans "Exchange" %}</th>
+                        <th scope="col">{% trans "Pair" %}</th>
+                        <th scope="col">{% trans "Amount" %}</th>
+                        <th scope="col">{% trans "Entry Price" %}</th>
+                        <th scope="col">{% trans "Exit Price" %}</th>
+                        <th scope="col">{% trans "Fee" %}</th>
+                        <th scope="col">{% trans "Start Time" %}</th>
+                        <th scope="col">{% trans "Exit Time" %}</th>
+                        <th scope="col">{% trans "Profit" %}</th>
+                        <th scope="col">{% trans "Mode" %}</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="text-left pl-2 searchable"><input type="text" placeholder="{% trans "Name" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Exchange" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Pair" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Amount" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Entry Price" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Exit Price" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Fee" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Start Time" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Exit Time" %}"></th>
+                            <th scope="col" class="searchable"><input type="text" placeholder="{% trans "Profit" %}"></th>
+                            <th scope="col" class="searchable">
+                                <select class="form-select text-white filter-select" style="min-width: 80px">
+                                    <option value="all">{% trans "All" %}</option>
+                                    <option value="live">{% trans "Live" %}</option>
+                                    <option value="paper">{% trans "Paper" %}</option>
+                                </select>
+                            </th>
+                        </tr>
+                    </tfoot>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+        {% endif %}
+
+{% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'bot/datatable/datatables.min.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            const csrftoken = getCookie('csrftoken');
+            moment.locale('ko');
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                const date_range =  start.format('MMMM Do, YYYY') + ' - ' + end.format('MMMM Do, YYYY')
+                $('#reportrange span').html(date_range);
+                $('#selected_range').text(date_range);
+            }
+
+            const picker = $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                "locale": {
+                    "format": "MM/DD/YYYY",
+                    "separator": " - ",
+                    "applyLabel": "{% trans "Apply" %}",
+                    "cancelLabel": "{% trans "Cancel" %}",
+                    "fromLabel": "{% trans "From" %}",
+                    "toLabel": "{% trans "To" %}",
+                    "customRangeLabel": "{% trans "Custom" %}",
+                    "weekLabel": "{% trans "W" %}",
+                    "daysOfWeek": [
+                        "{% trans "Su" %}",
+                        "{% trans "Mo" %}",
+                        "{% trans "Tu" %}",
+                        "{% trans "We" %}",
+                        "{% trans "Th" %}",
+                        "{% trans "Fr" %}",
+                        "{% trans "Sa" %}"
+                    ],
+                    "monthNames": [
+                        "{% trans "January" %}",
+                        "{% trans "February" %}",
+                        "{% trans "March" %}",
+                        "{% trans "April" %}",
+                        "{% trans "May" %}",
+                        "{% trans "June" %}",
+                        "{% trans "July" %}",
+                        "{% trans "August" %}",
+                        "{% trans "September" %}",
+                        "{% trans "October" %}",
+                        "{% trans "November" %}",
+                        "{% trans "December" %}"
+                    ],
+                    "firstDay": 1
+                },
+                ranges: {
+                    '{% trans "Today" %}': [moment(), moment()],
+                    '{% trans "Yesterday" %}': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '{% trans "Last 7 Days" %}': [moment().subtract(6, 'days'), moment()],
+                    '{% trans "Last 30 Days" %}': [moment().subtract(29, 'days'), moment()],
+                    '{% trans "This Month" %}': [moment().startOf('month'), moment().endOf('month')],
+                    '{% trans "Last Month" %}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + label);
+                }
+            }, cb);
+
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                {#console.log(picker.startDate.format('YYYY-MM-DD'));#}
+                {#console.log(picker.endDate.format('YYYY-MM-DD'));#}
+                table.page.len($('#page_length').val()).draw();
+            });
+
+            cb(start, end);
+
+            let columns = []
+            columns = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+            const initialVal = []
+            $('#columns_filter option').each(function(){
+                if ($(this).val()) {
+                    initialVal.push($(this).val())
+                }
+            })
+
+            const table = $('#bot-table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "language": {
+                    "paginate": {
+                        "previous": "{% trans "Prev" %}",
+                        "next": "{% trans "Next" %}"
+                    },
+                    "processing": "Loading, please wait...",
+                    "zeroRecords": "No result",
+                    "info": "_START_ - _END_ : Total _TOTAL_ Records ",
+                    "infoEmpty": "Results 0",
+                    "infoFiltered": "(Total _MAX_ Filtering)"
+                },
+                "order": [[ 9, "desc" ]],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every( function () {
+                        var that = this;
+
+                        $( 'input, select', this.footer() ).on( 'change clear', function () {
+                            if ( that.search() !== this.value ) {
+                                that
+                                    .search( this.value )
+                                    .draw();
+                            }
+                        } );
+                    });
+                },
+                "ajax": {
+                    "url": '{% if pk %}{% url "bot-activity" pk%}{% else %}{% url "activity" %}{% endif %}',
+                    "headers": {'X-CSRFToken': csrftoken},
+                    "type": "POST",
+                    "data": function (d) {
+                        const date_picker = picker.data('daterangepicker');
+                        const start_date = date_picker.startDate.format();
+                        const end_date = date_picker.endDate.format();
+                        return $.extend({}, d, {
+                            "csrfmiddlewaretoken": csrftoken,
+                            "unit": $('#sort-by').val(),
+                            "start_time": start_date,
+                            "end_time": end_date
+                        });
+                    },
+                    "complete": function (result) {
+                        const data = result.responseJSON
+                        if (data.range_total_profit) {
+                            $('#range_total_profit').text(`$${data.range_total_profit.usd_profit.toFixed(2)} (${data.range_total_profit.percent_profit.toFixed(2)})%`);
+                        }
+                        if (data.range_paper_profit) {
+                            $('#range_paper_profit').text(`$${data.range_paper_profit.usd_profit.toFixed(2)} (${data.range_paper_profit.percent_profit.toFixed(2)})%`);
+                        }
+                        if (data.range_live_profit) {
+                            $('#range_live_profit').text(`$${data.range_live_profit.usd_profit.toFixed(2)} (${data.range_live_profit.percent_profit.toFixed(2)})%`);
+                        }
+
+                        visibleColumns(columns, true)
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "no",
+                        "orderable": false
+                    },
+                    {
+                        "data": "bot",
+                        "className": "text-start",
+                        "render": function (data, type, row) {
+                            return `<a class="bot-detail" href="{% url 'bots-page' %}${row.bot.id}/detail">${data.name}</a>`
+                        },
+                    },
+                    {
+                        "data": "exchange",
+                        "className": "text-start"
+                    },
+                    {
+                        "data": "pair",
+                        "className": "text-start"
+                    },
+                    {
+                        "data": "amount",
+                        "className": "text-start"
+                    },
+                    {
+                        "data": "entry_price",
+                        "className": "text-start",
+                        "render": function (data) {
+                            return data.toFixed(2)
+                        }
+                    },
+                    {
+                        "data": "exit_price",
+                        "className": "text-start",
+                        "render": function (data) {
+                            return data.toFixed(2)
+                        }
+                    },
+                    {
+                        "data": "fee",
+                        "className": "text-start",
+                        "render": function (data) {
+                            return data.toFixed(2)
+                        }
+                    },
+                    {
+                        "data": "start_time",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            return moment(data).format('LL HH:mm')
+                        }
+                    },
+                    {
+                        "data": "end_time",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            return moment(data).format('LL HH:mm')
+                        }
+                    },
+                    {
+                        "data": "profit",
+                        "className": "text-start",
+                        "render": function (data) {
+                            return data.toFixed(2)
+                        }
+                    },
+                    {
+                        "data": "paper_trading",
+                        "className": "table-td-profit text-start",
+                        "render": function (data) {
+                            return data ? '{% trans 'Paper' %}' : '{% trans 'Live' %}'
+                        }
+                    }
+                ]
+            });
+
+            let branch_all = [];
+            function formatResult(state) {
+                if (state.id) branch_all.push(state.id);
+                return state.text
+            }
+
+            // Initial column filter
+            function initColumnFilter() {
+                $('#columns_filter').next('span.select2').find('ul').html(function() {
+                    return "<li class='select2-search select2-search--inline'>" + (initialVal.length - 1)  + " {% trans "Columns" %}</li>"
+                })
+            }
+
+            let $select2 = $('#columns_filter').select2({
+                templateResult: formatResult,
+                closeOnSelect: false,
+                width: '140px',
+            });
+
+            $select2.val(initialVal).trigger('change');
+
+            initColumnFilter()
+
+            $select2.on('select2:selecting', function (e) {
+                const data = e.params.args.data
+                if (data.id==='check_all') {
+                    $select2.val(branch_all).trigger('change');
+                } else {
+                    const current_val = $select2.val()
+                    if (current_val.length === 12) {
+                        current_val.push(data.id)
+                        current_val.push('check_all')
+                        $select2.val(current_val).trigger('change')
+                    }
+
+                }
+            })
+            $select2.on('select2:unselecting', function (e) {
+                const data = e.params.args.data
+                if (data.id==='check_all') {
+                    $select2.val(null).trigger('change');
+                } else {
+                    const current_val = $select2.val()
+                    $select2.val(current_val.filter(e=>e!==data.id && e!=='check_all')).trigger('change')
+                }
+            })
+            $select2.on('select2:close select2:select select2:unselect', function () {
+                $(this).next('span.select2').find('ul').html(function() {
+                    let count = $select2.val().length
+                    count = count===initialVal.length?count-1:count;
+                    return "<li class='select2-search select2-search--inline'>" + count + " {% trans "Columns" %}</li>"
+                })
+            })
+
+            $select2.on('select2:select select2:unselect', function () {
+                columns = $(this).val().map(v=>initialVal.findIndex(i=>i===v)-1)
+                {#visibleColumns(columns, true)#}
+                table.columns.adjust().draw();
+            })
+
+            function visibleColumns(columns, visible) {
+                const indexes = [...initialVal.keys()]
+                indexes.pop();
+                if (visible) {
+                    table.columns(indexes).visible(false)
+                }
+                table.columns(columns).visible(visible);
+            }
+
+            $('#page_length').on('change', function (e) {
+                table.page.len(e.target.value).draw();
+            })
+        })
+    </script>
+{% endblock scripts %}

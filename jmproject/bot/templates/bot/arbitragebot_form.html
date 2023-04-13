@@ -1,0 +1,140 @@
+{% extends "bot/base.html" %}
+{% load crispy_forms_filters %}
+{% load i18n %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<div class="container">
+    <div class="row sm-gutters">
+        <div class="crypt-side-menu d-none d-sm-block col-12 col-sm-3 col-md-2">
+            <p>{% trans "Create Bot" %}</p>
+            <ul>
+                <li><a href="{% url 'create-bot-page' %}"><i class="pe-7s-way me-2"></i>{% trans "Market" %}</a></li>
+                <li><a href="{% url 'createarbit-page' %}"><i class="pe-7s-gym me-2"></i>{% trans "Arbitrage" %}</a></li>
+            </ul>
+            <hr class="text-white">
+        </div>
+
+        <div class="crypt-side-menu col-12 d-sm-none text-center d-flex justify-content-center">
+            <ul class="d-flex">
+                <li class="mr-4"><a href="{% url 'create-bot-page' %}"><i class="pe-7s-way me-2"></i>{% trans "Market" %}</a></li>
+                <li><a href="{% url 'createarbit-page' %}"><i class="pe-7s-gym me-2"></i>{% trans "Arbitrage" %}</a></li>
+            </ul>
+        </div>
+
+        <div class="crypt-withdraw-body col-12 offset-sm-1 col-sm-8 offset-md-2 col-md-6 ps-5 pe-5">
+            <div class="row">
+                <div class="col-12 col-sm-12 mt-4 p-4 shadow-sm">
+                    <h4 class="text-subtitle">{% trans "Arbitrage parameters" %}</h4>
+                    <!-- <p><i class="pe-7s-info"></i> Change will apply only on next bot operation</p> -->
+                    <form method="POST" id="form2">
+                        {% csrf_token %}
+                        <fieldset class="mb-3 text-white">
+                            {{form|crispy}}
+                        </fieldset>
+                        <div class="form-group d-flex justify-content-end">
+                            <input type="button" class="btn btn-primary me-2" name="click" value="{% trans "Save" %}"
+                                   onclick="submitForms()">
+                            <a href="{% url 'myarbitbots-page' %}">
+                                <button type="button" class="btn btn-secondary">{% trans "Cancel" %}</button>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+
+</footer>
+
+
+{% endblock content %}
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ccxt@1.26.84/dist/ccxt.browser.js"></script>
+<script type="text/javascript">
+    submitForms = function () {
+
+        document.getElementById("form2").submit();
+    }
+    //   function myFunction() {
+    //     var input, filter, ul, li, a, i, txtValue;
+    //     input = document.getElementById("myInput");
+    //     filter = input.value.toUpperCase();
+    //     ul = document.getElementById("theul");
+    //     li = ul.getElementsByTagName("li");
+    //     for (i = 0; i < li.length; i++) {
+    //         a = li[i].getElementsByTagName("a")[0];
+    //         txtValue = a.textContent || a.innerText;
+    //         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //             li[i].style.display = "";
+    //         } else {
+    //             li[i].style.display = "none";
+    //         }
+    //     }
+    // }
+</script>
+<script type="text/javascript">
+    // submitForms = function(){
+
+    //     document.getElementById("form2").submit();
+    // }
+    //   function myFunction() {
+    //     var input, filter, ul, li, a, i, txtValue;
+    //     input = document.getElementById("myInput");
+    //     filter = input.value.toUpperCase();
+    //     ul = document.getElementById("theul");
+    //     li = ul.getElementsByTagName("li");
+    //     for (i = 0; i < li.length; i++) {
+    //         a = li[i].getElementsByTagName("a")[0];
+    //         txtValue = a.textContent || a.innerText;
+    //         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //             li[i].style.display = "";
+    //         } else {
+    //             li[i].style.display = "none";
+    //         }
+    //     }
+    // }
+</script>
+<script type="text/javascript">
+    // $(document).ready(function(){
+
+    //      (async function getprice(){
+    //          let binance = new ccxt.binance ({
+    //          apiKey: 'YOUR_PUBLIC_API_KEY',
+    //          secret: 'YOUR_SECRET_PRIVATE_KEY',
+    //          })
+
+    //          var pair = ['BTC/USDT','ETH/USDT','LTC/USDT','XRP/USDT', 'EOS/USDT', 'LINK/USDT', 'BCH/USDT', 'XTZ/USDT','ETH/BTC','DASH/USDT','XLM/USDT','SOL/BTC','ZEC/USDT','XMR/BTC','XTZ/BTC','TRX/USDT','ADA/USDT','XRP/BTC','NEO/USDT','DASH/BTC','LTC/BTC','EOS/BTC','DATA/BTC','ATOM/USDT','QTUM/USDT','ADA/BTC','NAV/BTC','ENJ/USDT','TRX/BTC','ALGO/USDT','IOTA/USDT',]
+
+    //          var locationprice = ['pricebtcusdt', 'priceethusdt', 'priceltcusdt', 'pricexrpusdt','priceeosusdt', 'pricelinkusdt', 'pricebchusdt', 'pricextzusdt', 'priceethbtc',  'pricedashusdt', 'pricexlmusdt', 'pricesolbtc', 'pricezecusdt', 'pricexmrbtc', 'pricextzbtc', 'pricetrxusdt', 'priceadausdt', 'pricexrpbtc', 'priceneousdt', 'pricedashbtc', 'priceltcbtc', 'priceeosbtc', 'pricedatabtc', 'priceatomusdt', 'priceqtumusdt','priceadabtc', 'pricenavbtc', 'priceenjusdt', 'pricetrxbtc', 'pricealgousdt', 'priceiotausdt']
+
+    //          var price = await binance.fetchTickers(pair)
+    //          var len = pair.length
+    //          for (var i = 0; i < len; i++) {
+    //              if ( price[pair[i]].symbol.includes('BTC') && price[pair[i]].symbol != 'BTC/USDT' ) {
+    //                  symbole = '₿'
+
+    //              }else{
+    //                  symbole = '$'
+    //              }
+    //              document.getElementById(locationprice[i]).innerHTML = symbole+price[pair[i]].last
+
+
+    //           }
+
+    //          setTimeout(getprice,5500)
+    //      })() ;
+    //  })
+</script>
+
+{% endblock scripts %}
+
+
+
+
+  
